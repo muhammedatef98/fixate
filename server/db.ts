@@ -1,11 +1,19 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { 
+  InsertUser, 
+  users, 
+  deviceTypes, 
+  deviceModels, 
+  serviceTypes, 
+  servicePricing,
+  serviceRequests,
+  technicianProfiles 
+} from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
@@ -35,7 +43,7 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     };
     const updateSet: Record<string, unknown> = {};
 
-    const textFields = ["name", "email", "loginMethod"] as const;
+    const textFields = ["name", "email", "phone", "loginMethod"] as const;
     type TextField = (typeof textFields)[number];
 
     const assignNullable = (field: TextField) => {
@@ -89,4 +97,57 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Device and Service queries
+export async function getAllDeviceTypes() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(deviceTypes).where(eq(deviceTypes.isActive, true));
+}
+
+export async function getDeviceModelsByType(deviceTypeId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(deviceModels)
+    .where(and(
+      eq(deviceModels.deviceTypeId, deviceTypeId),
+      eq(deviceModels.isActive, true)
+    ));
+}
+
+export async function getAllServiceTypes() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(serviceTypes).where(eq(serviceTypes.isActive, true));
+}
+
+export async function getServicePrice(deviceModelId: number, serviceTypeId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(servicePricing)
+    .where(and(
+      eq(servicePricing.deviceModelId, deviceModelId),
+      eq(servicePricing.serviceTypeId, serviceTypeId),
+      eq(servicePricing.isActive, true)
+    ))
+    .limit(1);
+  
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function createServiceRequest(data: typeof serviceRequests.$inferInsert) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(serviceRequests).values(data);
+  return result;
+}
+
+export async function getUserServiceRequests(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(serviceRequests)
+    .where(eq(serviceRequests.userId, userId))
+    .orderBy(serviceRequests.createdAt);
+}
