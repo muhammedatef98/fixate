@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_LOGO } from "@/const";
+import SEO, { structuredDataTemplates } from "@/components/SEO";
 import { 
   Smartphone, 
   Laptop, 
@@ -16,6 +17,12 @@ import { Link } from "wouter";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <SEO
+        title="الصفحة الرئيسية"
+        description="منصة Fixate - أفضل خدمات صيانة الأجهزة الإلكترونية في السعودية. إصلاح الجوالات، اللابتوبات، الماك بوك والتابلت بأسعار تنافسية وضمان 6 أشهر. احجز الآن!"
+        canonical="https://fixate.sa/"
+        structuredData={structuredDataTemplates.organization}
+      />
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container">
@@ -34,6 +41,12 @@ export default function Home() {
               <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
                 الأسعار
               </a>
+              <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
+                من نحن
+              </Link>
+              <Link href="/faq" className="text-sm font-medium hover:text-primary transition-colors">
+                الأسئلة الشائعة
+              </Link>
               <Link href="/request">
                 <Button>احجز الآن</Button>
               </Link>
@@ -284,7 +297,8 @@ export default function Home() {
             <div>
               <h4 className="font-bold mb-4">الشركة</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li>من نحن</li>
+                <li><Link href="/about" className="hover:text-white transition-colors">من نحن</Link></li>
+                <li><Link href="/faq" className="hover:text-white transition-colors">الأسئلة الشائعة</Link></li>
                 <li>الفنيون</li>
                 <li>الشروط والأحكام</li>
                 <li>سياسة الخصوصية</li>

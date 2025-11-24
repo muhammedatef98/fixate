@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fixate.sa/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin
+Disallow: /technician
+Disallow: /analytics
+
+# Allow important pages
+Allow: /
+Allow: /calculator
+Allow: /request
+Allow: /about
+Allow: /faq
+Allow: /track
+Allow: /loyalty
