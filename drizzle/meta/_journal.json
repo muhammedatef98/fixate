@@ -22,6 +22,20 @@
       "when": 1763974672153,
       "tag": "0002_public_ultimates",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1763976357690,
+      "tag": "0003_square_the_executioner",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1763976406941,
+      "tag": "0004_secret_microchip",
+      "breakpoints": true
     }
   ]
 }

@@ -158,8 +158,12 @@ export const serviceRequests = mysqlTable("service_requests", {
   
   // Payment
   totalAmount: int("totalAmount"), // in SAR cents
-  paymentStatus: mysqlEnum("paymentStatus", ["pending", "paid", "refunded"]).default("pending"),
-  paymentMethod: varchar("paymentMethod", { length: 50 }),
+  paymentMethod: mysqlEnum("paymentMethod", ["cash_on_delivery", "bank_transfer"])
+    .default("cash_on_delivery")
+    .notNull(),
+  paymentStatus: mysqlEnum("paymentStatus", ["pending", "paid", "failed"])
+    .default("pending")
+    .notNull(),
   
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -167,6 +171,61 @@ export const serviceRequests = mysqlTable("service_requests", {
 
 export type ServiceRequest = typeof serviceRequests.$inferSelect;
 export type InsertServiceRequest = typeof serviceRequests.$inferInsert;
+
+/**
+ * Reviews table for customer feedback on technicians
+ */
+export const reviews = mysqlTable("reviews", {
+  id: int("id").autoincrement().primaryKey(),
+  serviceRequestId: int("serviceRequestId")
+    .notNull()
+    .references(() => serviceRequests.id),
+  userId: int("userId")
+    .notNull()
+    .references(() => users.id),
+  technicianId: int("technicianId")
+    .notNull()
+    .references(() => technicians.id),
+  rating: int("rating").notNull(), // 1-5 stars (stored as 100-500 for consistency)
+  reviewText: text("reviewText"),
+  response: text("response"), // Technician's response to review
+  respondedAt: timestamp("respondedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Review = typeof reviews.$inferSelect;
+export type InsertReview = typeof reviews.$inferInsert;
+
+/**
+ * Payment receipts table for bank transfer payments
+ */
+export const paymentReceipts = mysqlTable("payment_receipts", {
+  id: int("id").autoincrement().primaryKey(),
+  serviceRequestId: int("serviceRequestId")
+    .notNull()
+    .references(() => serviceRequests.id),
+  userId: int("userId")
+    .notNull()
+    .references(() => users.id),
+  receiptImageUrl: text("receiptImageUrl").notNull(),
+  receiptImageKey: text("receiptImageKey").notNull(), // S3 key
+  amount: int("amount").notNull(), // Amount in cents
+  transferDate: timestamp("transferDate"),
+  bankName: varchar("bankName", { length: 100 }),
+  accountNumber: varchar("accountNumber", { length: 50 }),
+  status: mysqlEnum("status", ["pending", "approved", "rejected"])
+    .default("pending")
+    .notNull(),
+  reviewedBy: int("reviewedBy").references(() => users.id),
+  reviewedAt: timestamp("reviewedAt"),
+  rejectionReason: text("rejectionReason"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PaymentReceipt = typeof paymentReceipts.$inferSelect;
+export type InsertPaymentReceipt = typeof paymentReceipts.$inferInsert;
 
 /**
  * Technician profiles

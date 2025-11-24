@@ -284,3 +284,130 @@ export async function createServiceRequest(data: any) {
 export async function getUserServiceRequests(userId: number) {
   return await getRequestsByUserId(userId);
 }
+
+// Reviews functions
+import { reviews, paymentReceipts } from "../drizzle/schema";
+
+export async function createReview(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(reviews).values(data);
+  return result;
+}
+
+export async function getReviewsByTechnicianId(technicianId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const result = await db.select()
+    .from(reviews)
+    .where(eq(reviews.technicianId, technicianId))
+    .orderBy(desc(reviews.createdAt));
+
+  return result;
+}
+
+export async function getReviewByRequestId(requestId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select()
+    .from(reviews)
+    .where(eq(reviews.serviceRequestId, requestId))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function updateTechnicianRating(technicianId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Get all reviews for this technician
+  const techReviews = await db.select()
+    .from(reviews)
+    .where(eq(reviews.technicianId, technicianId));
+
+  if (techReviews.length === 0) return;
+
+  // Calculate average rating
+  const totalRating = techReviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+  const averageRating = Math.round(totalRating / techReviews.length);
+
+  // Update technician rating
+  await db.update(technicians)
+    .set({ rating: averageRating })
+    .where(eq(technicians.id, technicianId));
+}
+
+// Payment Receipt functions
+export async function createPaymentReceipt(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(paymentReceipts).values(data);
+  return result;
+}
+
+export async function getPaymentReceiptByRequestId(requestId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select()
+    .from(paymentReceipts)
+    .where(eq(paymentReceipts.serviceRequestId, requestId))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getAllPendingPaymentReceipts() {
+  const db = await getDb();
+  if (!db) return [];
+
+  const result = await db.select()
+    .from(paymentReceipts)
+    .where(eq(paymentReceipts.status, "pending"))
+    .orderBy(desc(paymentReceipts.createdAt));
+
+  return result;
+}
+
+export async function updatePaymentReceiptStatus(
+  receiptId: number,
+  status: "approved" | "rejected",
+  reviewedBy: number,
+  rejectionReason?: string
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const updateData: any = {
+    status,
+    reviewedBy,
+    reviewedAt: new Date(),
+  };
+
+  if (rejectionReason) {
+    updateData.rejectionReason = rejectionReason;
+  }
+
+  await db.update(paymentReceipts)
+    .set(updateData)
+    .where(eq(paymentReceipts.id, receiptId));
+
+  // If approved, update service request payment status
+  if (status === "approved") {
+    const receipt = await db.select()
+      .from(paymentReceipts)
+      .where(eq(paymentReceipts.id, receiptId))
+      .limit(1);
+
+    if (receipt.length > 0) {
+      await db.update(serviceRequests)
+        .set({ paymentStatus: "paid" })
+        .where(eq(serviceRequests.id, receipt[0].serviceRequestId));
+    }
+  }
+}

@@ -74,6 +74,7 @@ export const appRouter = router({
         deviceModelId: z.number(),
         serviceTypeId: z.number(),
         serviceMode: z.enum(['express', 'pickup']),
+        paymentMethod: z.enum(['cash_on_delivery', 'bank_transfer']).default('cash_on_delivery'),
         issueDescription: z.string().optional(),
         address: z.string(),
         city: z.string(),
@@ -256,6 +257,144 @@ export const appRouter = router({
           completedJobs: 0,
         });
         return { success: true };
+      }),
+
+    getPendingPayments: adminProcedure.query(async () => {
+      return await db.getAllPendingPaymentReceipts();
+    }),
+
+    approvePayment: adminProcedure
+      .input(z.object({
+        receiptId: z.number(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await db.updatePaymentReceiptStatus(input.receiptId, 'approved', ctx.user.id);
+        return { success: true };
+      }),
+
+    rejectPayment: adminProcedure
+      .input(z.object({
+        receiptId: z.number(),
+        reason: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await db.updatePaymentReceiptStatus(input.receiptId, 'rejected', ctx.user.id, input.reason);
+        return { success: true };
+      }),
+  }),
+
+  // Reviews
+  reviews: router({
+    create: protectedProcedure
+      .input(z.object({
+        requestId: z.number(),
+        rating: z.number().min(1).max(5),
+        reviewText: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const request = await db.getRequestById(input.requestId);
+        if (!request) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Request not found' });
+        }
+
+        if (request.userId !== ctx.user.id) {
+          throw new TRPCError({ code: 'FORBIDDEN', message: 'Not your request' });
+        }
+
+        if (request.status !== 'completed') {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Request not completed yet' });
+        }
+
+        if (!request.technicianId) {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'No technician assigned' });
+        }
+
+        // Check if already reviewed
+        const existing = await db.getReviewByRequestId(input.requestId);
+        if (existing) {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Already reviewed' });
+        }
+
+        await db.createReview({
+          serviceRequestId: input.requestId,
+          userId: ctx.user.id,
+          technicianId: request.technicianId,
+          rating: input.rating * 100, // Store as 100-500
+          reviewText: input.reviewText,
+        });
+
+        // Update technician's average rating
+        await db.updateTechnicianRating(request.technicianId);
+
+        return { success: true };
+      }),
+
+    getByTechnician: publicProcedure
+      .input(z.object({ technicianId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getReviewsByTechnicianId(input.technicianId);
+      }),
+
+    getByRequest: protectedProcedure
+      .input(z.object({ requestId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getReviewByRequestId(input.requestId);
+      }),
+  }),
+
+  // Payment
+  payment: router({
+    uploadReceipt: protectedProcedure
+      .input(z.object({
+        requestId: z.number(),
+        receiptImageUrl: z.string(),
+        receiptImageKey: z.string(),
+        amount: z.number(),
+        transferDate: z.date().optional(),
+        bankName: z.string().optional(),
+        accountNumber: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const request = await db.getRequestById(input.requestId);
+        if (!request) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Request not found' });
+        }
+
+        if (request.userId !== ctx.user.id) {
+          throw new TRPCError({ code: 'FORBIDDEN', message: 'Not your request' });
+        }
+
+        // Check if already uploaded
+        const existing = await db.getPaymentReceiptByRequestId(input.requestId);
+        if (existing) {
+          throw new TRPCError({ code: 'BAD_REQUEST', message: 'Receipt already uploaded' });
+        }
+
+        await db.createPaymentReceipt({
+          serviceRequestId: input.requestId,
+          userId: ctx.user.id,
+          receiptImageUrl: input.receiptImageUrl,
+          receiptImageKey: input.receiptImageKey,
+          amount: input.amount,
+          transferDate: input.transferDate,
+          bankName: input.bankName,
+          accountNumber: input.accountNumber,
+          status: 'pending',
+        });
+
+        // Notify owner
+        await notifyOwner({
+          title: 'إيصال دفع جديد',
+          content: `تم رفع إيصال دفع جديد للطلب رقم #${input.requestId} من ${ctx.user.name || 'عميل'}`,
+        });
+
+        return { success: true };
+      }),
+
+    getReceipt: protectedProcedure
+      .input(z.object({ requestId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getPaymentReceiptByRequestId(input.requestId);
       }),
   }),
 });

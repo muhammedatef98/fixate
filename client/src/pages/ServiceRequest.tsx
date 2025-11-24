@@ -33,6 +33,7 @@ export default function ServiceRequest() {
   const [city, setCity] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [preferredTimeSlot, setPreferredTimeSlot] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"cash_on_delivery" | "bank_transfer">("cash_on_delivery");
 
   const { data: deviceTypes } = trpc.devices.getTypes.useQuery();
   const { data: deviceModels } = trpc.devices.getModels.useQuery(
@@ -80,6 +81,7 @@ export default function ServiceRequest() {
       city,
       phoneNumber,
       preferredTimeSlot,
+      paymentMethod,
     });
   };
 
@@ -288,7 +290,32 @@ export default function ServiceRequest() {
             </Card>
 
             {pricing && (
-              <Card className="mb-6 border-2 border-primary/20">
+              <>
+              <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>طريقة الدفع</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RadioGroup value={paymentMethod} onValueChange={(v) => setPaymentMethod(v as "cash_on_delivery" | "bank_transfer")}>
+                  <div className="flex items-center space-x-2 space-x-reverse p-4 border rounded-lg mb-3 cursor-pointer hover:bg-gray-50">
+                    <RadioGroupItem value="cash_on_delivery" id="cash" />
+                    <Label htmlFor="cash" className="flex-1 cursor-pointer">
+                      <div className="font-semibold">الدفع عند الاستلام</div>
+                      <div className="text-sm text-gray-600">ادفع نقداً عند استلام جهازك</div>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2 space-x-reverse p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <RadioGroupItem value="bank_transfer" id="transfer" />
+                    <Label htmlFor="transfer" className="flex-1 cursor-pointer">
+                      <div className="font-semibold">تحويل بنكي</div>
+                      <div className="text-sm text-gray-600">احجز الآن وحوّل لاحقاً (سنرسل لك تفاصيل الحساب)</div>
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </CardContent>
+            </Card>
+
+            <Card className="mb-6 border-2 border-primary/20">
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -304,6 +331,7 @@ export default function ServiceRequest() {
                   </div>
                 </CardContent>
               </Card>
+              </>
             )}
 
             <Button

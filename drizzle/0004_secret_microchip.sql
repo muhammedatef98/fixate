@@ -1,0 +1,2 @@
+ALTER TABLE `service_requests` MODIFY COLUMN `paymentStatus` enum('pending','paid','failed') NOT NULL DEFAULT 'pending';--> statement-breakpoint
+ALTER TABLE `service_requests` MODIFY COLUMN `paymentMethod` enum('cash_on_delivery','bank_transfer') NOT NULL DEFAULT 'cash_on_delivery';
