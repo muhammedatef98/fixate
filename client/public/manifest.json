@@ -37,5 +37,43 @@
       "type": "image/png",
       "form_factor": "wide"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "طلب خدمة",
+      "short_name": "طلب",
+      "description": "طلب خدمة صيانة جديدة",
+      "url": "/service-request",
+      "icons": [
+        {
+          "src": "/logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "طلباتي",
+      "short_name": "طلبات",
+      "description": "عرض طلباتي",
+      "url": "/my-requests",
+      "icons": [
+        {
+          "src": "/logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "حاسبة الأسعار",
+      "short_name": "حاسبة",
+      "description": "حساب سعر الخدمة",
+      "url": "/calculator",
+      "icons": [
+        {
+          "src": "/logo-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

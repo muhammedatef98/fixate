@@ -8,6 +8,8 @@ import { seedDatabase } from "./seed";
 import { TRPCError } from "@trpc/server";
 import { notifyOwner } from "./_core/notification";
 import * as smartNotifications from "./smartNotifications";
+import * as invoiceGenerator from "./invoiceGenerator";
+import * as moyasar from "./moyasarIntegration";
 
 // Admin-only procedure
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -597,6 +599,152 @@ export const appRouter = router({
     getAll: publicProcedure
       .query(async () => {
         return await db.getAllRewards();
+      }),
+  }),
+
+  // Invoices
+  invoices: router({
+    generate: protectedProcedure
+      .input(z.object({ requestId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const request = await db.getRequestById(input.requestId);
+        if (!request || request.userId !== ctx.user.id) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Request not found' });
+        }
+
+        const invoiceNumber = invoiceGenerator.generateInvoiceNumber(request.id);
+        
+        const invoiceData = {
+          invoiceNumber,
+          invoiceDate: new Date(),
+          companyName: 'Fixate',
+          companyAddress: 'الرياض، المملكة العربية السعودية',
+          companyPhone: '+966 XX XXX XXXX',
+          companyEmail: 'support@fixate.sa',
+          companyTaxId: '123456789',
+          customerName: ctx.user.name || 'عميل',
+          customerEmail: ctx.user.email || '',
+          customerPhone: request.phoneNumber,
+          customerAddress: request.address,
+          serviceDescription: request.issueDescription || 'وصف الخدمة',
+          deviceModel: 'Device Model', // TODO: Get from device model
+          serviceType: 'Service Type', // TODO: Get from service type
+          subtotal: request.totalAmount || 0,
+          tax: 0,
+          discount: 0,
+          total: request.totalAmount || 0,
+          paymentMethod: request.paymentMethod || 'غير محدد',
+          paymentStatus: request.paymentStatus,
+          paymentDate: request.paymentStatus === 'paid' ? new Date() : undefined,
+        };
+
+        const invoiceBuffer = await invoiceGenerator.generateInvoicePDF(invoiceData);
+        
+        // In production, save to S3 and return URL
+        // For now, return base64
+        return {
+          invoiceNumber,
+          invoiceData: invoiceBuffer.toString('base64'),
+        };
+      }),
+
+    sendEmail: protectedProcedure
+      .input(z.object({ requestId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const request = await db.getRequestById(input.requestId);
+        if (!request || request.userId !== ctx.user.id) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Request not found' });
+        }
+
+        const invoiceNumber = invoiceGenerator.generateInvoiceNumber(request.id);
+        
+        // Generate invoice (simplified for demo)
+        const invoiceBuffer = Buffer.from('Invoice content');
+        
+        const sent = await invoiceGenerator.sendInvoiceEmail(
+          ctx.user.email || '',
+          invoiceBuffer,
+          invoiceNumber
+        );
+
+        return { success: sent };
+      }),
+  }),
+
+  // Moyasar Payment
+  moyasar: router({
+    getPublishableKey: publicProcedure
+      .query(() => {
+        return { publishableKey: moyasar.getPublishableKey() };
+      }),
+
+    createPayment: protectedProcedure
+      .input(z.object({
+        requestId: z.number(),
+        cardName: z.string(),
+        cardNumber: z.string(),
+        cvc: z.string(),
+        month: z.string(),
+        year: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const request = await db.getRequestById(input.requestId);
+        if (!request || request.userId !== ctx.user.id) {
+          throw new TRPCError({ code: 'NOT_FOUND', message: 'Request not found' });
+        }
+
+        const paymentRequest = {
+          amount: (request.totalAmount || 0) * 100, // Convert SAR to halalas
+          currency: 'SAR',
+          description: `Payment for request #${request.id}`,
+          callbackUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/payment-callback`,
+          source: {
+            type: 'creditcard' as const,
+            name: input.cardName,
+            number: input.cardNumber.replace(/\s/g, ''),
+            cvc: input.cvc,
+            month: input.month,
+            year: input.year,
+          },
+          metadata: {
+            requestId: request.id,
+            userId: ctx.user.id,
+          },
+        };
+
+        try {
+          const payment = await moyasar.createPayment(paymentRequest);
+          
+          // Update request payment status
+          if (payment.status === 'paid') {
+            // TODO: Update request payment status in database
+            console.log(`[Payment] Request #${request.id} paid successfully`);
+          }
+
+          return {
+            success: payment.status === 'paid',
+            paymentId: payment.id,
+            status: payment.status,
+          };
+        } catch (error) {
+          console.error('[Payment] Failed:', error);
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Payment failed' });
+        }
+      }),
+
+    getPaymentStatus: protectedProcedure
+      .input(z.object({ paymentId: z.string() }))
+      .query(async ({ input }) => {
+        try {
+          const payment = await moyasar.getPaymentStatus(input.paymentId);
+          return {
+            status: payment.status,
+            amount: payment.amount / 100, // Convert halalas to SAR
+          };
+        } catch (error) {
+          console.error('[Payment] Failed to get status:', error);
+          throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to get payment status' });
+        }
       }),
   }),
 
