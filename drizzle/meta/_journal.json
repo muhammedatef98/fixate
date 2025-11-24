@@ -15,6 +15,13 @@
       "when": 1763925612299,
       "tag": "0001_useful_deathstrike",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1763974672153,
+      "tag": "0002_public_ultimates",
+      "breakpoints": true
     }
   ]
 }

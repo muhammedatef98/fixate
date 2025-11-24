@@ -20,6 +20,27 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
+ * Technicians table - stores information about repair technicians
+ */
+export const technicians = mysqlTable("technicians", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id),
+  nameAr: varchar("nameAr", { length: 255 }).notNull(),
+  nameEn: varchar("nameEn", { length: 255 }).notNull(),
+  phoneNumber: varchar("phoneNumber", { length: 20 }).notNull(),
+  specialization: text("specialization"), // e.g., "iPhone, Samsung"
+  city: varchar("city", { length: 100 }).notNull(),
+  isActive: int("isActive").default(1).notNull(),
+  rating: int("rating").default(0), // Average rating * 100 (e.g., 450 = 4.5 stars)
+  completedJobs: int("completedJobs").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Technician = typeof technicians.$inferSelect;
+export type InsertTechnician = typeof technicians.$inferInsert;
+
+/**
  * Device types (iPhone, Samsung, MacBook, etc.)
  */
 export const deviceTypes = mysqlTable("device_types", {
@@ -121,11 +142,13 @@ export const serviceRequests = mysqlTable("service_requests", {
     "technician_assigned",
     "in_progress",
     "completed",
-    "cancelled"
-  ]).default("pending").notNull(),
+    "cancelled",
+  ])
+    .default("pending")
+    .notNull(),
   
   // Technician assignment
-  technicianId: int("technicianId").references(() => users.id),
+  technicianId: int("technicianId").references(() => technicians.id),
   assignedAt: timestamp("assignedAt"),
   
   // Completion

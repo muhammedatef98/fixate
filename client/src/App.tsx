@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Calculator from "./pages/Calculator";
 import ServiceRequest from "./pages/ServiceRequest";
 import MyRequests from "./pages/MyRequests";
+import AdminDashboard from "./pages/AdminDashboard";
+import TechnicianDashboard from "./pages/TechnicianDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -17,6 +19,8 @@ function Router() {
       <Route path="/calculator" component={Calculator} />
       <Route path="/request" component={ServiceRequest} />
       <Route path="/my-requests" component={MyRequests} />
+      <Route path="/admin" component={AdminDashboard} />
+      <Route path="/technician" component={TechnicianDashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
