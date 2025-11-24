@@ -7,6 +7,7 @@ import * as db from "./db";
 import { seedDatabase } from "./seed";
 import { TRPCError } from "@trpc/server";
 import { notifyOwner } from "./_core/notification";
+import * as smartNotifications from "./smartNotifications";
 
 // Admin-only procedure
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -90,7 +91,7 @@ export const appRouter = router({
           throw new TRPCError({ code: 'NOT_FOUND', message: 'Service pricing not found' });
         }
 
-        await db.createServiceRequest({
+        const requestId = await db.createServiceRequest({
           userId: ctx.user.id,
           deviceModelId: input.deviceModelId,
           serviceTypeId: input.serviceTypeId,
@@ -113,6 +114,9 @@ export const appRouter = router({
           title: 'طلب صيانة جديد',
           content: `تم استلام طلب صيانة جديد من ${ctx.user.name || 'عميل'} في ${input.city}`,
         });
+
+        // Send push notification to user
+        await smartNotifications.notifyNewRequest(ctx.user.id, Number(requestId));
 
         return { success: true };
       }),
@@ -521,6 +525,11 @@ export const appRouter = router({
       .input(z.object({ requestId: z.number() }))
       .query(async ({ input }) => {
         return await db.getChatRoomByRequestId(input.requestId);
+      }),
+
+    getMyRooms: protectedProcedure
+      .query(async ({ ctx }) => {
+        return await db.getChatRoomsByUserId(ctx.user.id);
       }),
 
     sendMessage: protectedProcedure

@@ -12,6 +12,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import TechnicianDashboard from "./pages/TechnicianDashboard";
 import CouponsManagement from "./pages/CouponsManagement";
 import TrackTechnician from "./pages/TrackTechnician";
+import Chat from "./pages/Chat";
+import Analytics from "./pages/Analytics";
+import LoyaltyPoints from "./pages/LoyaltyPoints";
+import Payment from "./pages/Payment";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -25,6 +29,10 @@ function Router() {
       <Route path="/admin/coupons" component={CouponsManagement} />
       <Route path="/technician" component={TechnicianDashboard} />
       <Route path="/track" component={TrackTechnician} />
+      <Route path="/chat" component={Chat} />
+      <Route path="/analytics" component={Analytics} />
+      <Route path="/loyalty" component={LoyaltyPoints} />
+      <Route path="/payment" component={Payment} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
