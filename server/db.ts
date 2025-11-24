@@ -1,4 +1,4 @@
-import { eq, and, desc } from "drizzle-orm";
+import { eq, desc, and, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, technicians, serviceRequests, Technician, InsertTechnician } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -410,4 +410,181 @@ export async function updatePaymentReceiptStatus(
         .where(eq(serviceRequests.id, receipt[0].serviceRequestId));
     }
   }
+}
+
+// Coupons functions
+import { coupons, couponUsage, technicianLocations, pushSubscriptions } from "../drizzle/schema";
+
+export async function getCouponByCode(code: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select()
+    .from(coupons)
+    .where(eq(coupons.code, code))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function validateCoupon(code: string, userId: number, orderAmount: number) {
+  const coupon = await getCouponByCode(code);
+  if (!coupon) return { valid: false, message: "كود الخصم غير موجود" };
+
+  if (coupon.isActive !== 1) return { valid: false, message: "كود الخصم غير نشط" };
+
+  const now = new Date();
+  if (coupon.validFrom > now) return { valid: false, message: "كود الخصم لم يبدأ بعد" };
+  if (coupon.validUntil < now) return { valid: false, message: "كود الخصم منتهي الصلاحية" };
+
+  if (coupon.usageLimit && coupon.usageCount >= coupon.usageLimit) {
+    return { valid: false, message: "تم استخدام كود الخصم بالكامل" };
+  }
+
+  if (coupon.minOrderAmount && orderAmount < coupon.minOrderAmount) {
+    return { valid: false, message: `الحد الأدنى للطلب ${coupon.minOrderAmount / 100} ريال` };
+  }
+
+  // Check user usage
+  const db = await getDb();
+  if (db && coupon.userUsageLimit) {
+    const userUsage = await db.select()
+      .from(couponUsage)
+      .where(and(
+        eq(couponUsage.couponId, coupon.id),
+        eq(couponUsage.userId, userId)
+      ));
+
+    if (userUsage.length >= coupon.userUsageLimit) {
+      return { valid: false, message: "لقد استخدمت هذا الكود من قبل" };
+    }
+  }
+
+  // Calculate discount
+  let discountAmount = 0;
+  if (coupon.discountType === "percentage") {
+    discountAmount = Math.floor((orderAmount * coupon.discountValue) / 100);
+    if (coupon.maxDiscountAmount && discountAmount > coupon.maxDiscountAmount) {
+      discountAmount = coupon.maxDiscountAmount;
+    }
+  } else {
+    discountAmount = coupon.discountValue;
+  }
+
+  return { valid: true, coupon, discountAmount };
+}
+
+export async function applyCoupon(couponId: number, userId: number, serviceRequestId: number, discountAmount: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Record usage
+  await db.insert(couponUsage).values({
+    couponId,
+    userId,
+    serviceRequestId,
+    discountAmount,
+  });
+
+  // Increment usage count
+  await db.update(coupons)
+    .set({ usageCount: sql`${coupons.usageCount} + 1` })
+    .where(eq(coupons.id, couponId));
+}
+
+export async function getAllCoupons() {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select().from(coupons).orderBy(desc(coupons.createdAt));
+}
+
+export async function createCoupon(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(coupons).values(data);
+  return result;
+}
+
+// Technician Location functions
+export async function updateTechnicianLocation(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.insert(technicianLocations).values(data);
+}
+
+export async function getLatestTechnicianLocation(technicianId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select()
+    .from(technicianLocations)
+    .where(eq(technicianLocations.technicianId, technicianId))
+    .orderBy(desc(technicianLocations.createdAt))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getTechnicianLocationForRequest(requestId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  const result = await db.select()
+    .from(technicianLocations)
+    .where(eq(technicianLocations.serviceRequestId, requestId))
+    .orderBy(desc(technicianLocations.createdAt))
+    .limit(1);
+
+  return result.length > 0 ? result[0] : null;
+}
+
+// Push Subscription functions
+export async function savePushSubscription(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Check if subscription already exists
+  const existing = await db.select()
+    .from(pushSubscriptions)
+    .where(and(
+      eq(pushSubscriptions.userId, data.userId),
+      eq(pushSubscriptions.endpoint, data.endpoint)
+    ))
+    .limit(1);
+
+  if (existing.length > 0) {
+    // Update existing
+    await db.update(pushSubscriptions)
+      .set({ isActive: 1, updatedAt: new Date() })
+      .where(eq(pushSubscriptions.id, existing[0].id));
+    return existing[0];
+  }
+
+  // Insert new
+  const result = await db.insert(pushSubscriptions).values(data);
+  return result;
+}
+
+export async function getUserPushSubscriptions(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db.select()
+    .from(pushSubscriptions)
+    .where(and(
+      eq(pushSubscriptions.userId, userId),
+      eq(pushSubscriptions.isActive, 1)
+    ));
+}
+
+export async function deletePushSubscription(endpoint: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(pushSubscriptions)
+    .set({ isActive: 0 })
+    .where(eq(pushSubscriptions.endpoint, endpoint));
 }

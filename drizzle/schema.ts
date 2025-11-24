@@ -246,3 +246,81 @@ export const technicianProfiles = mysqlTable("technician_profiles", {
 
 export type TechnicianProfile = typeof technicianProfiles.$inferSelect;
 export type InsertTechnicianProfile = typeof technicianProfiles.$inferInsert;
+
+/**
+ * Coupons table for discount codes and promotions
+ */
+export const coupons = mysqlTable("coupons", {
+  id: int("id").autoincrement().primaryKey(),
+  code: varchar("code", { length: 50 }).notNull().unique(),
+  discountType: mysqlEnum("discountType", ["percentage", "fixed"]).notNull(),
+  discountValue: int("discountValue").notNull(), // Percentage (0-100) or fixed amount in cents
+  minOrderAmount: int("minOrderAmount"), // Minimum order amount in cents
+  maxDiscountAmount: int("maxDiscountAmount"), // Maximum discount in cents (for percentage)
+  usageLimit: int("usageLimit"), // Total usage limit (null = unlimited)
+  usageCount: int("usageCount").default(0).notNull(),
+  userUsageLimit: int("userUsageLimit").default(1), // Per user usage limit
+  validFrom: timestamp("validFrom").notNull(),
+  validUntil: timestamp("validUntil").notNull(),
+  isActive: int("isActive").default(1).notNull(),
+  description: text("description"),
+  createdBy: int("createdBy").references(() => users.id),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Coupon = typeof coupons.$inferSelect;
+export type InsertCoupon = typeof coupons.$inferInsert;
+
+/**
+ * Coupon usage tracking
+ */
+export const couponUsage = mysqlTable("coupon_usage", {
+  id: int("id").autoincrement().primaryKey(),
+  couponId: int("couponId").notNull().references(() => coupons.id),
+  userId: int("userId").notNull().references(() => users.id),
+  serviceRequestId: int("serviceRequestId").notNull().references(() => serviceRequests.id),
+  discountAmount: int("discountAmount").notNull(), // Actual discount applied in cents
+  usedAt: timestamp("usedAt").defaultNow().notNull(),
+});
+
+export type CouponUsage = typeof couponUsage.$inferSelect;
+export type InsertCouponUsage = typeof couponUsage.$inferInsert;
+
+/**
+ * Technician location tracking for real-time updates
+ */
+export const technicianLocations = mysqlTable("technician_locations", {
+  id: int("id").autoincrement().primaryKey(),
+  technicianId: int("technicianId").notNull().references(() => technicians.id),
+  serviceRequestId: int("serviceRequestId").references(() => serviceRequests.id),
+  latitude: text("latitude").notNull(), // Store as text for precision
+  longitude: text("longitude").notNull(),
+  accuracy: int("accuracy"), // GPS accuracy in meters
+  heading: int("heading"), // Direction in degrees (0-359)
+  speed: int("speed"), // Speed in km/h * 100
+  isOnRoute: int("isOnRoute").default(0).notNull(), // 1 if heading to customer
+  estimatedArrival: timestamp("estimatedArrival"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type TechnicianLocation = typeof technicianLocations.$inferSelect;
+export type InsertTechnicianLocation = typeof technicianLocations.$inferInsert;
+
+/**
+ * Push notification subscriptions
+ */
+export const pushSubscriptions = mysqlTable("push_subscriptions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id),
+  endpoint: text("endpoint").notNull(),
+  p256dh: text("p256dh").notNull(),
+  auth: text("auth").notNull(),
+  userAgent: text("userAgent"),
+  isActive: int("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PushSubscription = typeof pushSubscriptions.$inferSelect;
+export type InsertPushSubscription = typeof pushSubscriptions.$inferInsert;

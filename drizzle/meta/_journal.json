@@ -36,6 +36,13 @@
       "when": 1763976406941,
       "tag": "0004_secret_microchip",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1763987943476,
+      "tag": "0005_tidy_firebird",
+      "breakpoints": true
     }
   ]
 }

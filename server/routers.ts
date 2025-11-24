@@ -397,6 +397,109 @@ export const appRouter = router({
         return await db.getPaymentReceiptByRequestId(input.requestId);
       }),
   }),
+
+  // Coupons
+  coupons: router({
+    validate: publicProcedure
+      .input(z.object({
+        code: z.string(),
+        orderAmount: z.number(),
+      }))
+      .query(async ({ ctx, input }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: 'UNAUTHORIZED' });
+        }
+        return await db.validateCoupon(input.code, ctx.user.id, input.orderAmount);
+      }),
+
+    getAll: adminProcedure.query(async () => {
+      return await db.getAllCoupons();
+    }),
+
+    create: adminProcedure
+      .input(z.object({
+        code: z.string(),
+        discountType: z.enum(['percentage', 'fixed']),
+        discountValue: z.number(),
+        minOrderAmount: z.number().optional(),
+        maxDiscountAmount: z.number().optional(),
+        usageLimit: z.number().optional(),
+        userUsageLimit: z.number().default(1),
+        validFrom: z.date(),
+        validUntil: z.date(),
+        description: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await db.createCoupon({
+          ...input,
+          isActive: 1,
+          usageCount: 0,
+          createdBy: ctx.user.id,
+        });
+        return { success: true };
+      }),
+  }),
+
+  // Location Tracking
+  location: router({
+    update: protectedProcedure
+      .input(z.object({
+        technicianId: z.number(),
+        serviceRequestId: z.number().optional(),
+        latitude: z.string(),
+        longitude: z.string(),
+        accuracy: z.number().optional(),
+        heading: z.number().optional(),
+        speed: z.number().optional(),
+        isOnRoute: z.boolean().default(false),
+        estimatedArrival: z.date().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        await db.updateTechnicianLocation({
+          ...input,
+          isOnRoute: input.isOnRoute ? 1 : 0,
+        });
+        return { success: true };
+      }),
+
+    getLatest: publicProcedure
+      .input(z.object({ technicianId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getLatestTechnicianLocation(input.technicianId);
+      }),
+
+    getForRequest: protectedProcedure
+      .input(z.object({ requestId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getTechnicianLocationForRequest(input.requestId);
+      }),
+  }),
+
+  // Push Notifications
+  push: router({
+    subscribe: protectedProcedure
+      .input(z.object({
+        endpoint: z.string(),
+        p256dh: z.string(),
+        auth: z.string(),
+        userAgent: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await db.savePushSubscription({
+          userId: ctx.user.id,
+          ...input,
+          isActive: 1,
+        });
+        return { success: true };
+      }),
+
+    unsubscribe: protectedProcedure
+      .input(z.object({ endpoint: z.string() }))
+      .mutation(async ({ input }) => {
+        await db.deletePushSubscription(input.endpoint);
+        return { success: true };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

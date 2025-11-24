@@ -10,6 +10,8 @@ import ServiceRequest from "./pages/ServiceRequest";
 import MyRequests from "./pages/MyRequests";
 import AdminDashboard from "./pages/AdminDashboard";
 import TechnicianDashboard from "./pages/TechnicianDashboard";
+import CouponsManagement from "./pages/CouponsManagement";
+import TrackTechnician from "./pages/TrackTechnician";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -20,7 +22,9 @@ function Router() {
       <Route path="/request" component={ServiceRequest} />
       <Route path="/my-requests" component={MyRequests} />
       <Route path="/admin" component={AdminDashboard} />
+      <Route path="/admin/coupons" component={CouponsManagement} />
       <Route path="/technician" component={TechnicianDashboard} />
+      <Route path="/track" component={TrackTechnician} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
