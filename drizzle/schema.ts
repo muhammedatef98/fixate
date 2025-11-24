@@ -324,3 +324,87 @@ export const pushSubscriptions = mysqlTable("push_subscriptions", {
 
 export type PushSubscription = typeof pushSubscriptions.$inferSelect;
 export type InsertPushSubscription = typeof pushSubscriptions.$inferInsert;
+
+/**
+ * Chat rooms for customer-technician communication
+ */
+export const chatRooms = mysqlTable("chat_rooms", {
+  id: int("id").autoincrement().primaryKey(),
+  serviceRequestId: int("serviceRequestId").notNull().references(() => serviceRequests.id).unique(),
+  customerId: int("customerId").notNull().references(() => users.id),
+  technicianId: int("technicianId").notNull().references(() => technicians.id),
+  lastMessageAt: timestamp("lastMessageAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ChatRoom = typeof chatRooms.$inferSelect;
+export type InsertChatRoom = typeof chatRooms.$inferInsert;
+
+/**
+ * Messages in chat rooms
+ */
+export const messages = mysqlTable("messages", {
+  id: int("id").autoincrement().primaryKey(),
+  chatRoomId: int("chatRoomId").notNull().references(() => chatRooms.id),
+  senderId: int("senderId").notNull().references(() => users.id),
+  content: text("content").notNull(),
+  messageType: mysqlEnum("messageType", ["text", "image"]).default("text").notNull(),
+  imageUrl: text("imageUrl"),
+  isRead: int("isRead").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Message = typeof messages.$inferSelect;
+export type InsertMessage = typeof messages.$inferInsert;
+
+/**
+ * Loyalty points for customers
+ */
+export const loyaltyPoints = mysqlTable("loyalty_points", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id).unique(),
+  totalPoints: int("totalPoints").default(0).notNull(),
+  availablePoints: int("availablePoints").default(0).notNull(),
+  lifetimePoints: int("lifetimePoints").default(0).notNull(), // Total points earned ever
+  membershipTier: mysqlEnum("membershipTier", ["bronze", "silver", "gold", "platinum"]).default("bronze").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type LoyaltyPoints = typeof loyaltyPoints.$inferSelect;
+export type InsertLoyaltyPoints = typeof loyaltyPoints.$inferInsert;
+
+/**
+ * Points transactions history
+ */
+export const pointsTransactions = mysqlTable("points_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id),
+  serviceRequestId: int("serviceRequestId").references(() => serviceRequests.id),
+  points: int("points").notNull(), // Positive for earn, negative for redeem
+  transactionType: mysqlEnum("transactionType", ["earn", "redeem", "bonus", "expired"]).notNull(),
+  description: text("description"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PointsTransaction = typeof pointsTransactions.$inferSelect;
+export type InsertPointsTransaction = typeof pointsTransactions.$inferInsert;
+
+/**
+ * Rewards catalog
+ */
+export const rewards = mysqlTable("rewards", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  description: text("description"),
+  pointsCost: int("pointsCost").notNull(),
+  discountType: mysqlEnum("discountType", ["percentage", "fixed"]).notNull(),
+  discountValue: int("discountValue").notNull(),
+  minTier: mysqlEnum("minTier", ["bronze", "silver", "gold", "platinum"]).default("bronze").notNull(),
+  isActive: int("isActive").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Reward = typeof rewards.$inferSelect;
+export type InsertReward = typeof rewards.$inferInsert;

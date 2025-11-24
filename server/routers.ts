@@ -500,6 +500,120 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  // Chat System
+  chat: router({
+    createRoom: protectedProcedure
+      .input(z.object({
+        serviceRequestId: z.number(),
+        technicianId: z.number(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const roomId = await db.createChatRoom({
+          serviceRequestId: input.serviceRequestId,
+          customerId: ctx.user.id,
+          technicianId: input.technicianId,
+        });
+        return { roomId };
+      }),
+
+    getRoom: protectedProcedure
+      .input(z.object({ requestId: z.number() }))
+      .query(async ({ input }) => {
+        return await db.getChatRoomByRequestId(input.requestId);
+      }),
+
+    sendMessage: protectedProcedure
+      .input(z.object({
+        chatRoomId: z.number(),
+        content: z.string(),
+        messageType: z.enum(["text", "image"]).default("text"),
+        imageUrl: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const messageId = await db.sendMessage({
+          chatRoomId: input.chatRoomId,
+          senderId: ctx.user.id,
+          content: input.content,
+          messageType: input.messageType,
+          imageUrl: input.imageUrl,
+          isRead: 0,
+        });
+        return { messageId };
+      }),
+
+    getMessages: protectedProcedure
+      .input(z.object({
+        roomId: z.number(),
+        limit: z.number().optional(),
+      }))
+      .query(async ({ input }) => {
+        return await db.getMessagesByRoomId(input.roomId, input.limit);
+      }),
+
+    markAsRead: protectedProcedure
+      .input(z.object({ roomId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        await db.markMessagesAsRead(input.roomId, ctx.user.id);
+        return { success: true };
+      }),
+  }),
+
+  // Loyalty Points
+  loyalty: router({
+    getPoints: protectedProcedure
+      .query(async ({ ctx }) => {
+        return await db.getUserLoyaltyPoints(ctx.user.id);
+      }),
+
+    getTransactions: protectedProcedure
+      .input(z.object({ limit: z.number().optional() }))
+      .query(async ({ ctx, input }) => {
+        return await db.getPointsTransactions(ctx.user.id, input.limit);
+      }),
+
+    redeemPoints: protectedProcedure
+      .input(z.object({
+        points: z.number(),
+        description: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await db.redeemPoints(ctx.user.id, input.points, input.description);
+        return { success: true };
+      }),
+  }),
+
+  // Rewards
+  rewards: router({
+    getAll: publicProcedure
+      .query(async () => {
+        return await db.getAllRewards();
+      }),
+  }),
+
+  // Analytics
+  analytics: router({
+    getTotalRevenue: protectedProcedure
+      .query(async () => {
+        return await db.getTotalRevenue();
+      }),
+
+    getRequestsByStatus: protectedProcedure
+      .query(async () => {
+        return await db.getRequestCountByStatus();
+      }),
+
+    getTopServices: protectedProcedure
+      .input(z.object({ limit: z.number().optional() }))
+      .query(async ({ input }) => {
+        return await db.getTopServices(input.limit);
+      }),
+
+    getTechnicianStats: protectedProcedure
+      .query(async () => {
+        return await db.getTechnicianStats();
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

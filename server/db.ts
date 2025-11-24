@@ -1,4 +1,4 @@
-import { eq, desc, and, sql } from "drizzle-orm";
+import { eq, and, ne, desc, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users, technicians, serviceRequests, Technician, InsertTechnician } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -587,4 +587,249 @@ export async function deletePushSubscription(endpoint: string) {
   await db.update(pushSubscriptions)
     .set({ isActive: 0 })
     .where(eq(pushSubscriptions.endpoint, endpoint));
+}
+
+// ============================================
+// Chat Functions
+// ============================================
+
+import { chatRooms, messages, InsertChatRoom, InsertMessage, loyaltyPoints, pointsTransactions, InsertLoyaltyPoints, InsertPointsTransaction, rewards } from "../drizzle/schema";
+
+export async function createChatRoom(data: InsertChatRoom) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(chatRooms).values(data);
+  return result[0].insertId;
+}
+
+export async function getChatRoomByRequestId(requestId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(chatRooms).where(eq(chatRooms.serviceRequestId, requestId)).limit(1);
+  return result[0] || null;
+}
+
+export async function getChatRoomsByUserId(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(chatRooms).where(eq(chatRooms.customerId, userId));
+}
+
+export async function sendMessage(data: InsertMessage) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(messages).values(data);
+  
+  // Update last message timestamp
+  await db.update(chatRooms)
+    .set({ lastMessageAt: new Date() })
+    .where(eq(chatRooms.id, data.chatRoomId));
+  
+  return result[0].insertId;
+}
+
+export async function getMessagesByRoomId(roomId: number, limit: number = 50) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(messages)
+    .where(eq(messages.chatRoomId, roomId))
+    .orderBy(desc(messages.createdAt))
+    .limit(limit);
+}
+
+export async function markMessagesAsRead(roomId: number, userId: number) {
+  const db = await getDb();
+  if (!db) return;
+  
+  await db.update(messages)
+    .set({ isRead: 1 })
+    .where(
+      and(
+        eq(messages.chatRoomId, roomId),
+        ne(messages.senderId, userId),
+        eq(messages.isRead, 0)
+      )
+    );
+}
+
+// ============================================
+// Loyalty Points Functions
+// ============================================
+
+export async function getUserLoyaltyPoints(userId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const result = await db.select().from(loyaltyPoints).where(eq(loyaltyPoints.userId, userId)).limit(1);
+  return result[0] || null;
+}
+
+export async function initializeLoyaltyPoints(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const data: InsertLoyaltyPoints = {
+    userId,
+    totalPoints: 0,
+    availablePoints: 0,
+    lifetimePoints: 0,
+    membershipTier: "bronze",
+  };
+  
+  await db.insert(loyaltyPoints).values(data);
+}
+
+export async function addPoints(userId: number, points: number, requestId?: number, description?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  // Get or create loyalty points
+  let userPoints = await getUserLoyaltyPoints(userId);
+  if (!userPoints) {
+    await initializeLoyaltyPoints(userId);
+    userPoints = await getUserLoyaltyPoints(userId);
+  }
+  
+  if (!userPoints) throw new Error("Failed to initialize loyalty points");
+  
+  const newTotal = userPoints.totalPoints + points;
+  const newAvailable = userPoints.availablePoints + points;
+  const newLifetime = userPoints.lifetimePoints + points;
+  
+  // Determine tier based on lifetime points
+  let tier: "bronze" | "silver" | "gold" | "platinum" = "bronze";
+  if (newLifetime >= 10000) tier = "platinum";
+  else if (newLifetime >= 5000) tier = "gold";
+  else if (newLifetime >= 2000) tier = "silver";
+  
+  // Update points
+  await db.update(loyaltyPoints)
+    .set({
+      totalPoints: newTotal,
+      availablePoints: newAvailable,
+      lifetimePoints: newLifetime,
+      membershipTier: tier,
+    })
+    .where(eq(loyaltyPoints.userId, userId));
+  
+  // Record transaction
+  const transactionData: InsertPointsTransaction = {
+    userId,
+    serviceRequestId: requestId,
+    points,
+    transactionType: "earn",
+    description: description || `Earned ${points} points`,
+  };
+  
+  await db.insert(pointsTransactions).values(transactionData);
+}
+
+export async function redeemPoints(userId: number, points: number, description: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const userPoints = await getUserLoyaltyPoints(userId);
+  if (!userPoints) throw new Error("User loyalty points not found");
+  
+  if (userPoints.availablePoints < points) {
+    throw new Error("Insufficient points");
+  }
+  
+  const newTotal = userPoints.totalPoints - points;
+  const newAvailable = userPoints.availablePoints - points;
+  
+  await db.update(loyaltyPoints)
+    .set({
+      totalPoints: newTotal,
+      availablePoints: newAvailable,
+    })
+    .where(eq(loyaltyPoints.userId, userId));
+  
+  // Record transaction
+  const transactionData: InsertPointsTransaction = {
+    userId,
+    points: -points,
+    transactionType: "redeem",
+    description,
+  };
+  
+  await db.insert(pointsTransactions).values(transactionData);
+}
+
+export async function getPointsTransactions(userId: number, limit: number = 20) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(pointsTransactions)
+    .where(eq(pointsTransactions.userId, userId))
+    .orderBy(desc(pointsTransactions.createdAt))
+    .limit(limit);
+}
+
+export async function getAllRewards() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select().from(rewards).where(eq(rewards.isActive, 1));
+}
+
+// ============================================
+// Analytics Functions
+// ============================================
+
+export async function getTotalRevenue() {
+  const db = await getDb();
+  if (!db) return 0;
+  
+  const result = await db.select({
+    count: sql<number>`COUNT(*)`
+  })
+  .from(serviceRequests)
+  .where(eq(serviceRequests.status, "completed"));
+  
+  return result[0]?.count || 0;
+}
+
+export async function getRequestCountByStatus() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select({
+    status: serviceRequests.status,
+    count: sql<number>`COUNT(*)`
+  })
+  .from(serviceRequests)
+  .groupBy(serviceRequests.status);
+}
+
+export async function getTopServices(limit: number = 5) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select({
+    serviceTypeId: serviceRequests.serviceTypeId,
+    count: sql<number>`COUNT(*)`
+  })
+  .from(serviceRequests)
+  .groupBy(serviceRequests.serviceTypeId)
+  .orderBy(desc(sql<number>`COUNT(*)`))
+  .limit(limit);
+}
+
+export async function getTechnicianStats() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  return db.select({
+    technicianId: serviceRequests.technicianId,
+    completedCount: sql<number>`COUNT(*)`
+  })
+  .from(serviceRequests)
+  .where(eq(serviceRequests.status, "completed"))
+  .groupBy(serviceRequests.technicianId);
 }

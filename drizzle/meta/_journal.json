@@ -43,6 +43,13 @@
       "when": 1763987943476,
       "tag": "0005_tidy_firebird",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1763988711769,
+      "tag": "0006_plain_sunfire",
+      "breakpoints": true
     }
   ]
 }
