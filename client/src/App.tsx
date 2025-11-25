@@ -19,6 +19,7 @@ import LoyaltyPoints from "./pages/LoyaltyPoints";
 import Payment from "./pages/Payment";
 import AboutUs from "./pages/AboutUs";
 import FAQ from "./pages/FAQ";
+import TrackOrder from "./pages/TrackOrder";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -38,6 +39,7 @@ function Router() {
       <Route path="/payment" component={Payment} />
       <Route path="/about" component={AboutUs} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/track-order/:id" component={TrackOrder} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
