@@ -66,8 +66,8 @@ interface PaymentResponse {
  */
 function getMoyasarConfig(): MoyasarConfig {
   return {
-    apiKey: process.env.MOYASAR_API_KEY || 'sk_test_XXXXXXXXXXXXXXXXXXXXXXXX',
-    publishableKey: process.env.MOYASAR_PUBLISHABLE_KEY || 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXX',
+    apiKey: process.env.MOYASAR_API_KEY || '',
+    publishableKey: process.env.MOYASAR_PUBLISHABLE_KEY || '',
     baseUrl: 'https://api.moyasar.com/v1',
   };
 }
