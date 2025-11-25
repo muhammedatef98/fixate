@@ -346,4 +346,4 @@
 - [x] إنشاء سكريبت setup.sh
 - [x] توثيق الاستضافة على Vercel/Railway/Render
 - [x] إضافة حلول بديلة للداتابيس (PlanetScale/Docker)
-- [ ] رفع الكود على GitHub
+- [x] رفع الكود على GitHub
