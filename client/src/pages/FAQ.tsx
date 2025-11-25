@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
-import { APP_TITLE } from "@/const";
-import SEO, { structuredDataTemplates } from "@/components/SEO";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { APP_LOGO } from "@/const";
+import SEO from "@/components/SEO";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 
 interface FAQItem {
   question: string;
@@ -9,267 +13,218 @@ interface FAQItem {
   category: string;
 }
 
-const faqData: FAQItem[] = [
-  // أسئلة عن الأسعار
+const faqDataAr: FAQItem[] = [
   {
     category: "الأسعار",
     question: "كيف يتم تحديد أسعار الصيانة؟",
-    answer: "يتم تحديد الأسعار بناءً على نوع الجهاز والخدمة المطلوبة. يمكنك استخدام حاسبة الأسعار في الموقع للحصول على سعر فوري ودقيق قبل الحجز. جميع أسعارنا شفافة وتنافسية."
+    answer: "يتم تحديد الأسعار بناءً على نوع الجهاز والخدمة المطلوبة. يمكنك استخدام حاسبة الأسعار في الموقع للحصول على سعر فوري ودقيق قبل الحجز."
   },
   {
     category: "الأسعار",
     question: "هل توجد رسوم إضافية غير معلنة؟",
-    answer: "لا، جميع الأسعار المعروضة في حاسبة الأسعار نهائية وشاملة. لا توجد أي رسوم خفية أو إضافية. السعر الذي تراه هو السعر الذي ستدفعه."
+    answer: "لا، جميع الأسعار المعروضة نهائية وشاملة. لا توجد أي رسوم خفية أو إضافية."
   },
-  {
-    category: "الأسعار",
-    question: "هل يمكنني الحصول على خصم؟",
-    answer: "نعم! نقدم خصومات متنوعة من خلال نظام نقاط الولاء والكوبونات الترويجية. كما نقدم خصم 20% على أول خدمة إصلاح للعملاء الجدد."
-  },
-  {
-    category: "الأسعار",
-    question: "ما هي طرق الدفع المتاحة؟",
-    answer: "نوفر طرق دفع متعددة: الدفع عند الاستلام (كاش)، التحويل البنكي، والدفع الإلكتروني عبر بوابة Moyasar (بطاقات الائتمان والمحافظ الرقمية)."
-  },
-
-  // أسئلة عن الضمان
   {
     category: "الضمان",
     question: "ما هي مدة الضمان على الصيانة؟",
-    answer: "نوفر ضمان يصل إلى 6 أشهر على جميع خدمات الصيانة. الضمان يشمل قطع الغيار والعمالة ويغطي أي مشاكل متعلقة بالإصلاح الذي تم."
+    answer: "نوفر ضمان يصل إلى 6 أشهر على جميع خدمات الصيانة. الضمان يشمل قطع الغيار والعمالة."
   },
   {
-    category: "الضمان",
-    question: "ماذا يشمل الضمان؟",
-    answer: "الضمان يشمل قطع الغيار المستبدلة والعمالة. في حال ظهور أي مشكلة متعلقة بالإصلاح خلال فترة الضمان، سنقوم بإصلاحها مجاناً."
-  },
-  {
-    category: "الضمان",
-    question: "هل الضمان يغطي الأضرار الجديدة؟",
-    answer: "الضمان يغطي فقط المشاكل المتعلقة بالإصلاح الذي تم. الأضرار الجديدة الناتجة عن سوء الاستخدام أو الحوادث لا تغطيها فترة الضمان."
-  },
-  {
-    category: "الضمان",
-    question: "كيف أستفيد من الضمان؟",
-    answer: "في حال ظهور أي مشكلة خلال فترة الضمان، تواصل معنا عبر الدردشة أو الهاتف وسنقوم بجدولة موعد لفحص الجهاز وإصلاحه مجاناً."
-  },
-
-  // أسئلة عن مدة الإصلاح
-  {
-    category: "مدة الإصلاح",
+    category: "الخدمة",
     question: "كم تستغرق عملية الإصلاح؟",
-    answer: "المدة تعتمد على نوع الخدمة. خدمة Express تستغرق 1-2 ساعة، بينما خدمة Pickup تستغرق 1-3 أيام. سيتم إعلامك بالمدة المتوقعة عند الحجز."
-  },
-  {
-    category: "مدة الإصلاح",
-    question: "هل يمكن تسريع الإصلاح؟",
-    answer: "نعم، يمكنك اختيار خدمة Express للحصول على إصلاح سريع خلال 1-2 ساعة. هذه الخدمة متاحة للإصلاحات البسيطة والمتوسطة."
-  },
-  {
-    category: "مدة الإصلاح",
-    question: "كيف أتتبع حالة الإصلاح؟",
-    answer: "يمكنك تتبع حالة طلبك من خلال صفحة 'طلباتي' في الموقع. ستصلك إشعارات فورية عند كل تحديث لحالة الطلب."
-  },
-
-  // أسئلة عن الخدمة
-  {
-    category: "الخدمة",
-    question: "ما هي أنواع الأجهزة التي تدعمونها؟",
-    answer: "ندعم جميع أنواع الأجهزة الإلكترونية: الهواتف الذكية (iPhone, Samsung, Huawei, وغيرها)، التابلت، اللابتوب، وأجهزة MacBook."
-  },
-  {
-    category: "الخدمة",
-    question: "هل توفرون خدمة منزلية؟",
-    answer: "نعم! نوفر خدمة Express حيث يأتي الفني إليك في موقعك لإصلاح الجهاز. كما نوفر خدمة Pickup حيث نستلم الجهاز منك ونعيده بعد الإصلاح."
-  },
-  {
-    category: "الخدمة",
-    question: "هل الفنيون معتمدون؟",
-    answer: "نعم، جميع فنيينا معتمدون ومدربون على أعلى مستوى. نختار فقط الفنيين المحترفين ذوي الخبرة الطويلة في مجال الصيانة."
-  },
-  {
-    category: "الخدمة",
-    question: "كيف أحجز خدمة الصيانة؟",
-    answer: "يمكنك الحجز بسهولة من خلال الموقع. اختر نوع الجهاز والخدمة المطلوبة، احصل على السعر الفوري، ثم أكمل الحجز. سيتم التواصل معك لتأكيد الموعد."
-  },
-  {
-    category: "الخدمة",
-    question: "هل يمكنني إلغاء الحجز؟",
-    answer: "نعم، يمكنك إلغاء الحجز قبل بدء الفني بالعمل. تواصل معنا عبر الدردشة أو الهاتف لإلغاء الطلب."
-  },
-  {
-    category: "الخدمة",
-    question: "كيف أتواصل مع الفني؟",
-    answer: "يمكنك التواصل مع الفني المعين لطلبك من خلال نظام الدردشة المباشرة في الموقع. كما يمكنك تتبع موقعه على الخريطة في الوقت الفعلي."
-  },
-
-  // أسئلة عن نقاط الولاء
-  {
-    category: "نقاط الولاء",
-    question: "كيف أحصل على نقاط الولاء؟",
-    answer: "تحصل على نقاط ولاء مع كل خدمة إصلاح تقوم بها. كل 10 ريال تنفقه يمنحك نقطة واحدة. كما تحصل على نقاط إضافية عند التقييم والمشاركة."
-  },
-  {
-    category: "نقاط الولاء",
-    question: "كيف أستخدم نقاط الولاء؟",
-    answer: "يمكنك استبدال نقاط الولاء للحصول على خصومات على الخدمات القادمة. كل 100 نقطة تساوي 10 ريال خصم. يمكنك استبدال النقاط من صفحة نقاط الولاء."
-  },
-  {
-    category: "نقاط الولاء",
-    question: "ما هي مستويات العضوية؟",
-    answer: "لدينا 4 مستويات: البرونزي (0-499 نقطة)، الفضي (500-999 نقطة)، الذهبي (1000-1999 نقطة)، والبلاتيني (2000+ نقطة). كل مستوى يمنحك مزايا إضافية."
+    answer: "معظم الإصلاحات تتم في نفس اليوم. الإصلاحات البسيطة قد تستغرق ساعة واحدة فقط."
   },
 ];
 
-const categories = ["الكل", ...Array.from(new Set(faqData.map(item => item.category)))];
+const faqDataEn: FAQItem[] = [
+  {
+    category: "Pricing",
+    question: "How are repair prices determined?",
+    answer: "Prices are determined based on device type and required service. You can use our price calculator to get an instant accurate quote before booking."
+  },
+  {
+    category: "Pricing",
+    question: "Are there any hidden fees?",
+    answer: "No, all displayed prices are final and inclusive. There are no hidden or additional fees."
+  },
+  {
+    category: "Warranty",
+    question: "What is the warranty period?",
+    answer: "We provide up to 6 months warranty on all repair services. The warranty covers parts and labor."
+  },
+  {
+    category: "Service",
+    question: "How long does the repair take?",
+    answer: "Most repairs are completed same day. Simple repairs may take only one hour."
+  },
+];
 
 export default function FAQ() {
-  const [activeCategory, setActiveCategory] = useState("الكل");
+  const { t, language } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  // Prepare structured data for FAQ
-  const faqStructuredData = structuredDataTemplates.faq(
-    faqData.map(item => ({ question: item.question, answer: item.answer }))
-  );
-
-  const filteredFAQs = activeCategory === "الكل" 
-    ? faqData 
-    : faqData.filter(item => item.category === activeCategory);
-
-  const toggleQuestion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  
+  const isArabic = language === "ar";
+  const faqData = isArabic ? faqDataAr : faqDataEn;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-background">
       <SEO
-        title="الأسئلة الشائعة"
-        description="إجابات على جميع أسئلتك حول خدمات Fixate. أسئلة عن الأسعار، الضمان، مدة الإصلاح، طرق الدفع، ونظام نقاط الولاء."
+        title={isArabic ? "الأسئلة الشائعة" : "FAQ"}
+        description={isArabic ? "إجابات على الأسئلة الشائعة حول خدمات صيانة الأجهزة الإلكترونية في Fixate" : "Answers to frequently asked questions about Fixate repair services"}
         canonical="https://fixate.sa/faq"
-        structuredData={faqStructuredData}
       />
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-700 text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex p-4 bg-white/10 rounded-full mb-6">
-              <HelpCircle className="w-12 h-12" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">الأسئلة الشائعة</h1>
-            <p className="text-xl text-blue-100">
-              إجابات على جميع أسئلتك حول خدمات {APP_TITLE}
-            </p>
+      
+      {/* Header */}
+      <header className="border-b border-border/40 bg-background/80 backdrop-blur-xl sticky top-0 z-50">
+        <div className="container">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/">
+              <div className="flex items-center gap-3 cursor-pointer">
+                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
+                <span className="text-2xl font-semibold text-foreground">Fixate</span>
+              </div>
+            </Link>
+            <nav className="hidden md:flex items-center gap-6">
+              <Link href="/" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {isArabic ? "الرئيسية" : "Home"}
+              </Link>
+              <Link href="/about" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.about")}
+              </Link>
+              <Link href="/faq" className="text-sm font-semibold text-foreground">
+                {t("nav.faq")}
+              </Link>
+              <Link href="/request">
+                <Button>{t("nav.bookNow")}</Button>
+              </Link>
+              <LanguageThemeSwitcher />
+            </nav>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Category Filter */}
-      <section className="py-8 bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all ${
-                  activeCategory === category
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 md:pt-32 md:pb-20">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-7xl font-semibold text-foreground mb-6 tracking-tight">
+              {isArabic ? "الأسئلة الشائعة" : "Frequently Asked Questions"}
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
+              {isArabic 
+                ? "إجابات على جميع أسئلتك حول خدمات الصيانة"
+                : "Answers to all your questions about our repair services"}
+            </p>
           </div>
         </div>
       </section>
 
       {/* FAQ Items */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-4">
-              {filteredFAQs.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden"
+      <section className="py-16 md:py-20">
+        <div className="container">
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqData.map((item, index) => (
+              <div
+                key={index}
+                className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300"
+              >
+                <button
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-right hover:bg-secondary/50 transition-colors"
                 >
-                  <button
-                    onClick={() => toggleQuestion(index)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-right hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex items-start gap-4 flex-1">
-                      <div className="flex-shrink-0 mt-1">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <span className="text-blue-600 font-bold">؟</span>
-                        </div>
-                      </div>
-                      <div className="flex-1 text-right">
-                        <h3 className="text-lg font-bold text-gray-900">
-                          {item.question}
-                        </h3>
-                        {openIndex !== index && (
-                          <span className="text-sm text-blue-600 mt-1 inline-block">
-                            {item.category}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex-shrink-0 mr-4">
-                      {openIndex === index ? (
-                        <ChevronUp className="w-5 h-5 text-gray-500" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-gray-500" />
-                      )}
-                    </div>
-                  </button>
-                  
-                  {openIndex === index && (
-                    <div className="px-6 pb-5 pt-2">
-                      <div className="pr-12 text-gray-700 leading-relaxed">
-                        {item.answer}
-                      </div>
-                      <div className="mt-3 pr-12">
-                        <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-sm rounded-full">
-                          {item.category}
-                        </span>
-                      </div>
-                    </div>
+                  <span className="text-lg font-semibold text-foreground flex-1">
+                    {item.question}
+                  </span>
+                  {openIndex === index ? (
+                    <ChevronUp className="h-5 w-5 text-primary flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                   )}
-                </div>
-              ))}
-            </div>
+                </button>
+                {openIndex === index && (
+                  <div className="px-6 pb-5">
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              لم تجد إجابة لسؤالك؟
+      {/* CTA Section */}
+      <section className="py-24 md:py-32 bg-primary">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-semibold mb-6 text-primary-foreground tracking-tight">
+              {isArabic ? "لم تجد إجابتك؟" : "Didn't Find Your Answer?"}
             </h2>
-            <p className="text-gray-600 mb-8">
-              فريق الدعم الفني متاح على مدار الساعة للإجابة على جميع استفساراتك
+            <p className="text-xl md:text-2xl mb-10 text-primary-foreground/90 font-light">
+              {isArabic 
+                ? "تواصل معنا وسنكون سعداء بمساعدتك"
+                : "Contact us and we'll be happy to help"}
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="/chat"
-                className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-blue-700 transition-colors"
-              >
-                تواصل معنا عبر الدردشة
-              </a>
-              <a
-                href="/request"
-                className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-bold border-2 border-blue-600 hover:bg-blue-50 transition-colors"
-              >
-                احجز خدمة الآن
-              </a>
-            </div>
+            <Link href="/request">
+              <Button size="lg" variant="secondary" className="text-base px-8 h-12 rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
+                {t("cta.button")}
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="py-16 bg-foreground text-background border-t border-border/10">
+        <div className="container">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <img src={APP_LOGO} alt="Fixate" className="h-8 w-auto" />
+                <span className="text-xl font-semibold">Fixate</span>
+              </div>
+              <p className="text-background/60 text-sm leading-relaxed">
+                {t("footer.description")}
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4 text-background">{t("footer.services")}</h4>
+              <ul className="space-y-2 text-sm text-background/60">
+                <li>{t("footer.phoneRepair")}</li>
+                <li>{t("footer.laptopRepair")}</li>
+                <li>{t("footer.tabletRepair")}</li>
+                <li>{t("footer.calculator")}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4 text-background">{t("footer.company")}</h4>
+              <ul className="space-y-2 text-sm text-background/60">
+                <li><Link href="/about" className="hover:text-background transition-colors">{t("footer.about")}</Link></li>
+                <li><Link href="/faq" className="hover:text-background transition-colors">{t("footer.faq")}</Link></li>
+                <li>{t("footer.technicians")}</li>
+                <li>{t("footer.terms")}</li>
+                <li>{t("footer.privacy")}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4 text-background">{t("footer.contact")}</h4>
+              <ul className="space-y-2 text-sm text-background/60">
+                <li>{t("footer.location")}</li>
+                <li>support@fixate.sa</li>
+                <li>+966 XX XXX XXXX</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-background/10 mt-12 pt-8 text-center text-sm text-background/50">
+            <p>{t("footer.copyright")}</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

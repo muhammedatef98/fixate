@@ -13,8 +13,12 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { Link } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 
 export default function Home() {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen bg-background">
       <SEO
@@ -33,23 +37,24 @@ export default function Home() {
             </div>
             <nav className="hidden md:flex items-center gap-6">
               <a href="#services" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                الخدمات
+                {t("nav.services")}
               </a>
               <a href="#how-it-works" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                كيف يعمل
+                {t("nav.howItWorks")}
               </a>
               <a href="#pricing" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                الأسعار
+                {t("nav.pricing")}
               </a>
               <Link href="/about" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                من نحن
+                {t("nav.about")}
               </Link>
               <Link href="/faq" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                الأسئلة الشائعة
+                {t("nav.faq")}
               </Link>
               <Link href="/request">
-                <Button>احجز الآن</Button>
+                <Button>{t("nav.bookNow")}</Button>
               </Link>
+              <LanguageThemeSwitcher />
             </nav>
           </div>
         </div>
@@ -60,24 +65,24 @@ export default function Home() {
         <div className="container">
           <div className="max-w-5xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-semibold text-foreground mb-6 tracking-tight leading-[1.1]">
-              إصلاح أجهزتك
+              {t("hero.title")}
               <br />
-              <span className="text-foreground">بسرعة واحترافية.</span>
+              <span className="text-foreground">{t("hero.subtitle")}</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-              خدمة صيانة متكاملة لجميع أجهزتك الإلكترونية.
+              {t("hero.description1")}
               <br />
-              فنيون محترفون يصلون إليك أينما كنت.
+              {t("hero.description2")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/request">
                 <Button size="lg" className="text-base px-8 h-12 rounded-full font-medium shadow-sm hover:shadow-md transition-all">
-                  احجز خدمة الإصلاح
+                  {t("hero.bookService")}
                 </Button>
               </Link>
               <Link href="/calculator">
                 <Button size="lg" variant="ghost" className="text-base px-8 h-12 rounded-full font-medium text-primary hover:bg-primary/5">
-                  احسب السعر فوراً
+                  {t("hero.calculatePrice")}
                 </Button>
               </Link>
             </div>
@@ -93,11 +98,11 @@ export default function Home() {
               <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                 <CheckCircle2 className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">شفافية كاملة</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("features.transparency")}</h3>
               <p className="text-muted-foreground leading-relaxed">
-                أسعار واضحة ومحددة مسبقاً.
+                {t("features.transparencyDesc1")}
                 <br />
-                لا توجد تكاليف مخفية.
+                {t("features.transparencyDesc2")}
               </p>
             </div>
 
@@ -105,11 +110,11 @@ export default function Home() {
               <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                 <Clock className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">خدمة سريعة</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("features.fastService")}</h3>
               <p className="text-muted-foreground leading-relaxed">
-                معظم الإصلاحات تتم في نفس اليوم.
+                {t("features.fastServiceDesc1")}
                 <br />
-                نصلك أينما كنت.
+                {t("features.fastServiceDesc2")}
               </p>
             </div>
 
@@ -117,11 +122,11 @@ export default function Home() {
               <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                 <Shield className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">ضمان ذهبي</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("features.warranty")}</h3>
               <p className="text-muted-foreground leading-relaxed">
-                ضمان يصل إلى 6 أشهر
+                {t("features.warrantyDesc1")}
                 <br />
-                على جميع قطع الغيار والخدمات.
+                {t("features.warrantyDesc2")}
               </p>
             </div>
           </div>
@@ -133,10 +138,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
-              الأجهزة التي نصلحها
+              {t("devices.title")}
             </h2>
             <p className="text-xl text-muted-foreground font-light">
-              نغطي جميع أنواع الأجهزة الإلكترونية
+              {t("devices.subtitle")}
             </p>
           </div>
 
@@ -144,17 +149,17 @@ export default function Home() {
             <div className="bg-card rounded-3xl p-8 hover:shadow-xl transition-all duration-300">
               <div className="flex flex-col items-center text-center">
                 <Smartphone className="h-20 w-20 text-primary mb-6" strokeWidth={1.5} />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">الجوالات</h3>
+                <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("devices.phones")}</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   iPhone, Samsung, Huawei
                   <br />
                   وجميع الأنواع الأخرى
                 </p>
                 <ul className="text-sm text-muted-foreground space-y-2 text-right w-full">
-                  <li>• تغيير الشاشة</li>
-                  <li>• تغيير البطارية</li>
-                  <li>• إصلاح منفذ الشحن</li>
-                  <li>• إصلاح الكاميرا</li>
+                  <li>{t("devices.screenReplacement")}</li>
+                  <li>{t("devices.batteryReplacement")}</li>
+                  <li>{t("devices.chargingPort")}</li>
+                  <li>{t("devices.camera")}</li>
                 </ul>
               </div>
             </div>
@@ -162,17 +167,17 @@ export default function Home() {
             <div className="bg-card rounded-3xl p-8 hover:shadow-xl transition-all duration-300">
               <div className="flex flex-col items-center text-center">
                 <Laptop className="h-20 w-20 text-primary mb-6" strokeWidth={1.5} />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">اللابتوبات</h3>
+                <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("devices.laptops")}</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   MacBook, Dell, HP, Lenovo
                   <br />
                   وجميع الأنواع
                 </p>
                 <ul className="text-sm text-muted-foreground space-y-2 text-right w-full">
-                  <li>• تغيير الشاشة</li>
-                  <li>• تغيير البطارية</li>
-                  <li>• حل مشاكل البرامج</li>
-                  <li>• تنظيف وصيانة</li>
+                  <li>{t("devices.screenReplacement")}</li>
+                  <li>{t("devices.batteryReplacement")}</li>
+                  <li>{t("devices.software")}</li>
+                  <li>{t("devices.cleaning")}</li>
                 </ul>
               </div>
             </div>
@@ -180,17 +185,17 @@ export default function Home() {
             <div className="bg-card rounded-3xl p-8 hover:shadow-xl transition-all duration-300">
               <div className="flex flex-col items-center text-center">
                 <Tablet className="h-20 w-20 text-primary mb-6" strokeWidth={1.5} />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">التابلت</h3>
+                <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("devices.tablets")}</h3>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   iPad, Samsung Tab
                   <br />
                   وجميع الأنواع الأخرى
                 </p>
                 <ul className="text-sm text-muted-foreground space-y-2 text-right w-full">
-                  <li>• تغيير الشاشة</li>
-                  <li>• تغيير البطارية</li>
-                  <li>• إصلاح منفذ الشحن</li>
-                  <li>• حل مشاكل البرامج</li>
+                  <li>{t("devices.screenReplacement")}</li>
+                  <li>{t("devices.batteryReplacement")}</li>
+                  <li>{t("devices.chargingPort")}</li>
+                  <li>{t("devices.software")}</li>
                 </ul>
               </div>
             </div>
@@ -203,10 +208,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
-              كيف يعمل Fixate؟
+              {t("howItWorks.title")}
             </h2>
             <p className="text-xl text-muted-foreground font-light">
-              ثلاث خطوات بسيطة فقط
+              {t("howItWorks.subtitle")}
             </p>
           </div>
 
@@ -215,7 +220,7 @@ export default function Home() {
               <div className="h-20 w-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-3xl font-semibold mx-auto mb-6 shadow-lg">
                 1
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">اختر جهازك والمشكلة</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("howItWorks.step1")}</h3>
               <p className="text-muted-foreground leading-relaxed">
                 استخدم حاسبة الأسعار
                 <br />
@@ -227,7 +232,7 @@ export default function Home() {
               <div className="h-20 w-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-3xl font-semibold mx-auto mb-6 shadow-lg">
                 2
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">احجز موعداً</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("howItWorks.step2")}</h3>
               <p className="text-muted-foreground leading-relaxed">
                 اختر الوقت والمكان
                 <br />
@@ -239,7 +244,7 @@ export default function Home() {
               <div className="h-20 w-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-3xl font-semibold mx-auto mb-6 shadow-lg">
                 3
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-foreground">نصلك ونصلح جهازك</h3>
+              <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("howItWorks.step3")}</h3>
               <p className="text-muted-foreground leading-relaxed">
                 فني محترف يصلك
                 <br />
@@ -255,7 +260,7 @@ export default function Home() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-6xl font-semibold mb-6 text-primary-foreground tracking-tight">
-              جهازك يحتاج إصلاح؟
+              {t("cta.title")}
             </h2>
             <p className="text-xl md:text-2xl mb-10 text-primary-foreground/90 font-light">
               احجز الآن واحصل على خصم 20%
@@ -264,7 +269,7 @@ export default function Home() {
             </p>
             <Link href="/request">
               <Button size="lg" variant="secondary" className="text-base px-8 h-12 rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
-                احجز خدمة الإصلاح الآن
+                {t("cta.button")}
               </Button>
             </Link>
           </div>
@@ -281,35 +286,35 @@ export default function Home() {
                 <span className="text-xl font-semibold">Fixate</span>
               </div>
               <p className="text-background/60 text-sm leading-relaxed">
-                منصة متكاملة لصيانة الأجهزة الإلكترونية
+                {t("footer.description")}
               </p>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-background">الخدمات</h4>
+              <h4 className="font-semibold mb-4 text-background">{t("footer.services")}</h4>
               <ul className="space-y-2 text-sm text-background/60">
-                <li>صيانة الجوالات</li>
-                <li>صيانة اللابتوبات</li>
-                <li>صيانة التابلت</li>
-                <li>حاسبة الأسعار</li>
+                <li>{t("footer.phoneRepair")}</li>
+                <li>{t("footer.laptopRepair")}</li>
+                <li>{t("footer.tabletRepair")}</li>
+                <li>{t("footer.calculator")}</li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-background">الشركة</h4>
+              <h4 className="font-semibold mb-4 text-background">{t("footer.company")}</h4>
               <ul className="space-y-2 text-sm text-background/60">
-                <li><Link href="/about" className="hover:text-background transition-colors">من نحن</Link></li>
-                <li><Link href="/faq" className="hover:text-background transition-colors">الأسئلة الشائعة</Link></li>
-                <li>الفنيون</li>
-                <li>الشروط والأحكام</li>
-                <li>سياسة الخصوصية</li>
+                <li><Link href="/about" className="hover:text-background transition-colors">{t("footer.about")}</Link></li>
+                <li><Link href="/faq" className="hover:text-background transition-colors">{t("footer.faq")}</Link></li>
+                <li>{t("footer.technicians")}</li>
+                <li>{t("footer.terms")}</li>
+                <li>{t("footer.privacy")}</li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-background">تواصل معنا</h4>
+              <h4 className="font-semibold mb-4 text-background">{t("footer.contact")}</h4>
               <ul className="space-y-2 text-sm text-background/60">
-                <li>المملكة العربية السعودية</li>
+                <li>{t("footer.location")}</li>
                 <li>support@fixate.sa</li>
                 <li>+966 XX XXX XXXX</li>
               </ul>
@@ -317,7 +322,7 @@ export default function Home() {
           </div>
 
           <div className="border-t border-background/10 mt-12 pt-8 text-center text-sm text-background/50">
-            <p>© 2024 Fixate. جميع الحقوق محفوظة.</p>
+            <p>{t("footer.copyright")}</p>
           </div>
         </div>
       </footer>
