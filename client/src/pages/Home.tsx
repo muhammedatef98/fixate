@@ -133,70 +133,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Devices We Support - Apple Style */}
-      <section id="services" className="py-20 md:py-28 bg-secondary/30">
+      {/* Devices We Support - Minimalist Apple Style */}
+      <section id="services" className="py-24 md:py-32">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-semibold text-foreground mb-6 tracking-tight">
               {t("devices.title")}
             </h2>
-            <p className="text-xl text-muted-foreground font-light">
+            <p className="text-2xl text-muted-foreground font-light max-w-2xl mx-auto">
               {t("devices.subtitle")}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-card rounded-3xl p-8 hover:shadow-xl transition-all duration-300">
+          <div className="grid md:grid-cols-3 gap-16 max-w-6xl mx-auto">
+            {/* Phones */}
+            <div className="group">
               <div className="flex flex-col items-center text-center">
-                <Smartphone className="h-20 w-20 text-primary mb-6" strokeWidth={1.5} />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("devices.phones")}</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <div className="mb-8 transition-transform duration-300 group-hover:scale-110">
+                  <Smartphone className="h-32 w-32 text-primary" strokeWidth={1} />
+                </div>
+                <h3 className="text-3xl font-semibold mb-4 text-foreground">{t("devices.phones")}</h3>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   iPhone, Samsung, Huawei
                   <br />
                   وجميع الأنواع الأخرى
                 </p>
-                <ul className="text-sm text-muted-foreground space-y-2 text-right w-full">
-                  <li>{t("devices.screenReplacement")}</li>
-                  <li>{t("devices.batteryReplacement")}</li>
-                  <li>{t("devices.chargingPort")}</li>
-                  <li>{t("devices.camera")}</li>
-                </ul>
+                <div className="w-full space-y-3">
+                  <div className="text-base text-muted-foreground">{t("devices.screenReplacement")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.batteryReplacement")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.chargingPort")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.camera")}</div>
+                </div>
               </div>
             </div>
 
-            <div className="bg-card rounded-3xl p-8 hover:shadow-xl transition-all duration-300">
+            {/* Laptops */}
+            <div className="group">
               <div className="flex flex-col items-center text-center">
-                <Laptop className="h-20 w-20 text-primary mb-6" strokeWidth={1.5} />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("devices.laptops")}</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <div className="mb-8 transition-transform duration-300 group-hover:scale-110">
+                  <Laptop className="h-32 w-32 text-primary" strokeWidth={1} />
+                </div>
+                <h3 className="text-3xl font-semibold mb-4 text-foreground">{t("devices.laptops")}</h3>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   MacBook, Dell, HP, Lenovo
                   <br />
                   وجميع الأنواع
                 </p>
-                <ul className="text-sm text-muted-foreground space-y-2 text-right w-full">
-                  <li>{t("devices.screenReplacement")}</li>
-                  <li>{t("devices.batteryReplacement")}</li>
-                  <li>{t("devices.software")}</li>
-                  <li>{t("devices.cleaning")}</li>
-                </ul>
+                <div className="w-full space-y-3">
+                  <div className="text-base text-muted-foreground">{t("devices.screenReplacement")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.batteryReplacement")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.software")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.cleaning")}</div>
+                </div>
               </div>
             </div>
 
-            <div className="bg-card rounded-3xl p-8 hover:shadow-xl transition-all duration-300">
+            {/* Tablets */}
+            <div className="group">
               <div className="flex flex-col items-center text-center">
-                <Tablet className="h-20 w-20 text-primary mb-6" strokeWidth={1.5} />
-                <h3 className="text-2xl font-semibold mb-3 text-foreground">{t("devices.tablets")}</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <div className="mb-8 transition-transform duration-300 group-hover:scale-110">
+                  <Tablet className="h-32 w-32 text-primary" strokeWidth={1} />
+                </div>
+                <h3 className="text-3xl font-semibold mb-4 text-foreground">{t("devices.tablets")}</h3>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   iPad, Samsung Tab
                   <br />
                   وجميع الأنواع الأخرى
                 </p>
-                <ul className="text-sm text-muted-foreground space-y-2 text-right w-full">
-                  <li>{t("devices.screenReplacement")}</li>
-                  <li>{t("devices.batteryReplacement")}</li>
-                  <li>{t("devices.chargingPort")}</li>
-                  <li>{t("devices.software")}</li>
-                </ul>
+                <div className="w-full space-y-3">
+                  <div className="text-base text-muted-foreground">{t("devices.screenReplacement")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.batteryReplacement")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.chargingPort")}</div>
+                  <div className="text-base text-muted-foreground">{t("devices.software")}</div>
+                </div>
               </div>
             </div>
           </div>
