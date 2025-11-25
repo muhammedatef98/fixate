@@ -32,7 +32,7 @@ export default function Home() {
         <div className="container">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
+              <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
               <span className="text-2xl font-semibold text-foreground">Fixate</span>
             </div>
             <nav className="hidden md:flex items-center gap-6">

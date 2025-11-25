@@ -25,7 +25,7 @@ export default function AboutUs() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
+                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
                 <span className="text-2xl font-semibold text-foreground">Fixate</span>
               </div>
             </Link>
