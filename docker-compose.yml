@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: fixate-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: fixate_root_password
+      MYSQL_DATABASE: fixate
+      MYSQL_USER: fixate_user
+      MYSQL_PASSWORD: fixate_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Fixate Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fixate-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mysql://fixate_user:fixate_password@db:3306/fixate
+      - JWT_SECRET=change-this-to-a-random-secret-key-in-production
+      - NODE_ENV=production
+      - PORT=3000
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./client/public:/app/client/public
+
+volumes:
+  mysql_data:
+    driver: local

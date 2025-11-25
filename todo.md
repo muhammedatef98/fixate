@@ -335,3 +335,15 @@
 - [x] إضافة خطوة فرعية لاختيار الموديل بعد اختيار الشركة
 - [x] تحديث Progress bar ليعكس الخطوات الجديدة
 - [x] تحسين تجربة التنقل بين الخطوات (زر رجوع)
+
+## رفع المشروع على GitHub
+- [x] إنشاء .gitignore file
+- [x] إنشاء README.md شامل (التنصيب، الإعداد، الاستضافة)
+- [x] إنشاء DEPLOYMENT.md بكل التفاصيل
+- [x] إنشاء docker-compose.yml لـ MySQL
+- [x] إنشاء Dockerfile
+- [x] إنشاء .dockerignore
+- [x] إنشاء سكريبت setup.sh
+- [x] توثيق الاستضافة على Vercel/Railway/Render
+- [x] إضافة حلول بديلة للداتابيس (PlanetScale/Docker)
+- [ ] رفع الكود على GitHub
