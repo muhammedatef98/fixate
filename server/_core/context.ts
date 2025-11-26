@@ -1,6 +1,7 @@
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import type { User } from "../../drizzle/schema";
-import { sdk } from "./sdk";
+import { verifySession } from "./simpleAuth";
+import { COOKIE_NAME } from "../../shared/const";
 
 export type TrpcContext = {
   req: CreateExpressContextOptions["req"];
@@ -14,7 +15,25 @@ export async function createContext(
   let user: User | null = null;
 
   try {
-    user = await sdk.authenticateRequest(opts.req);
+    // Get session token from cookie
+    const token = opts.req.cookies?.[COOKIE_NAME];
+    if (token) {
+      const payload = await verifySession(token);
+      if (payload) {
+        // Reconstruct user object from JWT payload
+        user = {
+          id: payload.userId,
+          email: payload.email,
+          name: null,
+          phone: null,
+          password: "", // Don't expose password
+          role: payload.role as any,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          lastSignedIn: new Date(),
+        } as User;
+      }
+    }
   } catch (error) {
     // Authentication is optional for public procedures.
     user = null;

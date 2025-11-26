@@ -346,4 +346,31 @@
 - [x] إنشاء سكريبت setup.sh
 - [x] توثيق الاستضافة على Vercel/Railway/Render
 - [x] إضافة حلول بديلة للداتابيس (PlanetScale/Docker)
-- [x] رفع الكود على GitHub
+- [ ] رفع الكود على GitHub
+
+## إزالة OAuth من الكود (Remove OAuth Code)
+
+- [ ] إزالة OAuth initialization من server/_core/index.ts
+- [ ] تحديث context.ts لاستخدام JWT بدل OAuth
+- [ ] إزالة OAuth middleware
+- [ ] إزالة OAUTH_SERVER_URL requirement
+- [ ] اختبار الموقع بدون OAuth
+- [ ] Deploy على Render
+
+## إصلاح bcryptjs dependency (Fix bcryptjs Dependency)
+
+- [x] التأكد من وجود bcryptjs في package.json
+- [x] إضافة postgres وإزالة mysql2
+- [x] رفع package.json المحدّث على GitHub
+- [ ] انتظار Render redeploy
+- [ ] اختبار الموقع
+
+## تحسين GitHub Repository (GitHub Repository Cleanup)
+
+- [ ] كتابة README.md احترافي (عربي + إنجليزي)
+- [ ] حذف الملفات الزيادة (schema_converted, schema_mysql_backup, oauth.ts.disabled, sdk.ts.disabled)
+- [ ] تحديث .gitignore
+- [ ] إضافة LICENSE file
+- [ ] تحديث repository description
+- [ ] إضافة topics/tags
+- [ ] رفع التحديثات على GitHub

@@ -105,3 +105,14 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+
+# Backup and conversion files
+*.backup
+*.old
+*_backup.*
+*_converted.*
+*_mysql_backup.*
+*.disabled
+
+# Python conversion scripts
+/tmp/convert_*.py
