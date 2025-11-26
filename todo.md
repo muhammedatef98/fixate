@@ -374,3 +374,23 @@
 - [ ] تحديث repository description
 - [ ] إضافة topics/tags
 - [ ] رفع التحديثات على GitHub
+
+## إزالة route /book واستخدام /request فقط
+
+- [ ] حذف route /book من App.tsx
+- [ ] تحديث جميع الروابط لاستخدام /request بدلاً من /book
+- [ ] رفع التحديث على GitHub
+
+## إصلاح خطأ Invalid URL في صفحة /request
+
+- [ ] فحص ServiceRequest.tsx للبحث عن مشكلة URL construction
+- [ ] إصلاح الخطأ
+- [ ] اختبار الصفحة محلياً
+- [ ] رفع الإصلاح على GitHub
+
+## إصلاح صفحة /request وحذف /book
+
+- [x] حذف route /book من App.tsx
+- [x] إصلاح خطأ Invalid URL في ServiceRequest.tsx
+- [x] اختبار /request محلياً
+- [ ] رفع الإصلاح على GitHub
