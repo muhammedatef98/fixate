@@ -446,3 +446,13 @@
 - [x] اختبار الصفحة محلياً
 - [ ] رفع على GitHub تلقائياً
 - [ ] التحقق من Render
+
+## إزالة OAuth وتطبيق نظام مصادقة محلي (حل نهائي)
+
+- [x] إضافة isOAuthAvailable() helper function
+- [x] تحديث getLoginUrl() لإرجاع '#' بدلاً من رمي خطأ
+- [x] تحديث main.tsx للتحقق من OAuth قبل redirect
+- [x] تحديث ServiceRequest.tsx لعرض toast بدلاً من redirect
+- [x] اختبار الصفحة محلياً (تعمل بدون أخطاء)
+- [ ] رفع على GitHub
+- [ ] التحقق من Render

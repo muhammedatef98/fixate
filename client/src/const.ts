@@ -4,15 +4,20 @@ export const APP_TITLE = import.meta.env.VITE_APP_TITLE || "App";
 
 export const APP_LOGO = "/logo-icon-only.png";
 
+// Check if OAuth is available
+export const isOAuthAvailable = () => {
+  return !!(import.meta.env.VITE_OAUTH_PORTAL_URL && import.meta.env.VITE_APP_ID);
+};
+
 // Generate login URL at runtime so redirect URI reflects the current origin.
 export const getLoginUrl = () => {
   const oauthPortalUrl = import.meta.env.VITE_OAUTH_PORTAL_URL;
   const appId = import.meta.env.VITE_APP_ID;
   
-  // Return empty string if required env vars are missing
+  // Return # if OAuth is not configured (e.g., on Render)
   if (!oauthPortalUrl || !appId) {
-    console.warn('[getLoginUrl] Missing VITE_OAUTH_PORTAL_URL or VITE_APP_ID');
-    return '';
+    console.warn('[getLoginUrl] OAuth not configured - running in guest mode');
+    return '#';
   }
   
   const redirectUri = `${window.location.origin}/api/oauth/callback`;

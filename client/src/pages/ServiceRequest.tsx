@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
+import { getLoginUrl, isOAuthAvailable } from "@/const";
 import { Loader2, CheckCircle2, MapPin, Navigation, Smartphone, Laptop, Tablet, ChevronLeft, ArrowLeft } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { APP_LOGO } from "@/const";
@@ -164,7 +164,11 @@ export default function ServiceRequest() {
     e.preventDefault();
 
     if (!isAuthenticated) {
-      window.location.href = getLoginUrl();
+      if (isOAuthAvailable()) {
+        window.location.href = getLoginUrl();
+      } else {
+        toast.error(language === 'ar' ? "يرجى تسجيل الدخول أولاً" : "Please login first");
+      }
       return;
     }
 
