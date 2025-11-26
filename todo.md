@@ -401,4 +401,26 @@
 - [x] البحث بعمق عن سبب Invalid URL error
 - [x] إصلاح جميع المشاكل
 - [x] اختبار شامل محلياً
-- [ ] رفع على GitHub والتحقق من Render
+- [x] رفع على GitHub والتحقق من Render
+
+## نظام تتبع الفني على الخريطة في الوقت الفعلي
+
+- [ ] إضافة جدول technician_locations في schema
+- [ ] إنشاء API endpoint لتحديث موقع الفني
+- [ ] إنشاء صفحة Track Order تعرض الخريطة
+- [ ] إضافة real-time updates باستخدام polling أو websocket
+- [ ] اختبار النظام
+
+## AI Chatbot للدعم الفني
+
+- [x] إنشاء Chat component في الواجهة
+- [x] ربط Chatbot بـ LLM API
+- [x] إضافة knowledge base للأسئلة الشائعة
+- [x] إضافة زر chatbot عائم في جميع الصفحات
+- [ ] اختبار الـ chatbot
+
+## تحديث GitHub Description
+
+- [x] تحديث README.md ليوضح نموذج العمل
+- [x] تحديث repository description على GitHub
+- [ ] رفع التحديثات على GitHub

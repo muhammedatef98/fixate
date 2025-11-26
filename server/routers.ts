@@ -568,6 +568,73 @@ export const appRouter = router({
         await db.markMessagesAsRead(input.roomId, ctx.user.id);
         return { success: true };
       }),
+
+    // AI Chatbot
+    sendMessage: publicProcedure
+      .input(z.object({
+        message: z.string(),
+        language: z.enum(["ar", "en"]).default("ar"),
+      }))
+      .mutation(async ({ input }) => {
+        const { invokeLLM } = await import("./_core/llm");
+        
+        const systemPrompt = input.language === "ar"
+          ? `أنت مساعد ذكي لشركة Fixate المتخصصة في صيانة الأجهزة الإلكترونية.
+
+معلومات عن Fixate:
+- نحن شركة سعودية متخصصة في صيانة الأجهزة الإلكترونية (جوالات، لابتوبات، تابلت)
+- نمتلك فريقاً من الفنيين المحترفين وأسطولاً من العربات المجهزة بالكامل
+- نقدم خدمة صيانة متنقلة حيث يصل الفني إلى منزل العميل، يستلم الجهاز، ويقوم بإصلاحه في العربة المجهزة
+- نوفر تتبع موقع الفني في الوقت الفعلي على الخريطة
+- أسعارنا تبدأ من 150 ريال للخدمات البسيطة
+- نقدم ضمان 90 يوم على جميع الإصلاحات
+- نعمل في جميع مدن المملكة
+
+مهمتك:
+- الرد على أسئلة العملاء بشكل ودود واحترافي
+- مساعدة العملاء في حجز المواعيد وتتبع الطلبات
+- الإجابة على الأسئلة الشائعة
+- توجيه العملاء للصفحات المناسبة
+
+كن مختصراً ومفيداً في إجاباتك.`
+          : `You are an AI assistant for Fixate, a specialized electronic device repair company.
+
+About Fixate:
+- We are a Saudi company specialized in electronic device repair (phones, laptops, tablets)
+- We own a team of professional technicians and a fleet of fully-equipped mobile repair vans
+- We provide on-site repair service where the technician arrives at the customer's home, collects the device, and repairs it in the equipped van
+- We offer real-time technician location tracking on the map
+- Our prices start from 150 SAR for basic services
+- We provide a 90-day warranty on all repairs
+- We operate in all cities across Saudi Arabia
+
+Your role:
+- Answer customer questions in a friendly and professional manner
+- Help customers book appointments and track orders
+- Answer frequently asked questions
+- Guide customers to the appropriate pages
+
+Be concise and helpful in your responses.`;
+
+        try {
+          const response = await invokeLLM({
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: input.message },
+            ],
+          });
+
+          return {
+            response: response.choices[0]?.message?.content || (input.language === "ar" ? "عذراً، لم أتمكن من فهم سؤالك. يرجى المحاولة مرة أخرى." : "Sorry, I couldn't understand your question. Please try again."),
+          };
+        } catch (error) {
+          console.error("AI Chatbot error:", error);
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: input.language === "ar" ? "حدث خطأ في الخادم" : "Server error occurred",
+          });
+        }
+      }),
   }),
 
   // Loyalty Points

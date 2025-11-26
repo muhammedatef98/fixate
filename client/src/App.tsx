@@ -20,6 +20,7 @@ import Payment from "./pages/Payment";
 import AboutUs from "./pages/AboutUs";
 import FAQ from "./pages/FAQ";
 import TrackOrder from "./pages/TrackOrder";
+import AIChatbot from "./components/AIChatbot";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -63,6 +64,7 @@ function App() {
           <TooltipProvider>
             <Toaster />
             <Router />
+            <AIChatbot />
           </TooltipProvider>
         </ThemeProvider>
       </LanguageProvider>

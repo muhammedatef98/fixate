@@ -24,22 +24,26 @@
 
 ### 📱 نظرة عامة
 
-**Fixate** هي منصة إلكترونية متكاملة تربط بين أصحاب الأجهزة الإلكترونية ومراكز الصيانة المعتمدة. توفر المنصة تجربة سلسة لحجز خدمات الصيانة، تتبع الطلبات، والتواصل المباشر مع الفنيين.
+**Fixate** هي شركة متخصصة في صيانة الأجهزة الإلكترونية تمتلك فريقاً من الفنيين المحترفين وأسطولاً من العربات المجهزة بالكامل. نقدم خدمة صيانة متنقلة حيث يصل الفني إلى منزل العميل، يستلم الجهاز، ويقوم بإصلاحه في العربة المجهزة بجميع الأدوات والقطع، ثم يعيد الجهاز بعد التأكد من عمله بشكل صحيح.
 
 ### ✨ المميزات الرئيسية
 
 **للعملاء:**
 - حجز مواعيد الصيانة بسهولة وسرعة
-- تتبع حالة الطلب في الوقت الفعلي
+- تتبع موقع الفني في الوقت الفعلي على الخريطة
+- خدمة صيانة متنقلة في منزلك
+- فنيون محترفون تابعون للشركة
+- عربات مجهزة بالكامل بجميع الأدوات والقطع
 - نظام تقييم ومراجعات شفاف
 - برنامج نقاط الولاء والمكافآت
-- دردشة مباشرة مع مراكز الصيانة
+- chatbot ذكي للرد على الأسئلة
 - إشعارات فورية بتحديثات الطلب
 
-**لمراكز الصيانة:**
+**للإدارة:**
 - لوحة تحكم شاملة لإدارة الطلبات
 - نظام جدولة ذكي للمواعيد
 - إدارة الفنيين والمخزون
+- تتبع موقع الفنيين في الوقت الفعلي
 - تقارير وإحصائيات تفصيلية
 - نظام دفع آمن ومتكامل
 
@@ -124,22 +128,26 @@ Fixate تمثل فرصة استثمارية واعدة في سوق صيانة ا
 
 ### 📱 Overview
 
-**Fixate** is an integrated electronic platform connecting device owners with certified maintenance centers. The platform provides a seamless experience for booking maintenance services, tracking orders, and direct communication with technicians.
+**Fixate** is a specialized electronic device maintenance company with a team of professional technicians and a fleet of fully-equipped mobile repair vans. We provide on-site repair service where the technician arrives at the customer's home, collects the device, repairs it in the fully-equipped van, and returns it after ensuring it works properly.
 
 ### ✨ Key Features
 
 **For Customers:**
 - Easy and fast maintenance appointment booking
-- Real-time order status tracking
+- Real-time technician location tracking on map
+- Mobile repair service at your doorstep
+- Professional company-owned technicians
+- Fully-equipped mobile repair vans
 - Transparent rating and review system
 - Loyalty points and rewards program
-- Direct chat with maintenance centers
+- AI-powered chatbot for instant support
 - Instant order update notifications
 
-**For Maintenance Centers:**
+**For Management:**
 - Comprehensive dashboard for order management
 - Smart scheduling system
 - Technician and inventory management
+- Real-time technician location tracking
 - Detailed reports and statistics
 - Secure integrated payment system
 
