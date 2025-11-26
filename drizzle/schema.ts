@@ -1,6 +1,17 @@
 import { pgTable, pgEnum, serial, integer, text, timestamp, varchar, boolean, decimal } from "drizzle-orm/pg-core";
 
-
+// Define enums
+export const roleEnum = pgEnum("role", ["user", "admin"]);
+export const categoryEnum = pgEnum("category", ["phone", "laptop", "tablet", "other"]);
+export const statusEnum = pgEnum("status", ["pending", "confirmed", "in_progress", "completed", "cancelled"]);
+export const paymentMethodEnum = pgEnum("payment_method", ["cash_on_delivery", "bank_transfer", "online"]);
+export const paymentStatusEnum = pgEnum("payment_status", ["pending", "paid", "failed", "refunded"]);
+export const serviceModeEnum = pgEnum("service_mode", ["express", "pickup"]);
+export const discountTypeEnum = pgEnum("discount_type", ["percentage", "fixed"]);
+export const membershipTierEnum = pgEnum("membership_tier", ["bronze", "silver", "gold", "platinum"]);
+export const messageTypeEnum = pgEnum("message_type", ["text", "image", "file"]);
+export const minTierEnum = pgEnum("min_tier", ["bronze", "silver", "gold", "platinum"]);
+export const transactionTypeEnum = pgEnum("transaction_type", ["earned", "redeemed", "expired"]);
 
 /**
  * Core user table backing auth flow.
@@ -12,7 +23,7 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 320 }),
   phone: varchar("phone", { length: 20 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: roleEnum("role").default("user").notNull(),
+  role: varchar("role", { length: 20 }).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),

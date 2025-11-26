@@ -374,3 +374,10 @@
 - [ ] تحديث repository description
 - [ ] إضافة topics/tags
 - [ ] رفع التحديثات على GitHub
+
+## إصلاح خطأ roleEnum في Schema
+
+- [x] إصلاح تعريف roleEnum في drizzle/schema.ts
+- [x] اختبار البناء محلياً
+- [ ] رفع الإصلاح على GitHub
+- [ ] التحقق من نجاح النشر على Render
