@@ -429,7 +429,7 @@
 
 - [x] تعديل Map.tsx ليعمل بدون VITE environment variables
 - [ ] اختبار /request محلياً
-- [ ] رفع على GitHub تلقائياً
+- [x] رفع على GitHub تلقائياً
 - [ ] التحقق من Render
 
 ## إصلاح خطأ Duplicate sendMessage في routers.ts
@@ -437,4 +437,12 @@
 - [x] فحص server/routers.ts للبحث عن sendMessage المكرر
 - [x] حذف أو إعادة تسمية أحد الـ sendMessage
 - [x] اختبار البناء محلياً
+- [x] رفع على GitHub تلقائياً
+
+## إعادة بناء صفحة /request من الصفر بدون Map
+
+- [x] قراءة ServiceRequest.tsx الحالية لفهم الوظائف
+- [x] إنشاء ServiceRequest.tsx جديدة بدون Map component
+- [x] اختبار الصفحة محلياً
 - [ ] رفع على GitHub تلقائياً
+- [ ] التحقق من Render

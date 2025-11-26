@@ -8,11 +8,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
-import { Loader2, CheckCircle2, MapPin, Navigation, Map as MapIcon, Smartphone, Laptop, Tablet, ChevronLeft, ArrowLeft } from "lucide-react";
+import { Loader2, CheckCircle2, MapPin, Navigation, Smartphone, Laptop, Tablet, ChevronLeft, ArrowLeft } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { APP_LOGO } from "@/const";
 import { toast } from "sonner";
-import { MapView } from "@/components/Map";
+
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Brand data with logos
@@ -47,11 +47,7 @@ export default function ServiceRequest() {
   const [paymentMethod, setPaymentMethod] = useState<"cash_on_delivery" | "bank_transfer">("cash_on_delivery");
   
   // Location
-  const [showMap, setShowMap] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<{lat: number, lng: number} | null>(null);
-  const [locationLoading, setLocationLoading] = useState(false);
-  const mapRef = useRef<google.maps.Map | null>(null);
-  const markerRef = useRef<any>(null);
+
 
   // Fetch all device types and models
   const { data: deviceTypes } = trpc.devices.getTypes.useQuery();
@@ -141,20 +137,21 @@ export default function ServiceRequest() {
     },
   });
 
+  const [locationLoading, setLocationLoading] = useState(false);
+
   const getCurrentLocation = () => {
     setLocationLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setSelectedLocation({ lat: latitude, lng: longitude });
-          setAddress(`${latitude}, ${longitude}`);
+          setAddress(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
           setLocationLoading(false);
           toast.success(language === 'ar' ? "تم تحديد موقعك الحالي" : "Current location detected");
         },
         (error) => {
           setLocationLoading(false);
-          toast.error(language === 'ar' ? "فشل في الحصول على الموقع. الرجاء التأكد من تفعيل خدمات الموقع" : "Failed to get location. Please enable location services");
+          toast.error(language === 'ar' ? "فشل في الحصول على الموقع" : "Failed to get location");
         }
       );
     } else {
@@ -558,15 +555,7 @@ export default function ServiceRequest() {
                             )}
                             {language === 'ar' ? 'موقعي الحالي' : 'Current Location'}
                           </Button>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => setShowMap(!showMap)}
-                            className="flex-1"
-                          >
-                            <MapIcon className="h-4 w-4 ml-2" />
-                            {language === 'ar' ? 'اختر من الخريطة' : 'Choose from Map'}
-                          </Button>
+
                         </div>
                         <Textarea
                           id="address"
@@ -579,35 +568,7 @@ export default function ServiceRequest() {
                       </div>
                     </div>
 
-                    {/* Map */}
-                    {showMap && (
-                      <div className="h-[400px] rounded-xl overflow-hidden border-2 border-border">
-                        <MapView
-                          initialCenter={selectedLocation || { lat: 24.7136, lng: 46.6753 }}
-                          initialZoom={13}
-                          onMapReady={(map: any) => {
-                            mapRef.current = map;
 
-                            map.addListener('click', (e: any) => {
-                              const lat = e.latLng.lat();
-                              const lng = e.latLng.lng();
-                              setSelectedLocation({ lat, lng });
-                              setAddress(`${lat.toFixed(6)}, ${lng.toFixed(6)}`);
-
-                              if (markerRef.current) {
-                                markerRef.current.map = null;
-                              }
-
-                              markerRef.current = new google.maps.marker.AdvancedMarkerElement({
-                                map,
-                                position: { lat, lng },
-                                title: language === 'ar' ? 'الموقع المحدد' : 'Selected Location',
-                              });
-                            });
-                          }}
-                        />
-                      </div>
-                    )}
 
                     {/* Phone */}
                     <div className="space-y-3">
