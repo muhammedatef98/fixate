@@ -373,7 +373,7 @@
 - [ ] إضافة LICENSE file
 - [ ] تحديث repository description
 - [ ] إضافة topics/tags
-- [ ] رفع التحديثات على GitHub
+- [x] رفع التحديثات على GitHub
 
 ## إزالة route /book واستخدام /request فقط
 
@@ -423,4 +423,11 @@
 
 - [x] تحديث README.md ليوضح نموذج العمل
 - [x] تحديث repository description على GitHub
-- [ ] رفع التحديثات على GitHub
+- [x] رفع التحديثات على GitHub
+
+## إصلاح Map component للعمل بدون VITE_FRONTEND_FORGE_API_URL
+
+- [x] تعديل Map.tsx ليعمل بدون VITE environment variables
+- [ ] اختبار /request محلياً
+- [ ] رفع على GitHub تلقائياً
+- [ ] التحقق من Render
