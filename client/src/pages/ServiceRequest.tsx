@@ -15,14 +15,14 @@ import { toast } from "sonner";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Brand data with logos
+// Brand data with logos (cache busting to force reload)
 const brands = [
-  { id: 'apple', nameAr: 'آبل', nameEn: 'Apple', logo: '/brands/apple.png' },
-  { id: 'samsung', nameAr: 'سامسونج', nameEn: 'Samsung', logo: '/brands/samsung.png' },
-  { id: 'huawei', nameAr: 'هواوي', nameEn: 'Huawei', logo: '/brands/huawei.png' },
-  { id: 'dell', nameAr: 'ديل', nameEn: 'Dell', logo: '/brands/dell.png' },
-  { id: 'hp', nameAr: 'إتش بي', nameEn: 'HP', logo: '/brands/hp.png' },
-  { id: 'lenovo', nameAr: 'لينوفو', nameEn: 'Lenovo', logo: '/brands/lenovo.png' },
+  { id: 'apple', nameAr: 'آبل', nameEn: 'Apple', logo: '/brands/apple.png?v=2' },
+  { id: 'samsung', nameAr: 'سامسونج', nameEn: 'Samsung', logo: '/brands/samsung.png?v=2' },
+  { id: 'huawei', nameAr: 'هواوي', nameEn: 'Huawei', logo: '/brands/huawei.png?v=2' },
+  { id: 'dell', nameAr: 'ديل', nameEn: 'Dell', logo: '/brands/dell.png?v=2' },
+  { id: 'hp', nameAr: 'إتش بي', nameEn: 'HP', logo: '/brands/hp.png?v=2' },
+  { id: 'lenovo', nameAr: 'لينوفو', nameEn: 'Lenovo', logo: '/brands/lenovo.png?v=2' },
 ];
 
 export default function ServiceRequest() {
