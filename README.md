@@ -12,6 +12,8 @@
 [![React](https://img.shields.io/badge/React-19-61dafb)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22-green)](https://nodejs.org/)
 
+> **Latest Update (Nov 26, 2024):** Fixed OAuth compatibility - app now works on any hosting platform including Render
+
 [العربية](#arabic) | [English](#english)
 
 </div>
