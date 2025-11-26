@@ -570,7 +570,7 @@ export const appRouter = router({
       }),
 
     // AI Chatbot
-    sendMessage: publicProcedure
+    sendChatbotMessage: publicProcedure
       .input(z.object({
         message: z.string(),
         language: z.enum(["ar", "en"]).default("ar"),

@@ -32,7 +32,7 @@ export default function AIChatbot() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const chatMutation = trpc.chat.sendMessage.useMutation({
+  const chatMutation = trpc.chat.sendChatbotMessage.useMutation({
     onSuccess: (data) => {
       setMessages((prev) => [
         ...prev,

@@ -431,3 +431,10 @@
 - [ ] اختبار /request محلياً
 - [ ] رفع على GitHub تلقائياً
 - [ ] التحقق من Render
+
+## إصلاح خطأ Duplicate sendMessage في routers.ts
+
+- [x] فحص server/routers.ts للبحث عن sendMessage المكرر
+- [x] حذف أو إعادة تسمية أحد الـ sendMessage
+- [x] اختبار البناء محلياً
+- [ ] رفع على GitHub تلقائياً
