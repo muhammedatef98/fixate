@@ -1,7 +1,9 @@
-import { drizzle } from 'drizzle-orm/mysql2';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
 import { deviceTypes, deviceModels, serviceTypes, servicePricing } from '../drizzle/schema.js';
 
-const db = drizzle(process.env.DATABASE_URL);
+const queryClient = postgres(process.env.DATABASE_URL);
+const db = drizzle(queryClient);
 
 async function seed() {
   console.log('🌱 Starting database seeding...');
@@ -23,7 +25,7 @@ async function seed() {
     { nameEn: 'MacBook', nameAr: 'ماك بوك', brand: 'Apple', category: 'laptop', imageUrl: '/devices/macbook.png' },
     // Windows Laptops
     { nameEn: 'Windows Laptop', nameAr: 'لابتوب ويندوز', brand: 'Various', category: 'laptop', imageUrl: '/devices/laptop.png' },
-  ]).$returningId();
+  ]).returning({ id: deviceTypes.id });
 
   // Device Models - iPhone
   console.log('📲 Adding device models...');
