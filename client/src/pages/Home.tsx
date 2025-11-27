@@ -91,7 +91,8 @@ export default function Home() {
       </section>
 
       {/* Features - Apple Style */}
-      <section className="py-20 md:py-28">
+      <section className="py-20 md:py-28 bg-muted/20 relative">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
         <div className="container">
           <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
             <div className="flex flex-col items-center text-center">
@@ -133,8 +134,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Devices We Support - Minimalist Apple Style */}
-      <section id="services" className="py-24 md:py-32">
+      {/* Devices We Support - Modern Premium Style */}
+      <section id="services" className="py-24 md:py-32 bg-gradient-to-b from-background via-muted/30 to-background relative">
+        {/* Top separator */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
         <div className="container">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-6xl font-semibold text-foreground mb-6 tracking-tight">
@@ -145,75 +148,133 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-16 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {/* Phones */}
-            <div className="group">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-8 transition-transform duration-300 group-hover:scale-110">
-                  <Smartphone className="h-32 w-32 text-primary" strokeWidth={1} />
+            <Card className="group relative overflow-hidden border-2 hover:border-blue-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 bg-gradient-to-br from-blue-50/50 via-background to-purple-50/50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20">
+              <CardContent className="p-8 flex flex-col items-center text-center">
+                {/* Gradient background effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-transparent to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-500"></div>
+                
+                {/* Icon container with gradient */}
+                <div className="relative mb-8 p-6 rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg group-hover:shadow-2xl group-hover:shadow-blue-500/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <Smartphone className="h-20 w-20 text-white" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-3xl font-semibold mb-4 text-foreground">{t("devices.phones")}</h3>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                
+                <h3 className="text-3xl font-bold mb-3 text-foreground bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{t("devices.phones")}</h3>
+                <p className="text-base text-muted-foreground mb-6 leading-relaxed font-medium">
                   iPhone, Samsung, Huawei
                   <br />
                   وجميع الأنواع الأخرى
                 </p>
-                <div className="w-full space-y-3">
-                  <div className="text-base text-muted-foreground">{t("devices.screenReplacement")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.batteryReplacement")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.chargingPort")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.camera")}</div>
+                
+                {/* Services list with icons */}
+                <div className="w-full space-y-3 relative z-10">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-blue-500" />
+                    <span>{t("devices.screenReplacement")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-blue-500" />
+                    <span>{t("devices.batteryReplacement")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-blue-500" />
+                    <span>{t("devices.chargingPort")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-blue-500" />
+                    <span>{t("devices.camera")}</span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Laptops */}
-            <div className="group">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-8 transition-transform duration-300 group-hover:scale-110">
-                  <Laptop className="h-32 w-32 text-primary" strokeWidth={1} />
+            <Card className="group relative overflow-hidden border-2 hover:border-emerald-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-2 bg-gradient-to-br from-emerald-50/50 via-background to-cyan-50/50 dark:from-emerald-950/20 dark:via-background dark:to-cyan-950/20">
+              <CardContent className="p-8 flex flex-col items-center text-center">
+                {/* Gradient background effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/0 via-transparent to-cyan-500/0 group-hover:from-emerald-500/10 group-hover:to-cyan-500/10 transition-all duration-500"></div>
+                
+                {/* Icon container with gradient */}
+                <div className="relative mb-8 p-6 rounded-3xl bg-gradient-to-br from-emerald-500 to-cyan-600 shadow-lg group-hover:shadow-2xl group-hover:shadow-emerald-500/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <Laptop className="h-20 w-20 text-white" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-3xl font-semibold mb-4 text-foreground">{t("devices.laptops")}</h3>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                
+                <h3 className="text-3xl font-bold mb-3 text-foreground bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">{t("devices.laptops")}</h3>
+                <p className="text-base text-muted-foreground mb-6 leading-relaxed font-medium">
                   MacBook, Dell, HP, Lenovo
                   <br />
                   وجميع الأنواع
                 </p>
-                <div className="w-full space-y-3">
-                  <div className="text-base text-muted-foreground">{t("devices.screenReplacement")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.batteryReplacement")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.software")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.cleaning")}</div>
+                
+                {/* Services list with icons */}
+                <div className="w-full space-y-3 relative z-10">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                    <span>{t("devices.screenReplacement")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                    <span>{t("devices.batteryReplacement")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                    <span>{t("devices.software")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                    <span>{t("devices.cleaning")}</span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Tablets */}
-            <div className="group">
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-8 transition-transform duration-300 group-hover:scale-110">
-                  <Tablet className="h-32 w-32 text-primary" strokeWidth={1} />
+            <Card className="group relative overflow-hidden border-2 hover:border-orange-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/20 hover:-translate-y-2 bg-gradient-to-br from-orange-50/50 via-background to-pink-50/50 dark:from-orange-950/20 dark:via-background dark:to-pink-950/20">
+              <CardContent className="p-8 flex flex-col items-center text-center">
+                {/* Gradient background effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-transparent to-pink-500/0 group-hover:from-orange-500/10 group-hover:to-pink-500/10 transition-all duration-500"></div>
+                
+                {/* Icon container with gradient */}
+                <div className="relative mb-8 p-6 rounded-3xl bg-gradient-to-br from-orange-500 to-pink-600 shadow-lg group-hover:shadow-2xl group-hover:shadow-orange-500/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <Tablet className="h-20 w-20 text-white" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-3xl font-semibold mb-4 text-foreground">{t("devices.tablets")}</h3>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                
+                <h3 className="text-3xl font-bold mb-3 text-foreground bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">{t("devices.tablets")}</h3>
+                <p className="text-base text-muted-foreground mb-6 leading-relaxed font-medium">
                   iPad, Samsung Tab
                   <br />
                   وجميع الأنواع الأخرى
                 </p>
-                <div className="w-full space-y-3">
-                  <div className="text-base text-muted-foreground">{t("devices.screenReplacement")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.batteryReplacement")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.chargingPort")}</div>
-                  <div className="text-base text-muted-foreground">{t("devices.software")}</div>
+                
+                {/* Services list with icons */}
+                <div className="w-full space-y-3 relative z-10">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                    <span>{t("devices.screenReplacement")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                    <span>{t("devices.batteryReplacement")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                    <span>{t("devices.chargingPort")}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <CheckCircle2 className="h-4 w-4 text-orange-500" />
+                    <span>{t("devices.software")}</span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* How It Works - Apple Style */}
-      <section id="how-it-works" className="py-20 md:py-28">
+      <section id="how-it-works" className="py-20 md:py-28 relative">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
