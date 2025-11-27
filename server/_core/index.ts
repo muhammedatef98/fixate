@@ -8,7 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { seedDatabase } from "../seed";
-import { getDb } from "../db";
+import { getAllServiceTypes } from "../db";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -32,20 +32,24 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   // Initialize database and seed if needed
   try {
-    const db = await getDb();
-    if (db) {
-      // Check if database is empty (no service types)
-      const serviceTypes = await db.query.serviceTypes.findMany({ limit: 1 });
-      if (serviceTypes.length === 0) {
-        console.log('🌱 Database is empty, seeding...');
-        await seedDatabase();
-        console.log('✅ Database seeded successfully');
-      } else {
-        console.log('✅ Database already seeded');
-      }
+    const serviceTypes = await getAllServiceTypes();
+    if (serviceTypes.length === 0) {
+      console.log('🌱 Database is empty, seeding...');
+      await seedDatabase();
+      console.log('✅ Database seeded successfully');
+    } else {
+      console.log('✅ Database already seeded');
     }
   } catch (error) {
     console.error('⚠️ Database initialization error:', error);
+    // If error, try to seed anyway
+    try {
+      console.log('🌱 Attempting to seed database...');
+      await seedDatabase();
+      console.log('✅ Database seeded successfully');
+    } catch (seedError) {
+      console.error('❌ Failed to seed database:', seedError);
+    }
   }
 
   const app = express();
