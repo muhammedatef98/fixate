@@ -1,5 +1,6 @@
 import { eq, and, ne, desc, sql } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import { InsertUser, users, technicians, serviceRequests, Technician, InsertTechnician } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -9,7 +10,8 @@ let _db: ReturnType<typeof drizzle> | null = null;
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _db = drizzle(process.env.DATABASE_URL);
+      const client = postgres(process.env.DATABASE_URL);
+      _db = drizzle(client);
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
@@ -68,7 +70,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
+    await db.insert(users).values(values).onConflictDoUpdate({
+      target: users.openId,
       set: updateSet,
     });
   } catch (error) {
@@ -110,7 +113,7 @@ export async function getAllActiveTechnicians() {
   const db = await getDb();
   if (!db) return [];
 
-  const result = await db.select().from(technicians).where(eq(technicians.isActive, 1));
+  const result = await db.select().from(technicians).where(eq(technicians.isActive, true));
   return result;
 }
 
@@ -576,7 +579,7 @@ export async function getUserPushSubscriptions(userId: number) {
     .from(pushSubscriptions)
     .where(and(
       eq(pushSubscriptions.userId, userId),
-      eq(pushSubscriptions.isActive, 1)
+      eq(pushSubscriptions.isActive, true)
     ));
 }
 
@@ -775,7 +778,7 @@ export async function getAllRewards() {
   const db = await getDb();
   if (!db) return [];
   
-  return db.select().from(rewards).where(eq(rewards.isActive, 1));
+  return db.select().from(rewards).where(eq(rewards.isActive, true));
 }
 
 // ============================================
