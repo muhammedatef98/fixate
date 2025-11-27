@@ -46,6 +46,9 @@ export default function Home() {
               <a href="#pricing" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.pricing")}
               </a>
+              <Link href="/price-calculator" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                احسب السعر
+              </Link>
               <Link href="/about" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.about")}
               </Link>
@@ -81,7 +84,7 @@ export default function Home() {
                   {t("hero.bookService")}
                 </Button>
               </Link>
-              <Link href="/calculator">
+              <Link href="/price-calculator">
                 <Button size="lg" variant="ghost" className="text-base px-8 h-12 rounded-full font-medium text-primary hover:bg-primary/5">
                   {t("hero.calculatePrice")}
                 </Button>

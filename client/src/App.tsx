@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Home from "./pages/Home";
 import Calculator from "./pages/Calculator";
+import PriceCalculator from "./pages/PriceCalculator";
 import ServiceRequest from "./pages/ServiceRequest";
 import MyRequests from "./pages/MyRequests";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -28,6 +29,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path="/calculator" component={Calculator} />
+      <Route path="/price-calculator" component={PriceCalculator} />
       <Route path="/request" component={ServiceRequest} />
       <Route path="/my-requests" component={MyRequests} />
       <Route path="/admin" component={AdminDashboard} />
