@@ -15,6 +15,7 @@ import {
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -324,6 +325,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <Testimonials />
 
       {/* CTA Section - Apple Style */}
       <section className="py-24 md:py-32 bg-primary">
