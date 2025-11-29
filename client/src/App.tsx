@@ -25,6 +25,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import AIChatbot from "./components/AIChatbot";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -73,6 +74,7 @@ function App() {
             <Toaster />
             <Router />
             <AIChatbot />
+            <PWAInstallPrompt />
           </TooltipProvider>
         </ThemeProvider>
       </LanguageProvider>

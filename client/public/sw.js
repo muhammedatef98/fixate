@@ -1,9 +1,14 @@
-const CACHE_NAME = 'fixate-v1';
+const CACHE_NAME = 'fixate-pwa-v1';
 const urlsToCache = [
   '/',
-  '/logo.png',
-  '/logo-192.png',
-  '/logo-512.png',
+  '/index.html',
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-384.png',
+  '/icon-512.png',
+  '/apple-touch-icon.png',
+  '/favicon-32x32.png',
+  '/favicon-16x16.png'
 ];
 
 // Install event - cache resources
@@ -75,8 +80,8 @@ self.addEventListener('push', (event) => {
   const title = data.title || 'Fixate';
   const options = {
     body: data.body || data.message,
-    icon: '/logo-192.png',
-    badge: '/logo-192.png',
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
     data: data.data || {},
     tag: data.tag || 'fixate-notification',
     requireInteraction: data.requireInteraction || false,

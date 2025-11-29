@@ -1,52 +1,57 @@
 {
-  "name": "Fixate - منصة صيانة الأجهزة الإلكترونية",
+  "name": "Fixate - إصلاح الأجهزة",
   "short_name": "Fixate",
-  "description": "منصة متكاملة لخدمات صيانة الأجهزة الإلكترونية في السعودية والدول العربية",
+  "description": "خدمة صيانة متكاملة لجميع أجهزتك الإلكترونية. فنيون محترفون يصلون إليك أينما كنت.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "theme_color": "#10b981",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["utilities", "lifestyle", "business"],
   "icons": [
     {
-      "src": "/logo-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/logo-512.png",
+      "src": "/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "utilities"],
-  "lang": "ar",
-  "dir": "rtl",
-  "screenshots": [
-    {
-      "src": "/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshot-desktop.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
   "shortcuts": [
     {
-      "name": "طلب خدمة",
-      "short_name": "طلب",
-      "description": "طلب خدمة صيانة جديدة",
-      "url": "/service-request",
+      "name": "احجز خدمة",
+      "short_name": "احجز",
+      "description": "احجز خدمة إصلاح فوراً",
+      "url": "/request",
       "icons": [
         {
-          "src": "/logo-192.png",
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "حاسبة الأسعار",
+      "short_name": "الأسعار",
+      "description": "احسب سعر الإصلاح",
+      "url": "/price-calculator",
+      "icons": [
+        {
+          "src": "/icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -55,25 +60,15 @@
       "name": "طلباتي",
       "short_name": "طلبات",
       "description": "عرض طلباتي",
-      "url": "/my-requests",
+      "url": "/profile",
       "icons": [
         {
-          "src": "/logo-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "حاسبة الأسعار",
-      "short_name": "حاسبة",
-      "description": "حساب سعر الخدمة",
-      "url": "/calculator",
-      "icons": [
-        {
-          "src": "/logo-192.png",
+          "src": "/icon-192.png",
           "sizes": "192x192"
         }
       ]
     }
-  ]
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }
