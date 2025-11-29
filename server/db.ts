@@ -836,3 +836,68 @@ export async function getTechnicianStats() {
   .where(eq(serviceRequests.status, "completed"))
   .groupBy(serviceRequests.technicianId);
 }
+
+
+// ==================== Simple Auth ====================
+
+export async function getUserByEmail(email: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  try {
+    const result = await db.execute(sql`
+      SELECT * FROM users WHERE email = ${email} LIMIT 1
+    `);
+
+    if (!result.rows || result.rows.length === 0) {
+      return null;
+    }
+
+    return result.rows[0] as any;
+  } catch (error) {
+    console.error('[Database] Error getting user by email:', error);
+    return null;
+  }
+}
+
+export async function getUserById(userId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  try {
+    const result = await db.execute(sql`
+      SELECT * FROM users WHERE id = ${userId} LIMIT 1
+    `);
+
+    if (!result.rows || result.rows.length === 0) {
+      return null;
+    }
+
+    return result.rows[0] as any;
+  } catch (error) {
+    console.error('[Database] Error getting user by id:', error);
+    return null;
+  }
+}
+
+export async function createUser(userData: { name: string; email: string; phone: string; password: string }) {
+  const db = await getDb();
+  if (!db) throw new Error('Database not available');
+
+  try {
+    const result = await db.execute(sql`
+      INSERT INTO users (name, email, phone, password, role, created_at)
+      VALUES (${userData.name}, ${userData.email}, ${userData.phone}, ${userData.password}, 'user', CURRENT_TIMESTAMP)
+      RETURNING id
+    `);
+
+    if (!result.rows || result.rows.length === 0) {
+      throw new Error('Failed to create user');
+    }
+
+    return (result.rows[0] as any).id;
+  } catch (error) {
+    console.error('[Database] Error creating user:', error);
+    throw error;
+  }
+}

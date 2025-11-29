@@ -21,6 +21,9 @@ import Payment from "./pages/Payment";
 import AboutUs from "./pages/AboutUs";
 import FAQ from "./pages/FAQ";
 import TrackOrder from "./pages/TrackOrder";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Profile from "./pages/Profile";
 import AIChatbot from "./components/AIChatbot";
 
 function Router() {
@@ -43,6 +46,9 @@ function Router() {
       <Route path="/about" component={AboutUs} />
       <Route path="/faq" component={FAQ} />
       <Route path="/track-order/:id" component={TrackOrder} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/profile" component={Profile} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

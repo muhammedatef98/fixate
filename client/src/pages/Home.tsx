@@ -58,6 +58,11 @@ export default function Home() {
               <Link href="/request">
                 <Button>{t("nav.bookNow")}</Button>
               </Link>
+              <Link href="/login">
+                <Button variant="outline">
+                  {t('lang') === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                </Button>
+              </Link>
               <LanguageThemeSwitcher />
             </nav>
           </div>
