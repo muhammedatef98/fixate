@@ -8,7 +8,7 @@ import { Link, useLocation } from "wouter";
 import { Loader2, Mail, Lock, User, Phone, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
-import { trpc } from "@/lib/trpc";
+
 
 export default function Signup() {
   const { language } = useLanguage();
@@ -20,7 +20,7 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const signupMutation = trpc.auth.signup.useMutation();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +43,21 @@ export default function Signup() {
     setIsLoading(true);
 
     try {
-      await signupMutation.mutateAsync({ name, email, phone, password });
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, phone, password }),
+        credentials: 'include',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Signup failed');
+      }
+
       toast.success(language === 'ar' ? 'تم إنشاء الحساب بنجاح!' : 'Account created successfully!');
       setLocation('/profile');
     } catch (error: any) {
