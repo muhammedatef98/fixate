@@ -84,7 +84,6 @@ export default function Login() {
       <Link href="/" className="absolute top-8 left-8">
         <div className="flex items-center gap-3">
           <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
-          <span className="text-2xl font-semibold text-foreground">Fixate</span>
         </div>
       </Link>
 

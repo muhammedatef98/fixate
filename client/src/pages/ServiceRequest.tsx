@@ -219,7 +219,6 @@ export default function ServiceRequest() {
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
                 <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
-                <span className="text-2xl font-bold text-foreground">Fixate</span>
               </div>
             </Link>
             {isAuthenticated && (

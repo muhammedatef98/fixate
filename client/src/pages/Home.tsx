@@ -34,7 +34,6 @@ export default function Home() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
               <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
-              <span className="text-2xl font-semibold text-foreground">Fixate</span>
             </div>
             <nav className="hidden md:flex items-center gap-6">
               <a href="#services" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
@@ -365,7 +364,6 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img src={APP_LOGO} alt="Fixate" className="h-8 w-auto" />
-                <span className="text-xl font-semibold">Fixate</span>
               </div>
               <p className="text-background/60 text-sm leading-relaxed">
                 {t("footer.description")}

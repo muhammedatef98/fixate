@@ -106,7 +106,6 @@ export default function TechnicianDashboard() {
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
                 <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
-                <span className="text-2xl font-bold text-primary">Fixate</span>
               </div>
             </Link>
             <div className="flex items-center gap-4">
