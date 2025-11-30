@@ -23,7 +23,7 @@ export default function PWAInstallPrompt() {
       if (!hasSeenPrompt) {
         setTimeout(() => {
           setShowPrompt(true);
-        }, 30000);
+        }, 5000);
       }
     };
 
