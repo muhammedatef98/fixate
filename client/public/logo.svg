@@ -1,28 +1,33 @@
-<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Wrench 1 (Left) -->
-  <path d="M15 35 L25 25 L30 30 L35 25 L30 20 L25 25 L15 15 C13 13 10 13 8 15 C6 17 6 20 8 22 Z" fill="url(#gradient1)"/>
-  
-  <!-- Phone 1 (Top) -->
-  <rect x="22" y="8" width="16" height="24" rx="2" stroke="url(#gradient1)" stroke-width="2" fill="none"/>
-  <line x1="26" y1="11" x2="34" y2="11" stroke="url(#gradient1)" stroke-width="1.5"/>
-  <circle cx="30" cy="28" r="1.5" fill="url(#gradient1)"/>
-  
-  <!-- Wrench 2 (Right) -->
-  <path d="M45 15 L35 25 L40 30 L35 35 L40 40 L45 35 L55 45 C57 47 60 47 62 45 C64 43 64 40 62 38 Z" fill="url(#gradient1)"/>
-  
-  <!-- Phone 2 (Bottom) -->
-  <rect x="32" y="28" width="16" height="24" rx="2" stroke="url(#gradient1)" stroke-width="2" fill="none"/>
-  <line x1="36" y1="31" x2="44" y2="31" stroke="url(#gradient1)" stroke-width="1.5"/>
-  <circle cx="40" cy="48" r="1.5" fill="url(#gradient1)"/>
-  
-  <!-- Text: Fixate -->
-  <text x="75" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#10b981">Fixate</text>
-  
-  <!-- Gradient Definition -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
   <defs>
-    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
     </linearGradient>
   </defs>
+  
+  <!-- Wrench 1 (Top-left to bottom-right) -->
+  <path d="M60 40 L80 60 L70 70 L50 50 C45 45, 40 50, 40 55 L40 75 C40 80, 35 85, 30 85 C25 85, 20 80, 20 75 L20 55 C20 40, 30 30, 45 30 C50 30, 55 35, 60 40 Z" 
+        fill="url(#logoGradient)" stroke="none"/>
+  <ellipse cx="65" cy="55" rx="8" ry="8" fill="url(#logoGradient)"/>
+  
+  <!-- Wrench 2 (Top-right to bottom-left) -->
+  <path d="M140 40 L120 60 L130 70 L150 50 C155 45, 160 50, 160 55 L160 75 C160 80, 165 85, 170 85 C175 85, 180 80, 180 75 L180 55 C180 40, 170 30, 155 30 C150 30, 145 35, 140 40 Z" 
+        fill="url(#logoGradient)" stroke="none"/>
+  <ellipse cx="135" cy="55" rx="8" ry="8" fill="url(#logoGradient)"/>
+  
+  <!-- Phone 1 (Bottom-left) -->
+  <rect x="55" y="110" width="40" height="70" rx="8" ry="8" 
+        fill="white" stroke="url(#logoGradient)" stroke-width="6"/>
+  <circle cx="75" cy="170" r="4" fill="url(#logoGradient)"/>
+  <rect x="65" y="120" width="20" height="3" rx="1.5" fill="url(#logoGradient)"/>
+  
+  <!-- Phone 2 (Bottom-right) -->
+  <rect x="105" y="110" width="40" height="70" rx="8" ry="8" 
+        fill="white" stroke="url(#logoGradient)" stroke-width="6"/>
+  <circle cx="125" cy="170" r="4" fill="url(#logoGradient)"/>
+  <rect x="115" y="120" width="20" height="3" rx="1.5" fill="url(#logoGradient)"/>
+  
+  <!-- Center connection -->
+  <circle cx="100" cy="100" r="15" fill="url(#logoGradient)" opacity="0.3"/>
 </svg>
