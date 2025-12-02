@@ -84,12 +84,23 @@ export default function Home() {
 
         {/* Mobile Menu Sidebar */}
         {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]" onClick={() => setMobileMenuOpen(false)}>
+          <div className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]" onClick={() => setMobileMenuOpen(false)}>
             <div 
-              className="absolute top-0 right-0 bg-background w-[280px] h-full shadow-2xl p-6 animate-in slide-in-from-right overflow-y-auto"
+              className="absolute top-0 right-0 bg-background w-[85%] max-w-sm h-full shadow-2xl overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <nav className="flex flex-col gap-4">
+              {/* Close Button */}
+              <div className="sticky top-0 bg-background border-b border-border p-4 flex justify-between items-center">
+                <span className="text-lg font-bold text-foreground">القائمة</span>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 hover:bg-muted rounded-full transition-colors"
+                >
+                  <X className="h-6 w-6 text-foreground" />
+                </button>
+              </div>
+              
+              <nav className="flex flex-col gap-2 p-6">
                 <a 
                   href="#services" 
                   className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
