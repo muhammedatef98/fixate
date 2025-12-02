@@ -18,13 +18,10 @@ export default function PWAInstallPrompt() {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       
-      // Show prompt after 30 seconds if user hasn't dismissed it
-      const hasSeenPrompt = localStorage.getItem('pwa-install-prompt-dismissed');
-      if (!hasSeenPrompt) {
-        setTimeout(() => {
-          setShowPrompt(true);
-        }, 5000);
-      }
+      // Show prompt after 5 seconds
+      setTimeout(() => {
+        setShowPrompt(true);
+      }, 5000);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
