@@ -16,6 +16,7 @@ import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import PWAInstallButton from "@/components/PWAInstallButton";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -57,6 +58,7 @@ export default function Home() {
               <Link href="/request">
                 <Button>{t("nav.bookNow")}</Button>
               </Link>
+              <PWAInstallButton />
               <Link href="/login">
                 <Button variant="outline">
                   {t('lang') === 'ar' ? 'تسجيل الدخول' : 'Login'}
@@ -365,9 +367,10 @@ export default function Home() {
               <div className="flex items-center gap-2 mb-4">
                 <img src={APP_LOGO} alt="Fixate" className="h-8 w-auto" />
               </div>
-              <p className="text-background/60 text-sm leading-relaxed">
+              <p className="text-background/60 text-sm leading-relaxed mb-4">
                 {t("footer.description")}
               </p>
+              <PWAInstallButton />
             </div>
 
             <div>
