@@ -181,7 +181,7 @@ export default function TestimonialsCarousel() {
         {/* Carousel Container */}
         <div className="relative max-w-4xl mx-auto">
           {/* Main Carousel */}
-          <div className="relative overflow-hidden rounded-3xl">
+          <div className="relative overflow-hidden rounded-3xl" dir="ltr">
             <div 
               className="flex transition-transform duration-700 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
