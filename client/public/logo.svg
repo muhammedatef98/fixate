@@ -1,35 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 400" width="1100" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 300" width="1200" height="300">
   <defs>
-    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
       <stop offset="50%" style="stop-color:#14b8a6;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#0d9488;stop-opacity:1" />
     </linearGradient>
   </defs>
   
-  <!-- Wrench-Phone Icon -->
-  <g transform="translate(50, 50) rotate(-25)">
-    <!-- Phone body (rounded rectangle outline) -->
-    <rect x="0" y="0" width="120" height="200" rx="25" ry="25" 
-          fill="none" stroke="url(#mainGradient)" stroke-width="18"/>
-    
-    <!-- Speaker line at top -->
-    <line x1="35" y1="30" x2="85" y2="30" 
-          stroke="url(#mainGradient)" stroke-width="10" stroke-linecap="round"/>
-    
-    <!-- Home button (small circle in middle-bottom) -->
-    <circle cx="60" cy="165" r="12" fill="url(#mainGradient)"/>
-    
-    <!-- Wrench handle extending from bottom -->
-    <rect x="48" y="200" width="24" height="90" rx="12" 
-          fill="url(#mainGradient)" stroke="none"/>
-    
-    <!-- Wrench end (large circle) -->
-    <circle cx="60" cy="300" r="22" fill="url(#mainGradient)"/>
-  </g>
+  <!-- Icon (embedded PNG) -->
+  <image x="0" y="0" width="300" height="300" xlink:href="/icon-only.png" />
   
   <!-- Text: Fixate -->
-  <text x="450" y="260" font-family="Arial, sans-serif" font-size="160" font-weight="bold" fill="url(#mainGradient)">
+  <text x="350" y="200" font-family="Arial, sans-serif" font-size="150" font-weight="bold" fill="url(#textGradient)">
     Fixate
   </text>
 </svg>
