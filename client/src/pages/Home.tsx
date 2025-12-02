@@ -85,9 +85,9 @@ export default function Home() {
 
         {/* Mobile Menu Sidebar */}
         {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-16 bg-black/50 backdrop-blur-sm z-40" onClick={() => setMobileMenuOpen(false)}>
+          <div className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]" onClick={() => setMobileMenuOpen(false)}>
             <div 
-              className="bg-background w-[280px] h-full shadow-2xl p-6 animate-in slide-in-from-right"
+              className="absolute top-0 right-0 bg-background w-[280px] h-full shadow-2xl p-6 animate-in slide-in-from-right overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <nav className="flex flex-col gap-4">
