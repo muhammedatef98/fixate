@@ -75,7 +75,7 @@ export default function Home() {
               <PWAInstallButton />
               <Link href="/login">
                 <Button variant="outline">
-                  {t('lang') === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                  {t("nav.login")}
                 </Button>
               </Link>
               <LanguageThemeSwitcher />
@@ -144,7 +144,7 @@ export default function Home() {
                 
                 <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full">
-                    {t('lang') === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                    {t("nav.login")}
                   </Button>
                 </Link>
                 

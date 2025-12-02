@@ -19,6 +19,7 @@ const translations = {
     "nav.about": "من نحن",
     "nav.faq": "الأسئلة الشائعة",
     "nav.bookNow": "احجز الآن",
+    "nav.login": "تسجيل الدخول",
     
     // Hero
     "hero.title": "إصلاح أجهزتك",
@@ -96,6 +97,7 @@ const translations = {
     "nav.about": "About Us",
     "nav.faq": "FAQ",
     "nav.bookNow": "Book Now",
+    "nav.login": "Login",
     
     // Hero
     "hero.title": "Fix Your Devices",
