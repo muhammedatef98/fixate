@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_LOGO } from "@/const";
 import SEO, { structuredDataTemplates } from "@/components/SEO";
@@ -10,7 +11,9 @@ import {
   Clock, 
   Shield, 
   Star,
-  ArrowLeft
+  ArrowLeft,
+  Menu,
+  X
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -20,6 +23,7 @@ import PWAInstallButton from "@/components/PWAInstallButton";
 
 export default function Home() {
   const { t } = useLanguage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
     <div className="min-h-screen bg-background">
@@ -36,6 +40,16 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
             </div>
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-foreground"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
               <a href="#services" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.services")}
@@ -68,6 +82,79 @@ export default function Home() {
             </nav>
           </div>
         </div>
+
+        {/* Mobile Menu Sidebar */}
+        {mobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 top-16 bg-black/50 backdrop-blur-sm z-40" onClick={() => setMobileMenuOpen(false)}>
+            <div 
+              className="bg-background w-[280px] h-full shadow-2xl p-6 animate-in slide-in-from-right"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <nav className="flex flex-col gap-4">
+                <a 
+                  href="#services" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.services")}
+                </a>
+                <a 
+                  href="#how-it-works" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.howItWorks")}
+                </a>
+                <a 
+                  href="#pricing" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.pricing")}
+                </a>
+                <Link 
+                  href="/price-calculator" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  احسب السعر
+                </Link>
+                <Link 
+                  href="/about" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.about")}
+                </Link>
+                <Link 
+                  href="/faq" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.faq")}
+                </Link>
+                
+                <div className="border-t border-border my-4"></div>
+                
+                <Link href="/request" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full">{t("nav.bookNow")}</Button>
+                </Link>
+                
+                <PWAInstallButton />
+                
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    {t('lang') === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                  </Button>
+                </Link>
+                
+                <div className="mt-4">
+                  <LanguageThemeSwitcher />
+                </div>
+              </nav>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section - Apple Style */}
