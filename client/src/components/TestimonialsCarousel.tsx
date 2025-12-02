@@ -260,14 +260,14 @@ export default function TestimonialsCarousel() {
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white dark:bg-gray-800 rounded-full p-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-primary/20 hover:border-primary/50 z-10"
             aria-label="Previous testimonial"
           >
-            <ChevronRight className="h-6 w-6 text-primary" />
+            <ChevronLeft className="h-6 w-6 text-primary" />
           </button>
           <button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white dark:bg-gray-800 rounded-full p-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-primary/20 hover:border-primary/50 z-10"
             aria-label="Next testimonial"
           >
-            <ChevronLeft className="h-6 w-6 text-primary" />
+            <ChevronRight className="h-6 w-6 text-primary" />
           </button>
 
           {/* Dots Indicator */}
