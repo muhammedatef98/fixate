@@ -86,7 +86,7 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]" onClick={() => setMobileMenuOpen(false)}>
             <div 
-              className="absolute top-0 right-0 bg-background w-[85%] max-w-sm h-full shadow-2xl overflow-y-auto"
+              className="absolute top-0 right-0 bg-background w-[75%] h-full shadow-2xl overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
