@@ -20,6 +20,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import PWAInstallButton from "@/components/PWAInstallButton";
+import Logo from "@/components/Logo";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -37,9 +38,7 @@ export default function Home() {
       <header className="border-b border-border/40 bg-background/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
-            </div>
+            <Logo />
             
             {/* Mobile Menu Button */}
             <button
