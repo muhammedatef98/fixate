@@ -189,7 +189,7 @@ export default function TestimonialsCarousel() {
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="w-full flex-shrink-0 px-4"
+                  className="w-full flex-shrink-0"
                 >
                   <Card className="relative overflow-hidden border-2 shadow-2xl">
                     {/* Quote Icon Background */}
