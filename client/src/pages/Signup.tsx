@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { APP_LOGO } from "@/const";
+import Logo from "@/components/Logo";
 import { Link, useLocation } from "wouter";
 import { Loader2, Mail, Lock, User, Phone, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -114,7 +114,7 @@ export default function Signup() {
         {/* Logo */}
         <Link href="/">
           <div className="flex items-center justify-center gap-3 mb-8 cursor-pointer group">
-            <img src={APP_LOGO} alt="Fixate" className="h-12 w-auto group-hover:scale-110 transition-transform" />
+            <Logo />
             <span className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               Fixate
             </span>

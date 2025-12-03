@@ -12,7 +12,7 @@ import {
 import { trpc } from "@/lib/trpc";
 import { Loader2, Calculator as CalculatorIcon, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
-import { APP_LOGO } from "@/const";
+import Logo from "@/components/Logo";
 
 export default function Calculator() {
   const [selectedDeviceType, setSelectedDeviceType] = useState<string>("");
@@ -48,7 +48,7 @@ export default function Calculator() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
+                <Logo />
               </div>
             </Link>
             <Link href="/request">

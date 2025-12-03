@@ -10,7 +10,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl, isOAuthAvailable } from "@/const";
 import { Loader2, CheckCircle2, MapPin, Navigation, Smartphone, Laptop, Tablet, ChevronLeft, ArrowLeft } from "lucide-react";
 import { Link, useLocation } from "wouter";
-import { APP_LOGO } from "@/const";
+import Logo from "@/components/Logo";
 import { toast } from "sonner";
 
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -218,7 +218,7 @@ export default function ServiceRequest() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
+                <Logo />
               </div>
             </Link>
             {isAuthenticated && (

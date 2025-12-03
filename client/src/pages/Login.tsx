@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { APP_LOGO } from "@/const";
+import Logo from "@/components/Logo";
 import { Link, useLocation } from "wouter";
 import { Loader2, Mail, Lock, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -83,7 +83,7 @@ export default function Login() {
       {/* Logo */}
       <Link href="/" className="absolute top-8 left-8">
         <div className="flex items-center gap-3">
-          <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
+          <Logo />
         </div>
       </Link>
 

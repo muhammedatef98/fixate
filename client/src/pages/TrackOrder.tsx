@@ -5,7 +5,7 @@ import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Loader2, Phone, MapPin, Clock, CheckCircle2, Package, Wrench, Star } from "lucide-react";
 import { Link, useRoute } from "wouter";
-import { APP_LOGO } from "@/const";
+import Logo from "@/components/Logo";
 import { MapView } from "@/components/Map";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -136,7 +136,7 @@ export default function TrackOrder() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
+                <Logo />
               </div>
             </Link>
             <Link href="/my-requests">

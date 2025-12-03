@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/select";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl, APP_LOGO } from "@/const";
+import { getLoginUrl } from "@/const";
+import Logo from "@/components/Logo";
 import { Loader2, Users, Package, CheckCircle2, Clock, XCircle } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
@@ -111,7 +112,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
+                <Logo />
               </div>
             </Link>
             <div className="flex items-center gap-4">

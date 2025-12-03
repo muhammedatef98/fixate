@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { APP_LOGO } from "@/const";
+import Logo from "@/components/Logo";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -80,7 +80,7 @@ export default function FAQ() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto dark:brightness-200" />
+                <Logo />
               </div>
             </Link>
             <nav className="hidden md:flex items-center gap-6">
@@ -180,7 +180,7 @@ export default function FAQ() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <img src={APP_LOGO} alt="Fixate" className="h-8 w-auto" />
+                <Logo />
               </div>
               <p className="text-background/60 text-sm leading-relaxed">
                 {t("footer.description")}

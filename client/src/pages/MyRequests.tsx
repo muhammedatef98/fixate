@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl, APP_LOGO } from "@/const";
+import { getLoginUrl } from "@/const";
+import Logo from "@/components/Logo";
 import { Loader2, Package, Clock, CheckCircle2, XCircle, User } from "lucide-react";
 import { Link } from "wouter";
 
@@ -57,7 +58,7 @@ export default function MyRequests() {
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="flex items-center gap-3 cursor-pointer">
-                <img src={APP_LOGO} alt="Fixate" className="h-10 w-auto" />
+                <Logo />
               </div>
             </Link>
             <div className="flex items-center gap-4">
