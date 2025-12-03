@@ -467,8 +467,8 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <img src={APP_LOGO} alt="Fixate" className="h-8 w-auto" />
+              <div className="mb-4">
+                <Logo />
               </div>
               <p className="text-background/60 text-sm leading-relaxed mb-4">
                 {t("footer.description")}
