@@ -12,7 +12,12 @@
 [![React](https://img.shields.io/badge/React-19-61dafb)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22-green)](https://nodejs.org/)
 
-> **Latest Update (Nov 26, 2024):** Fixed OAuth compatibility - app now works on any hosting platform including Render
+> **Latest Update (Dec 3, 2024):** 
+> - ✅ PWA Support: Install the app on your device (iOS & Android)
+> - ✅ Responsive Mobile Menu: Improved navigation on mobile devices
+> - ✅ Testimonials Carousel: Auto-rotating customer reviews
+> - ✅ Dark Mode Support: Fully optimized for light and dark themes
+> - ✅ New Logo: Professional icon + text design
 
 [العربية](#arabic) | [English](#english)
 
@@ -56,6 +61,12 @@
 
 #### 🔔 **إشعارات لحظية**
 تلقى تحديثات فورية عن حالة طلبك في كل خطوة
+
+#### 📲 **تطبيق PWA**
+ثبّت التطبيق على جوالك (iOS و Android) للوصول السريع
+
+#### 🌙 **الوضع الليلي**
+تصميم متوافق مع الوضع الليلي لراحة عينيك
 
 ### 📱 الأجهزة التي نصلحها
 
@@ -157,6 +168,12 @@ Chat with an AI-powered chatbot to answer all your questions
 
 #### 🔔 **Live Notifications**
 Receive instant updates about your order status at every step
+
+#### 📲 **PWA App**
+Install the app on your phone (iOS & Android) for quick access
+
+#### 🌙 **Dark Mode**
+Fully optimized design for dark mode to protect your eyes
 
 ### 📱 Devices We Repair
 
