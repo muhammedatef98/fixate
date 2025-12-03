@@ -110,15 +110,15 @@ export default function PWAInstallButton() {
         onClick={handleInstall}
         variant="outline"
         size="sm"
-        className="gap-2 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border-emerald-500/30"
+        className="w-full md:w-auto gap-2 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border-emerald-500/30 active:scale-98 transition-transform"
       >
         <Download className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-        <span className="hidden md:inline text-emerald-600 dark:text-emerald-400">{t.install}</span>
+        <span className="text-emerald-600 dark:text-emerald-400">{t.install}</span>
       </Button>
 
       {/* Installation Instructions Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 animate-in fade-in duration-200">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-in zoom-in-95">
             <button
               onClick={() => setShowModal(false)}

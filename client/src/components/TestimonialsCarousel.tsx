@@ -156,20 +156,20 @@ export default function TestimonialsCarousel() {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16">
           {stats.map((stat, index) => (
             <Card
               key={index}
               className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2"
             >
-              <CardContent className="p-6 text-center">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
-                  <stat.icon className="h-8 w-8 text-white" />
+              <CardContent className="p-4 md:p-6 text-center">
+                <div className={`w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 rounded-xl md:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                  <stat.icon className="h-6 w-6 md:h-8 md:w-8 text-white" />
                 </div>
-                <div className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                <div className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
                   {stat.number}
                 </div>
-                <div className="text-sm text-muted-foreground font-medium">
+                <div className="text-xs md:text-sm text-muted-foreground font-medium">
                   {stat.label}
                 </div>
               </CardContent>
@@ -197,49 +197,49 @@ export default function TestimonialsCarousel() {
                       <Quote className="h-32 w-32 text-primary" />
                     </div>
 
-                    <CardContent className="p-8 md:p-12 relative z-10">
+                    <CardContent className="p-6 md:p-8 lg:p-12 relative z-10">
                       {/* Rating Stars */}
-                      <div className="flex gap-1 mb-6 justify-center">
+                      <div className="flex gap-1 mb-4 md:mb-6 justify-center">
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star
                             key={i}
-                            className="h-6 w-6 fill-amber-400 text-amber-400"
+                            className="h-5 w-5 md:h-6 md:w-6 fill-amber-400 text-amber-400"
                           />
                         ))}
                       </div>
 
                       {/* Review Text */}
-                      <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed text-center">
+                      <p className="text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8 leading-relaxed text-center">
                         "{testimonial.text}"
                       </p>
 
                       {/* Device & Service Tags */}
-                      <div className="flex flex-wrap gap-3 mb-8 justify-center">
-                        <span className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
+                      <div className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-8 justify-center">
+                        <span className="inline-flex items-center gap-1.5 md:gap-2 bg-primary/10 text-primary px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium">
                           📱 {testimonial.device}
                         </span>
-                        <span className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-4 py-2 rounded-full text-sm font-medium">
+                        <span className="inline-flex items-center gap-1.5 md:gap-2 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium">
                           ✓ {testimonial.service}
                         </span>
                       </div>
 
                       {/* Customer Info */}
-                      <div className="flex items-center gap-4 justify-center pt-6 border-t border-border">
+                      <div className="flex items-center gap-3 md:gap-4 justify-center pt-4 md:pt-6 border-t border-border">
                         <div className="relative">
                           <img
                             src={testimonial.image}
                             alt={testimonial.name}
-                            className="h-16 w-16 rounded-full ring-4 ring-primary/20"
+                            className="h-12 w-12 md:h-16 md:w-16 rounded-full ring-2 md:ring-4 ring-primary/20"
                           />
-                          <div className="absolute -bottom-1 -right-1 h-6 w-6 bg-emerald-500 rounded-full border-2 border-background flex items-center justify-center">
-                            <CheckCircle2 className="h-4 w-4 text-white" />
+                          <div className="absolute -bottom-1 -right-1 h-5 w-5 md:h-6 md:w-6 bg-emerald-500 rounded-full border-2 border-background flex items-center justify-center">
+                            <CheckCircle2 className="h-3 w-3 md:h-4 md:w-4 text-white" />
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="font-bold text-lg text-foreground">
+                          <div className="font-bold text-base md:text-lg text-foreground">
                             {testimonial.name}
                           </div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-xs md:text-sm text-muted-foreground">
                             {testimonial.role}
                           </div>
                         </div>
@@ -257,29 +257,29 @@ export default function TestimonialsCarousel() {
           {/* Navigation Buttons */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white dark:bg-gray-800 rounded-full p-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-primary/20 hover:border-primary/50 z-10"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 lg:-translate-x-12 bg-white dark:bg-gray-800 rounded-full p-2 md:p-3 shadow-lg md:shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-primary/20 hover:border-primary/50 z-10"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="h-6 w-6 text-primary" />
+            <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 text-primary" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white dark:bg-gray-800 rounded-full p-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-primary/20 hover:border-primary/50 z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 lg:translate-x-12 bg-white dark:bg-gray-800 rounded-full p-2 md:p-3 shadow-lg md:shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-primary/20 hover:border-primary/50 z-10"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="h-6 w-6 text-primary" />
+            <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-primary" />
           </button>
 
           {/* Dots Indicator */}
-          <div className="flex gap-2 justify-center mt-8">
+          <div className="flex gap-2 justify-center mt-6 md:mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`h-3 rounded-full transition-all duration-300 ${
+                className={`h-2 md:h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? 'w-12 bg-primary'
-                    : 'w-3 bg-primary/30 hover:bg-primary/50'
+                    ? 'w-8 md:w-12 bg-primary'
+                    : 'w-2 md:w-3 bg-primary/30 hover:bg-primary/50'
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
@@ -288,23 +288,23 @@ export default function TestimonialsCarousel() {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-16 text-center">
+        <div className="mt-12 md:mt-16 text-center">
           <Card className="bg-gradient-to-r from-primary via-purple-600 to-pink-600 border-0 overflow-hidden">
-            <CardContent className="p-8 md:p-12 relative">
+            <CardContent className="p-6 md:p-8 lg:p-12 relative">
               <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
               <div className="relative z-10">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 md:mb-4">
                   انضم إلى آلاف العملاء السعداء!
                 </h3>
-                <p className="text-white/90 mb-6 max-w-2xl mx-auto">
+                <p className="text-sm md:text-base text-white/90 mb-5 md:mb-6 max-w-2xl mx-auto">
                   احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 6 أشهر
                 </p>
                 <a
                   href="/request"
-                  className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-xl"
+                  className="inline-flex items-center gap-2 bg-white text-primary px-6 md:px-8 py-3 md:py-4 rounded-full text-sm md:text-base font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-xl active:scale-95"
                 >
                   احجز خدمة الإصلاح الآن
-                  <CheckCircle2 className="h-5 w-5" />
+                  <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5" />
                 </a>
               </div>
             </CardContent>
