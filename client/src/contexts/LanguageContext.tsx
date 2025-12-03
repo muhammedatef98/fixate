@@ -20,7 +20,6 @@ const translations = {
     "nav.faq": "الأسئلة الشائعة",
     "nav.bookNow": "احجز الآن",
     "nav.login": "تسجيل الدخول",
-    "nav.calculator": "احسب السعر",
     
     // Hero
     "hero.title": "إصلاح أجهزتك",
@@ -99,7 +98,6 @@ const translations = {
     "nav.faq": "FAQ",
     "nav.bookNow": "Book Now",
     "nav.login": "Login",
-    "nav.calculator": "Calculate Price",
     
     // Hero
     "hero.title": "Fix Your Devices",

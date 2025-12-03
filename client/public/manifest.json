@@ -4,15 +4,13 @@
   "description": "خدمة صيانة متكاملة لجميع أجهزتك الإلكترونية. فنيون محترفون يصلون إليك أينما كنت.",
   "start_url": "/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#ffffff",
   "theme_color": "#10b981",
-  "orientation": "any",
+  "orientation": "portrait-primary",
   "scope": "/",
   "lang": "ar",
   "dir": "rtl",
   "categories": ["utilities", "lifestyle", "business"],
-  "screenshots": [],
   "icons": [
     {
       "src": "/icon-192.png",

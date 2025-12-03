@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_LOGO } from "@/const";
 import SEO, { structuredDataTemplates } from "@/components/SEO";
@@ -10,15 +11,20 @@ import {
   Clock, 
   Shield, 
   Star,
-  ArrowLeft
+  ArrowLeft,
+  Menu,
+  X
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import MobileHeader from "@/components/MobileHeader";
+import PWAInstallButton from "@/components/PWAInstallButton";
+import Logo from "@/components/Logo";
 
 export default function Home() {
   const { t } = useLanguage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
     <div className="min-h-screen bg-background">
@@ -29,7 +35,143 @@ export default function Home() {
         structuredData={structuredDataTemplates.organization}
       />
       {/* Header */}
-      <MobileHeader />
+      <header className="border-b border-border/40 bg-background/80 backdrop-blur-xl sticky top-0 z-50">
+        <div className="container">
+          <div className="flex items-center justify-between h-16">
+            <Logo />
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-foreground"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              <a href="#services" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.services")}
+              </a>
+              <a href="#how-it-works" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.howItWorks")}
+              </a>
+              <a href="#pricing" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.pricing")}
+              </a>
+              <Link href="/price-calculator" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                احسب السعر
+              </Link>
+              <Link href="/about" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.about")}
+              </Link>
+              <Link href="/faq" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.faq")}
+              </Link>
+              <Link href="/request">
+                <Button>{t("nav.bookNow")}</Button>
+              </Link>
+              <PWAInstallButton />
+              <Link href="/login">
+                <Button variant="outline">
+                  {t("nav.login")}
+                </Button>
+              </Link>
+              <LanguageThemeSwitcher />
+            </nav>
+          </div>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <div 
+              className="md:hidden fixed inset-0 bg-black/70 z-[90]"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            
+            {/* Sidebar */}
+            <div className="md:hidden fixed top-0 right-0 bottom-0 w-[280px] bg-background shadow-2xl z-[100] overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-border">
+                <h2 className="text-lg font-bold">القائمة</h2>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 hover:bg-muted rounded-lg transition-colors"
+                  aria-label="إغلاق القائمة"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              
+              {/* Navigation Links */}
+              <nav className="flex flex-col p-4 gap-1">
+                <a 
+                  href="#services" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.services")}
+                </a>
+                <a 
+                  href="#how-it-works" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.howItWorks")}
+                </a>
+                <a 
+                  href="#pricing" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.pricing")}
+                </a>
+                <Link 
+                  href="/price-calculator" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  احسب السعر
+                </Link>
+                <Link 
+                  href="/about" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.about")}
+                </Link>
+                <Link 
+                  href="/faq" 
+                  className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.faq")}
+                </Link>
+                
+                <div className="border-t border-border my-4"></div>
+                
+                <Link href="/request" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full">{t("nav.bookNow")}</Button>
+                </Link>
+                
+                <PWAInstallButton />
+                
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    {t("nav.login")}
+                  </Button>
+                </Link>
+                
+                <div className="mt-4">
+                  <LanguageThemeSwitcher />
+                </div>
+              </nav>
+            </div>
+          </>
+        )}
+      </header>
 
       {/* Hero Section - Apple Style */}
       <section className="pt-24 pb-20 md:pt-32 md:pb-28">
