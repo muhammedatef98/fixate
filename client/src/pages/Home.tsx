@@ -82,25 +82,31 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile Menu Sidebar */}
+        {/* Mobile Menu Overlay */}
         {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]" onClick={() => setMobileMenuOpen(false)}>
+          <>
+            {/* Backdrop */}
             <div 
-              className="absolute top-0 right-0 bg-background w-[75%] h-full shadow-2xl overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <div className="sticky top-0 bg-background border-b border-border p-4 flex justify-between items-center">
-                <span className="text-lg font-bold text-foreground">القائمة</span>
-                <button 
+              className="md:hidden fixed inset-0 bg-black/70 z-[90]"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            
+            {/* Sidebar */}
+            <div className="md:hidden fixed top-0 right-0 bottom-0 w-[280px] bg-background shadow-2xl z-[100] overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-border">
+                <h2 className="text-lg font-bold">القائمة</h2>
+                <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 hover:bg-muted rounded-full transition-colors"
+                  className="p-2 hover:bg-muted rounded-lg transition-colors"
+                  aria-label="إغلاق القائمة"
                 >
-                  <X className="h-6 w-6 text-foreground" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
               
-              <nav className="flex flex-col gap-2 p-6">
+              {/* Navigation Links */}
+              <nav className="flex flex-col p-4 gap-1">
                 <a 
                   href="#services" 
                   className="text-base font-medium text-foreground hover:text-primary transition-colors py-2"
@@ -163,7 +169,7 @@ export default function Home() {
                 </div>
               </nav>
             </div>
-          </div>
+          </>
         )}
       </header>
 
