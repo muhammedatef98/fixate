@@ -12,12 +12,13 @@
 [![React](https://img.shields.io/badge/React-19-61dafb)](https://reactjs.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22-green)](https://nodejs.org/)
 
-> **Latest Update (Dec 3, 2024):** 
-> - ✅ PWA Support: Install the app on your device (iOS & Android)
-> - ✅ Responsive Mobile Menu: Improved navigation on mobile devices
-> - ✅ Testimonials Carousel: Auto-rotating customer reviews
-> - ✅ Dark Mode Support: Fully optimized for light and dark themes
-> - ✅ New Logo: Professional icon + text design
+> **Latest Update (Dec 3, 2024 - v2.0):** 
+> - ✨ **Professional Mobile Experience:** Complete mobile UI/UX overhaul
+> - 📱 **New Mobile Header:** Smooth animations, RTL support, body scroll lock
+> - 🎠 **Optimized Carousel:** Responsive sizing for all screen sizes
+> - 📦 **Enhanced PWA:** Full-width install button, improved manifest
+> - 🌐 **Better Viewport:** User-scalable, viewport-fit cover
+> - ✅ **Touch-Friendly:** Active states, professional spacing & shadows
 
 [العربية](#arabic) | [English](#english)
 
