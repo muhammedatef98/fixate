@@ -1,4 +1,4 @@
-export default function Logo({ className = "" }: { className?: string }) {
+function Logo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <img 
@@ -12,3 +12,6 @@ export default function Logo({ className = "" }: { className?: string }) {
     </div>
   );
 }
+
+export { Logo };
+export default Logo;
