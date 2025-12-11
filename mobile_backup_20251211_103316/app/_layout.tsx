@@ -1,14 +1,11 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { RequestProvider } from '../context/RequestContext';
-import { ThemeProvider } from '../context/ThemeContext';
-import '../i18n';
 
 export default function RootLayout() {
   return (
-    <ThemeProvider>
-      <RequestProvider>
-        <StatusBar style="auto" />
+    <RequestProvider>
+      <StatusBar style="auto" />
       <Stack
         screenOptions={{
           headerStyle: {
@@ -63,18 +60,6 @@ export default function RootLayout() {
           }} 
         />
         <Stack.Screen 
-          name="contact" 
-          options={{ 
-            headerShown: false 
-          }} 
-        />
-        <Stack.Screen 
-          name="chatbot" 
-          options={{ 
-            headerShown: false 
-          }} 
-        />
-        <Stack.Screen 
           name="track/[id]" 
           options={{ title: 'تتبع الطلب' }} 
         />
@@ -97,7 +82,6 @@ export default function RootLayout() {
           }} 
         />
       </Stack>
-      </RequestProvider>
-    </ThemeProvider>
+    </RequestProvider>
   );
 }
