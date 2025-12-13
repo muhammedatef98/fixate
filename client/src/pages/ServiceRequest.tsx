@@ -38,7 +38,7 @@ export default function ServiceRequest() {
   const [selectedBrand, setSelectedBrand] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<string>("");
   const [selectedService, setSelectedService] = useState<string>("");
-  const [serviceMode, setServiceMode] = useState<"express" | "pickup">("express");
+  const [serviceMode, setServiceMode] = useState<"mobile" | "pickup">("mobile");
   const [issueDescription, setIssueDescription] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -431,16 +431,16 @@ export default function ServiceRequest() {
                         <RadioGroup value={serviceMode} onValueChange={(value: any) => setServiceMode(value)}>
                           <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                              <RadioGroupItem value="express" id="express" className="peer sr-only" />
+                              <RadioGroupItem value="mobile" id="mobile" className="peer sr-only" />
                               <Label
-                                htmlFor="express"
+                                htmlFor="mobile"
                                 className="flex flex-col p-6 border-2 rounded-xl cursor-pointer transition-all hover:border-primary peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5"
                               >
                                 <span className="font-semibold text-lg mb-2">
-                                  {language === 'ar' ? '⚡ خدمة سريعة' : '⚡ Express Service'}
+                                  {language === 'ar' ? '🔧 فني متنقل' : '🔧 Mobile Technician'}
                                 </span>
                                 <span className="text-sm text-muted-foreground">
-                                  {language === 'ar' ? 'نأتي إليك في نفس اليوم' : 'We come to you same day'}
+                                  {language === 'ar' ? 'يأتي الفني إلى موقعك ويصلح الجهاز في المكان' : 'Technician comes to your location and repairs on-site'}
                                 </span>
                               </Label>
                             </div>
@@ -451,10 +451,10 @@ export default function ServiceRequest() {
                                 className="flex flex-col p-6 border-2 rounded-xl cursor-pointer transition-all hover:border-primary peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5"
                               >
                                 <span className="font-semibold text-lg mb-2">
-                                  {language === 'ar' ? '📦 استلام وتوصيل' : '📦 Pickup & Delivery'}
+                                  {language === 'ar' ? '🚚 استلام وتوصيل' : '🚚 Pickup & Delivery'}
                                 </span>
                                 <span className="text-sm text-muted-foreground">
-                                  {language === 'ar' ? 'نستلم الجهاز ونعيده بعد الإصلاح' : 'We pick up and return after repair'}
+                                  {language === 'ar' ? 'مندوب يستلم الجهاز ويوصله لمحل متعاقد ويرجعه بعد الإصلاح' : 'Courier picks up device, delivers to partner shop, and returns after repair'}
                                 </span>
                               </Label>
                             </div>
@@ -667,8 +667,8 @@ export default function ServiceRequest() {
                             {language === 'ar' ? 'طريقة الخدمة:' : 'Service Mode:'}
                           </span>
                           <span className="font-medium">
-                            {serviceMode === 'express' 
-                              ? (language === 'ar' ? 'خدمة سريعة' : 'Express Service')
+                            {serviceMode === 'mobile' 
+                              ? (language === 'ar' ? 'فني متنقل' : 'Mobile Technician')
                               : (language === 'ar' ? 'استلام وتوصيل' : 'Pickup & Delivery')}
                           </span>
                         </div>
