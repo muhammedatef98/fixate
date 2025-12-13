@@ -100,19 +100,39 @@
 - **إزالة الفيروسات:** تنظيف الجهاز من البرمجيات الضارة
 - **صيانة شاملة:** فحص وصيانة كاملة للجهاز
 
+### 🎯 خيارات الخدمة
+
+نوفر لك خيارين مرنين حسب احتياجك:
+
+#### 🔧 **فني متنقل (Mobile Technician)**
+- يأتي الفني المحترف إلى موقعك (منزل، مكتب، أي مكان)
+- يصلح الجهاز في المكان باستخدام عربة مجهزة بالكامل
+- **مناسب للإصلاحات:** البسيطة والمتوسطة (شاشة، بطارية، شحن، صوت)
+- **الوقت:** نفس اليوم أو في موعد تختاره
+- **المميزات:** سرعة، راحة، تتبع مباشر للفني
+
+#### 🚚 **استلام وتوصيل (Pickup & Delivery)**
+- مندوب يستلم جهازك من موقعك
+- يوصل الجهاز لأحد محلاتنا المتعاقدة المتخصصة
+- الإصلاح يتم في المحل بمعدات وقطع غيار متقدمة
+- المندوب يرجع لك الجهاز بعد الإصلاح
+- **مناسب للإصلاحات:** المعقدة والمتقدمة (لوحة أم، معالج، إصلاحات دقيقة)
+- **الوقت:** 1-3 أيام حسب نوع الإصلاح
+- **المميزات:** إصلاحات احترافية، ضمان أطول، أسعار تنافسية
+
 ### 🚀 كيف تعمل Fixate؟
 
-#### 1️⃣ **اختر جهازك والمشكلة**
+#### 1️⃣ **اختر نوع الخدمة**
+حدد: فني متنقل أو استلام وتوصيل
+
+#### 2️⃣ **اختر جهازك والمشكلة**
 حدد نوع الجهاز (جوال، لابتوب، تابلت) والخدمة المطلوبة
 
-#### 2️⃣ **احجز موعدك**
+#### 3️⃣ **احجز موعدك**
 اختر الوقت والموقع المناسب لك
 
-#### 3️⃣ **تتبع الفني**
-راقب موقع الفني على الخريطة حتى يصل إليك
-
-#### 4️⃣ **الإصلاح في مكانك**
-الفني يصلح جهازك في العربة المجهزة أمام منزلك
+#### 4️⃣ **تتبع الطلب**
+راقب حالة طلبك وموقع الفني/المندوب على الخريطة
 
 #### 5️⃣ **استلم جهازك**
 احصل على جهازك جاهزاً ومضموناً
@@ -207,19 +227,39 @@ Fully optimized design for dark mode to protect your eyes
 - **Virus Removal:** Clean device from malware
 - **Full Maintenance:** Complete device inspection and maintenance
 
+### 🎯 Service Options
+
+We offer two flexible options to suit your needs:
+
+#### 🔧 **Mobile Technician**
+- Professional technician comes to your location (home, office, anywhere)
+- Repairs device on-site using fully-equipped mobile van
+- **Suitable for:** Simple to moderate repairs (screen, battery, charging, audio)
+- **Time:** Same day or scheduled appointment
+- **Benefits:** Speed, convenience, real-time technician tracking
+
+#### 🚚 **Pickup & Delivery**
+- Courier picks up your device from your location
+- Device delivered to one of our specialized partner shops
+- Repair performed at shop with advanced equipment and parts
+- Courier returns device after repair
+- **Suitable for:** Complex and advanced repairs (motherboard, processor, precision repairs)
+- **Time:** 1-3 days depending on repair type
+- **Benefits:** Professional repairs, extended warranty, competitive pricing
+
 ### 🚀 How Fixate Works?
 
-#### 1️⃣ **Choose Your Device & Issue**
+#### 1️⃣ **Choose Service Type**
+Select: Mobile Technician or Pickup & Delivery
+
+#### 2️⃣ **Choose Your Device & Issue**
 Select device type (phone, laptop, tablet) and required service
 
-#### 2️⃣ **Book Your Appointment**
+#### 3️⃣ **Book Your Appointment**
 Choose the time and location that suits you
 
-#### 3️⃣ **Track Your Technician**
-Monitor technician's location on the map until arrival
-
-#### 4️⃣ **Repair at Your Location**
-Technician fixes your device in the equipped van at your doorstep
+#### 4️⃣ **Track Your Order**
+Monitor order status and technician/courier location on the map
 
 #### 5️⃣ **Receive Your Device**
 Get your device ready and guaranteed
