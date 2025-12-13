@@ -128,7 +128,48 @@ export default function ServiceRequest() {
   });
 
   const createRequest = trpc.requests.create.useMutation({
-    onSuccess: () => {
+    onSuccess: async (data) => {
+      // Send email notification
+      try {
+        const selectedBrandData = brands.find(b => b.id === selectedBrand);
+        const selectedModelData = models.find(m => m.id === selectedModel);
+        const selectedServiceData = services.find(s => s.id === selectedService);
+        
+        await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: 'YOUR_WEB3FORMS_KEY', // You'll need to get this from web3forms.com
+            subject: `🔔 حجز جديد - Fixatee`,
+            from_name: 'Fixatee Website',
+            to: 'fixate01@gmail.com',
+            message: `
+🆕 حجز جديد من الموقع!
+
+📞 الجوال: ${phoneNumber}
+
+🔧 نوع الخدمة: ${serviceMode === 'mobile' ? 'فني متنقل (Mobile Technician)' : 'استلام وتوصيل (Pickup & Delivery)'}
+📱 الجهاز: ${selectedBrandData?.name} - ${selectedModelData?.name}
+⚠️ الخدمة: ${selectedServiceData?.name}
+📝 التفاصيل: ${issueDescription || 'لا يوجد'}
+
+🏠 العنوان: ${address}
+🌆 المدينة: ${city}
+
+⏰ الوقت المفضل: ${preferredTimeSlot || 'لا يوجد'}
+💳 طريقة الدفع: ${paymentMethod === 'cash' ? 'نقدي (Cash)' : paymentMethod === 'card' ? 'بطاقة (Card)' : 'محفظة (Wallet)'}
+
+⏰ التاريخ: ${new Date().toLocaleString('ar-SA')}
+            `.trim(),
+          }),
+        });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
+        // Don't block the user if email fails
+      }
+
       toast.success(language === 'ar' ? "تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً" : "Request sent successfully! We'll contact you soon");
       setLocationNav("/my-requests");
     },
