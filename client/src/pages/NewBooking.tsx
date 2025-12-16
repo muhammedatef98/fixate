@@ -59,20 +59,7 @@ export default function NewBooking() {
     time: ""
   });
 
-  // Check if user is logged in
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) {
-      toast({
-        title: language === 'ar' ? "يجب تسجيل الدخول" : "Login Required",
-        description: language === 'ar' ? "يجب تسجيل الدخول أولاً للحجز" : "You must login first to book a service",
-        variant: "destructive"
-      });
-      setTimeout(() => {
-        setLocation("/login");
-      }, 2000);
-    }
-  }, []);
+  // Booking is now available without login
 
   const content = {
     ar: {

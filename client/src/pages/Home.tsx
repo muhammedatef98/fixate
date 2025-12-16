@@ -77,30 +77,28 @@ export default function Home() {
             </button>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
-              <a href="#services" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                {t("nav.services")}
-              </a>
-              <a href="#how-it-works" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                {t("nav.howItWorks")}
-              </a>
-              <a href="#pricing" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                {t("nav.pricing")}
-              </a>
-              <Link href="/price-calculator" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+            <nav className="hidden md:flex items-center gap-4">
+              <Link href="/booking">
+                <Button className="bg-emerald-600 hover:bg-emerald-700">
+                  {t("nav.bookNow")}
+                </Button>
+              </Link>
+              <Link href="/technicians">
+                <Button variant="outline">
+                  {language === 'ar' ? 'الفنيون' : 'Technicians'}
+                </Button>
+              </Link>
+              <Link href="/price-calculator" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {language === 'ar' ? 'احسب السعر' : 'Calculate Price'}
               </Link>
-              <Link href="/about" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
-                {t("nav.about")}
-              </Link>
-              <Link href="/faq" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/faq" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.faq")}
               </Link>
-                <Link href="/booking">
-                <Button>{t("nav.bookNow")}</Button>
+              <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                {t("nav.about")}
               </Link>
               <Link href="/login">
-                <Button variant="outline">
+                <Button variant="ghost" size="sm">
                   {t("nav.login")}
                 </Button>
               </Link>
@@ -123,27 +121,22 @@ export default function Home() {
             <div className="md:hidden fixed top-16 right-0 bottom-0 w-full max-w-xs bg-background shadow-2xl z-50 overflow-y-auto">
               {/* Navigation Links */}
               <nav className="flex flex-col p-4 gap-2">
-                <a 
-                  href="#services" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg"
-                  onClick={closeMobileMenu}
-                >
-                  {t("nav.services")}
-                </a>
-                <a 
-                  href="#how-it-works" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg"
-                  onClick={closeMobileMenu}
-                >
-                  {t("nav.howItWorks")}
-                </a>
-                <a 
-                  href="#pricing" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg"
-                  onClick={closeMobileMenu}
-                >
-                  {t("nav.pricing")}
-                </a>
+                {/* Primary Actions */}
+                <Link href="/booking" onClick={closeMobileMenu} className="block">
+                  <Button className="w-full h-12 font-semibold bg-emerald-600 hover:bg-emerald-700">
+                    {t("nav.bookNow")}
+                  </Button>
+                </Link>
+                
+                <Link href="/technicians" onClick={closeMobileMenu} className="block">
+                  <Button variant="outline" className="w-full h-12 font-semibold">
+                    {language === 'ar' ? 'الفنيون' : 'Technicians'}
+                  </Button>
+                </Link>
+                
+                <div className="border-t border-border my-4"></div>
+                
+                {/* Secondary Links */}
                 <Link 
                   href="/price-calculator" 
                   className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
@@ -152,28 +145,24 @@ export default function Home() {
                   {language === 'ar' ? 'احسب السعر' : 'Calculate Price'}
                 </Link>
                 <Link 
-                  href="/about" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
-                  onClick={closeMobileMenu}
-                >
-                  {t("nav.about")}
-                </Link>
-                <Link 
                   href="/faq" 
                   className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
                   onClick={closeMobileMenu}
                 >
                   {t("nav.faq")}
                 </Link>
+                <Link 
+                  href="/about" 
+                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
+                  onClick={closeMobileMenu}
+                >
+                  {t("nav.about")}
+                </Link>
                 
                 <div className="border-t border-border my-4"></div>
                 
-                <Link href="/booking" onClick={closeMobileMenu} className="block">
-                  <Button className="w-full h-11 font-semibold">{t("nav.bookNow")}</Button>
-                </Link>
-                
                 <Link href="/login" onClick={closeMobileMenu} className="block">
-                  <Button variant="outline" className="w-full h-11 font-semibold">
+                  <Button variant="ghost" className="w-full h-11 font-medium">
                     {t("nav.login")}
                   </Button>
                 </Link>
