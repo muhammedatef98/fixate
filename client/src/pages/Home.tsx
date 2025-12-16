@@ -96,7 +96,7 @@ export default function Home() {
               <Link href="/faq" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.faq")}
               </Link>
-              <Link href="/request">
+                <Link href="/booking">
                 <Button>{t("nav.bookNow")}</Button>
               </Link>
               <Link href="/login">
