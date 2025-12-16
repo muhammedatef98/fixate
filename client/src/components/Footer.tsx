@@ -14,7 +14,7 @@ export default function Footer() {
       home: "الرئيسية",
       services: "الخدمات",
       technicians: "الفنيون",
-      about: "من نحن",
+      aboutUs: "من نحن",
       contact: "اتصل بنا",
       contactInfo: "معلومات التواصل",
       email: "fixate01@gmail.com",
@@ -32,7 +32,7 @@ export default function Footer() {
       home: "Home",
       services: "Services",
       technicians: "Technicians",
-      about: "About Us",
+      aboutUs: "About Us",
       contact: "Contact",
       contactInfo: "Contact Information",
       email: "fixate01@gmail.com",
@@ -87,7 +87,7 @@ export default function Footer() {
               <li>
                 <Link href="/about">
                   <span className="text-gray-300 hover:text-primary transition-colors cursor-pointer text-sm">
-                    {t.about}
+                    {t.aboutUs}
                   </span>
                 </Link>
               </li>
