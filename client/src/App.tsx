@@ -40,8 +40,8 @@ function Router() {
       <Route path="/calculator" component={Calculator} />
       <Route path="/price-calculator" component={PriceCalculator} />
       <Route path="/request" component={ServiceRequest} />
-      <Route path="/booking" component={NewBooking} />
-      <Route path="/booking-old" component={BookingForm} />
+      <Route path="/booking" component={BookingForm} />
+      <Route path="/booking-old" component={NewBooking} />
       <Route path="/my-requests" component={MyRequests} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/coupons" component={CouponsManagement} />
