@@ -2,13 +2,10 @@ function Logo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <img 
-        src="/icon-only.png" 
+        src="/logo-icon-only.png" 
         alt="Fixate" 
-        className="h-10 w-10 object-contain"
+        className="h-12 w-auto object-contain"
       />
-      <span className="text-2xl font-bold text-primary">
-        Fixate
-      </span>
     </div>
   );
 }

@@ -331,7 +331,7 @@ export default function PriceCalculator() {
             <Calculator className="h-4 w-4" />
             <span>حاسبة الأسعار</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-foreground">
             احسب سعر إصلاح جهازك فوراً
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
