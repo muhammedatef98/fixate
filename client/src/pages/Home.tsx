@@ -20,6 +20,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Logo from "@/components/Logo";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const { t, language } = useLanguage();
@@ -390,42 +391,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/40 bg-background/50 py-12 md:py-16">
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div>
-              <h3 className="font-semibold text-foreground mb-4">{t("footer.company")}</h3>
-              <ul className="space-y-2">
-                <li><Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.about")}</Link></li>
-                <li><Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.faq")}</Link></li>
-                <li><Link href="/technicians" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.technicians")}</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-4">{t("footer.services")}</h3>
-              <ul className="space-y-2">
-                <li><a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.phoneRepair")}</a></li>
-                <li><a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.laptopRepair")}</a></li>
-                <li><a href="#services" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.tabletRepair")}</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-4">{language === 'ar' ? 'قانوني' : 'Legal'}</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.terms")}</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">{t("footer.privacy")}</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-4">{t("footer.contact")}</h3>
-              <p className="text-muted-foreground">{t("footer.location")}</p>
-            </div>
-          </div>
-          <div className="border-t border-border/40 pt-8 text-center text-muted-foreground">
-            <p>{t("footer.copyright")}</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
