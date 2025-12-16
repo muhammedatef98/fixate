@@ -1,6 +1,7 @@
 import { pgTable, pgEnum, serial, integer, text, timestamp, varchar, boolean, decimal } from "drizzle-orm/pg-core";
 
 // Define enums
+export const userTypeEnum = pgEnum("user_type", ["client", "technician"]);
 export const roleEnum = pgEnum("role", ["user", "admin"]);
 export const categoryEnum = pgEnum("category", ["phone", "laptop", "tablet", "other"]);
 export const statusEnum = pgEnum("status", ["pending", "confirmed", "in_progress", "completed", "cancelled"]);
@@ -23,6 +24,7 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 320 }),
   phone: varchar("phone", { length: 20 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
+  userType: userTypeEnum("userType").default("client").notNull(), // client or technician
   role: varchar("role", { length: 20 }).default("user").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),

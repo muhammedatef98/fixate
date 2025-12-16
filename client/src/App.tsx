@@ -23,9 +23,12 @@ import FAQ from "./pages/FAQ";
 import TrackOrder from "./pages/TrackOrder";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import SignupNew from "./pages/SignupNew";
+import TechnicianDashboardWeb from "./pages/TechnicianDashboardWeb";
+import TechniciansList from "./pages/TechniciansList";
 import Profile from "./pages/Profile";
 import AIChatbot from "./components/AIChatbot";
-import PWAInstallPrompt from "./components/PWAInstallPrompt";
+// PWA removed
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -49,6 +52,9 @@ function Router() {
       <Route path="/track-order/:id" component={TrackOrder} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
+      <Route path="/signup-new" component={SignupNew} />
+      <Route path="/technician-dashboard" component={TechnicianDashboardWeb} />
+      <Route path="/technicians" component={TechniciansList} />
       <Route path="/profile" component={Profile} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
@@ -74,7 +80,6 @@ function App() {
             <Toaster />
             <Router />
             <AIChatbot />
-            <PWAInstallPrompt />
           </TooltipProvider>
         </ThemeProvider>
       </LanguageProvider>
