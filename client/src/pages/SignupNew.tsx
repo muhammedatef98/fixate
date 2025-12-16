@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Logo from "@/components/Logo";
 import { Link, useLocation } from "wouter";
-import { Loader2, Mail, Lock, User, Phone, ArrowRight, Wrench, Users } from "lucide-react";
+import { Loader2, Mail, Lock, User, Phone, ArrowRight, Wrench, Users, ChevronLeft } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
 
@@ -13,21 +13,15 @@ export default function SignupNew() {
   const { language } = useLanguage();
   const [, setLocation] = useLocation();
   
-  // Step 1: Choose user type
   const [userType, setUserType] = useState<'client' | 'technician' | null>(null);
-  
-  // Common fields
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
-  // Technician specific fields
   const [specialization, setSpecialization] = useState("");
   const [city, setCity] = useState("");
   const [yearsOfExperience, setYearsOfExperience] = useState("");
-  
   const [isLoading, setIsLoading] = useState(false);
 
   const content = {
@@ -165,48 +159,52 @@ export default function SignupNew() {
   // Step 1: Choose User Type
   if (!userType) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
+      <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 flex items-center justify-center p-4" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+        <Card className="w-full max-w-md border-0 shadow-xl">
+          <CardHeader className="text-center pb-8">
+            <div className="flex justify-center mb-6">
               <Logo />
             </div>
-            <CardTitle className="text-2xl">{t.title}</CardTitle>
-            <CardDescription>{t.subtitle}</CardDescription>
+            <CardTitle className="text-3xl font-bold">{t.title}</CardTitle>
+            <CardDescription className="text-base mt-2">{t.subtitle}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <p className="text-center font-semibold text-gray-700">{t.chooseType}</p>
+              <p className="text-center font-semibold text-foreground text-lg mb-6">{t.chooseType}</p>
               
               <button
                 onClick={() => setUserType('client')}
-                className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+                className="w-full p-6 border-2 border-muted rounded-xl hover:border-primary hover:bg-primary/5 transition-all duration-300 text-left group"
               >
-                <div className="flex items-center gap-3">
-                  <Users className="w-8 h-8 text-blue-600" />
-                  <div className="text-left">
-                    <p className="font-semibold">{t.client}</p>
-                    <p className="text-sm text-gray-600">{t.clientDesc}</p>
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors">
+                    <Users className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground text-lg">{t.client}</p>
+                    <p className="text-sm text-muted-foreground">{t.clientDesc}</p>
                   </div>
                 </div>
               </button>
 
               <button
                 onClick={() => setUserType('technician')}
-                className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all"
+                className="w-full p-6 border-2 border-muted rounded-xl hover:border-primary hover:bg-primary/5 transition-all duration-300 text-left group"
               >
-                <div className="flex items-center gap-3">
-                  <Wrench className="w-8 h-8 text-green-600" />
-                  <div className="text-left">
-                    <p className="font-semibold">{t.technician}</p>
-                    <p className="text-sm text-gray-600">{t.technicianDesc}</p>
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors">
+                    <Wrench className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground text-lg">{t.technician}</p>
+                    <p className="text-sm text-muted-foreground">{t.technicianDesc}</p>
                   </div>
                 </div>
               </button>
 
-              <div className="text-center text-sm">
+              <div className="text-center text-sm pt-4">
                 <Link href="/login">
-                  <a className="text-blue-600 hover:underline">{t.login}</a>
+                  <span className="text-primary hover:underline cursor-pointer font-medium">{t.login}</span>
                 </Link>
               </div>
             </div>
@@ -218,33 +216,34 @@ export default function SignupNew() {
 
   // Step 2: Fill Form
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted/30 flex items-center justify-center p-4" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+      <Card className="w-full max-w-md border-0 shadow-xl">
+        <CardHeader className="text-center pb-6">
           <div className="flex justify-center mb-4">
             <Logo />
           </div>
-          <CardTitle className="text-2xl">
+          <CardTitle className="text-3xl font-bold">
             {userType === 'client' ? t.client : t.technician}
           </CardTitle>
-          <CardDescription>{t.subtitle}</CardDescription>
+          <CardDescription className="text-base mt-2">{t.subtitle}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Common Fields */}
             <div className="space-y-2">
-              <Label htmlFor="name">{t.name}</Label>
+              <Label htmlFor="name" className="font-semibold">{t.name}</Label>
               <Input
                 id="name"
                 placeholder={t.namePlaceholder}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={isLoading}
+                className="h-11"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">{t.email}</Label>
+              <Label htmlFor="email" className="font-semibold">{t.email}</Label>
               <Input
                 id="email"
                 type="email"
@@ -252,62 +251,25 @@ export default function SignupNew() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
+                className="h-11"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">{t.phone}</Label>
+              <Label htmlFor="phone" className="font-semibold">{t.phone}</Label>
               <Input
                 id="phone"
+                type="tel"
                 placeholder={t.phonePlaceholder}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 disabled={isLoading}
+                className="h-11"
               />
             </div>
 
-            {/* Technician Specific Fields */}
-            {userType === 'technician' && (
-              <>
-                <div className="space-y-2">
-                  <Label htmlFor="specialization">{t.specialization}</Label>
-                  <Input
-                    id="specialization"
-                    placeholder={t.specializationPlaceholder}
-                    value={specialization}
-                    onChange={(e) => setSpecialization(e.target.value)}
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="city">{t.city}</Label>
-                  <Input
-                    id="city"
-                    placeholder={t.cityPlaceholder}
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="experience">{t.experience}</Label>
-                  <Input
-                    id="experience"
-                    type="number"
-                    placeholder={t.experiencePlaceholder}
-                    value={yearsOfExperience}
-                    onChange={(e) => setYearsOfExperience(e.target.value)}
-                    disabled={isLoading}
-                  />
-                </div>
-              </>
-            )}
-
-            {/* Password Fields */}
             <div className="space-y-2">
-              <Label htmlFor="password">{t.password}</Label>
+              <Label htmlFor="password" className="font-semibold">{t.password}</Label>
               <Input
                 id="password"
                 type="password"
@@ -315,11 +277,12 @@ export default function SignupNew() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
+                className="h-11"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">{t.confirmPassword}</Label>
+              <Label htmlFor="confirmPassword" className="font-semibold">{t.confirmPassword}</Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -327,43 +290,87 @@ export default function SignupNew() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={isLoading}
+                className="h-11"
               />
             </div>
 
-            {/* Buttons */}
-            <div className="space-y-2 pt-4">
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {t.signup}
-                  </>
-                ) : (
-                  <>
-                    {t.signup}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
+            {/* Technician Specific Fields */}
+            {userType === 'technician' && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="specialization" className="font-semibold">{t.specialization}</Label>
+                  <Input
+                    id="specialization"
+                    placeholder={t.specializationPlaceholder}
+                    value={specialization}
+                    onChange={(e) => setSpecialization(e.target.value)}
+                    disabled={isLoading}
+                    className="h-11"
+                  />
+                </div>
 
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={() => setUserType(null)}
-                disabled={isLoading}
-              >
-                {t.back}
-              </Button>
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="city" className="font-semibold">{t.city}</Label>
+                  <Input
+                    id="city"
+                    placeholder={t.cityPlaceholder}
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    disabled={isLoading}
+                    className="h-11"
+                  />
+                </div>
 
-            <div className="text-center text-sm">
+                <div className="space-y-2">
+                  <Label htmlFor="experience" className="font-semibold">{t.experience}</Label>
+                  <Input
+                    id="experience"
+                    type="number"
+                    placeholder={t.experiencePlaceholder}
+                    value={yearsOfExperience}
+                    onChange={(e) => setYearsOfExperience(e.target.value)}
+                    disabled={isLoading}
+                    className="h-11"
+                  />
+                </div>
+              </>
+            )}
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-11 font-semibold text-base mt-6"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  {language === 'ar' ? 'جاري الإنشاء...' : 'Creating...'}
+                </>
+              ) : (
+                <>
+                  {t.signup}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </>
+              )}
+            </Button>
+
+            {/* Back Button */}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setUserType(null)}
+              disabled={isLoading}
+              className="w-full h-11 font-semibold"
+            >
+              <ChevronLeft className="w-4 h-4 mr-2" />
+              {t.back}
+            </Button>
+
+            {/* Login Link */}
+            <div className="text-center text-sm pt-2">
               <Link href="/login">
-                <a className="text-blue-600 hover:underline">{t.login}</a>
+                <span className="text-primary hover:underline cursor-pointer font-medium">{t.login}</span>
               </Link>
             </div>
           </form>
