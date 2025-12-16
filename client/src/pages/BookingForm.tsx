@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,44 +9,7 @@ import { ChevronLeft, ChevronRight, Smartphone, Laptop, Tablet, Watch, Check, Ma
 import { toast } from "sonner";
 import { useLocation } from "wouter";
 import Logo from "@/components/Logo";
-
-const DEVICE_TYPES = [
-  { id: 'phone', nameAr: 'جوال', nameEn: 'Phone', icon: Smartphone },
-  { id: 'tablet', nameAr: 'تابلت', nameEn: 'Tablet', icon: Tablet },
-  { id: 'laptop', nameAr: 'لابتوب', nameEn: 'Laptop', icon: Laptop },
-  { id: 'watch', nameAr: 'ساعة ذكية', nameEn: 'Smart Watch', icon: Watch },
-];
-
-const BRANDS = {
-  phone: ['Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Oppo', 'Vivo', 'OnePlus', 'Google'],
-  tablet: ['Apple iPad', 'Samsung Galaxy Tab', 'Huawei MatePad', 'Lenovo Tab'],
-  laptop: ['Apple MacBook', 'Dell', 'HP', 'Lenovo', 'Asus', 'Acer', 'MSI'],
-  watch: ['Apple Watch', 'Samsung Galaxy Watch', 'Huawei Watch', 'Amazfit']
-};
-
-const MODELS: Record<string, Record<string, string[]>> = {
-  'Apple': {
-    phone: ['iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro Max', 'iPhone 14', 'iPhone 13'],
-    tablet: ['iPad Pro 12.9"', 'iPad Pro 11"', 'iPad Air', 'iPad Mini'],
-    laptop: ['MacBook Pro 16"', 'MacBook Pro 14"', 'MacBook Air M2', 'MacBook Air M1'],
-    watch: ['Apple Watch Ultra', 'Apple Watch Series 9', 'Apple Watch SE']
-  },
-  'Samsung': {
-    phone: ['Galaxy S24 Ultra', 'Galaxy S23', 'Galaxy Z Fold 5', 'Galaxy Z Flip 5'],
-    tablet: ['Galaxy Tab S9', 'Galaxy Tab A8'],
-    watch: ['Galaxy Watch 6']
-  }
-};
-
-const ISSUES = [
-  { id: 'screen', nameAr: 'كسر الشاشة', nameEn: 'Broken Screen', price: '350 ر.س' },
-  { id: 'battery', nameAr: 'تغيير بطارية', nameEn: 'Battery Replacement', price: '150 ر.س' },
-  { id: 'charging', nameAr: 'مشكلة شحن', nameEn: 'Charging Issue', price: '120 ر.س' },
-  { id: 'camera', nameAr: 'الكاميرا', nameEn: 'Camera', price: '200 ر.س' },
-  { id: 'water', nameAr: 'تلف مياه', nameEn: 'Water Damage', price: 'فحص' },
-  { id: 'software', nameAr: 'سوفتوير', nameEn: 'Software', price: '100 ر.س' },
-  { id: 'other', nameAr: 'أخرى', nameEn: 'Other', price: 'فحص' },
-];
+import { trpc } from "@/lib/trpc";
 
 export default function BookingForm() {
   const { language } = useLanguage();
@@ -54,23 +17,29 @@ export default function BookingForm() {
   const [currentStep, setCurrentStep] = useState(0);
   
   // Form State
-  const [deviceType, setDeviceType] = useState('');
-  const [brand, setBrand] = useState('');
-  const [model, setModel] = useState('');
-  const [issue, setIssue] = useState('');
+  const [deviceTypeId, setDeviceTypeId] = useState<number | null>(null);
+  const [deviceModelId, setDeviceModelId] = useState<number | null>(null);
+  const [serviceTypeId, setServiceTypeId] = useState<number | null>(null);
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
 
+  // Fetch data from APIs
+  const { data: deviceTypes = [], isLoading: loadingDeviceTypes } = trpc.devices.getTypes.useQuery();
+  const { data: deviceModels = [], isLoading: loadingModels } = trpc.devices.getModels.useQuery(
+    { deviceTypeId: deviceTypeId! },
+    { enabled: !!deviceTypeId }
+  );
+  const { data: serviceTypes = [], isLoading: loadingServices } = trpc.services.getTypes.useQuery();
+
   const content = {
     ar: {
       title: 'احجز خدمة الإصلاح',
       subtitle: 'خطوات بسيطة للحصول على خدمة احترافية',
-      steps: ['نوع الجهاز', 'الماركة', 'الموديل', 'العطل', 'التفاصيل', 'معلومات التواصل'],
+      steps: ['نوع الجهاز', 'الموديل', 'العطل', 'التفاصيل', 'معلومات التواصل'],
       deviceTypeTitle: 'اختر نوع الجهاز',
-      brandTitle: 'اختر الماركة',
       modelTitle: 'اختر الموديل',
       issueTitle: 'نوع العطل',
       detailsTitle: 'وصف المشكلة',
@@ -87,16 +56,21 @@ export default function BookingForm() {
       next: 'التالي',
       back: 'رجوع',
       submit: 'إرسال الطلب',
+      summary: 'ملخص الطلب',
+      device: 'الجهاز',
+      service: 'الخدمة',
+      location: 'الموقع',
+      contact: 'التواصل',
       success: 'تم إرسال طلبك بنجاح! سنتواصل معك قريباً',
       error: 'حدث خطأ، الرجاء المحاولة مرة أخرى',
-      fillAllFields: 'الرجاء ملء جميع الحقول'
+      fillAllFields: 'الرجاء ملء جميع الحقول',
+      loading: 'جاري التحميل...'
     },
     en: {
       title: 'Book Repair Service',
       subtitle: 'Simple steps to get professional service',
-      steps: ['Device Type', 'Brand', 'Model', 'Issue', 'Details', 'Contact Info'],
+      steps: ['Device Type', 'Model', 'Issue', 'Details', 'Contact Info'],
       deviceTypeTitle: 'Choose Device Type',
-      brandTitle: 'Choose Brand',
       modelTitle: 'Choose Model',
       issueTitle: 'Issue Type',
       detailsTitle: 'Problem Description',
@@ -113,385 +87,344 @@ export default function BookingForm() {
       next: 'Next',
       back: 'Back',
       submit: 'Submit Request',
-      success: 'Request submitted successfully! We will contact you soon',
+      summary: 'Order Summary',
+      device: 'Device',
+      service: 'Service',
+      location: 'Location',
+      contact: 'Contact',
+      success: 'Your request has been submitted successfully! We will contact you soon',
       error: 'An error occurred, please try again',
-      fillAllFields: 'Please fill all fields'
+      fillAllFields: 'Please fill all fields',
+      loading: 'Loading...'
     }
   };
 
-  const t = content[language as keyof typeof content];
+  const t = content[language];
 
   const handleNext = () => {
-    // Validation for each step
-    if (currentStep === 0 && !deviceType) {
+    if (currentStep === 0 && !deviceTypeId) {
       toast.error(t.fillAllFields);
       return;
     }
-    if (currentStep === 1 && !brand) {
+    if (currentStep === 1 && !deviceModelId) {
       toast.error(t.fillAllFields);
       return;
     }
-    if (currentStep === 2 && !model) {
+    if (currentStep === 2 && !serviceTypeId) {
       toast.error(t.fillAllFields);
       return;
     }
-    if (currentStep === 3 && !issue) {
+    if (currentStep === 3 && !description.trim()) {
       toast.error(t.fillAllFields);
       return;
     }
-    if (currentStep === 4 && !description) {
-      toast.error(t.fillAllFields);
-      return;
-    }
-    
-    if (currentStep < 5) {
-      setCurrentStep(currentStep + 1);
-    }
+    setCurrentStep(prev => Math.min(prev + 1, 4));
   };
 
   const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    } else {
-      setLocation('/');
-    }
+    setCurrentStep(prev => Math.max(prev - 1, 0));
   };
 
   const handleSubmit = async () => {
-    if (!name || !phone || !address || !city) {
+    if (!name.trim() || !phone.trim() || !address.trim() || !city.trim()) {
       toast.error(t.fillAllFields);
       return;
     }
 
     try {
-      const selectedIssue = ISSUES.find(i => i.id === issue);
-      
-      // Send email notification
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: 'd3ff12a4-e013-473f-8730-9d5760059a64',
-          subject: `🔔 حجز جديد من الموقع - Fixate`,
-          from_name: 'Fixate Website',
-          to: 'fixate01@gmail.com',
-          message: `
-🆕 حجز جديد من الموقع!
-
-👤 العميل: ${name}
-📞 الجوال: ${phone}
-
-📱 الجهاز: ${brand} ${model} (${deviceType})
-⚠️ المشكلة: ${language === 'ar' ? selectedIssue?.nameAr : selectedIssue?.nameEn}
-📝 التفاصيل: ${description}
-
-📍 الموقع: ${address}, ${city}
-💰 السعر التقديري: ${selectedIssue?.price}
-
-⏰ التاريخ: ${new Date().toLocaleString('ar-SA')}
-          `.trim(),
-        }),
-      });
-
+      // Here you would call the API to submit the booking
       toast.success(t.success);
-      setLocation('/technicians');
+      setTimeout(() => setLocation('/'), 2000);
     } catch (error) {
-      console.error('Error submitting request:', error);
       toast.error(t.error);
     }
   };
 
-  const selectedIssueData = ISSUES.find(i => i.id === issue);
-  const availableModels = brand && MODELS[brand] ? MODELS[brand][deviceType] || [] : [];
+  const selectedDeviceType = deviceTypes.find(dt => dt.id === deviceTypeId);
+  const selectedModel = deviceModels.find(dm => dm.id === deviceModelId);
+  const selectedService = serviceTypes.find(st => st.id === serviceTypeId);
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'phone': return Smartphone;
+      case 'tablet': return Tablet;
+      case 'laptop': return Laptop;
+      default: return Watch;
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white dark:from-gray-900 dark:to-gray-800" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <header className="border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container">
-          <div className="flex items-center justify-between h-16">
-            <Logo />
-            <Button variant="ghost" onClick={() => setLocation('/')}>
-              {language === 'ar' ? 'الرئيسية' : 'Home'}
-            </Button>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 py-12 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <Logo className="mx-auto mb-4" />
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">{t.title}</h1>
+          <p className="text-gray-600">{t.subtitle}</p>
         </div>
-      </header>
 
-      <div className="container py-8 md:py-12">
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-emerald-600 mb-2">
-              {t.title}
-            </h1>
-            <p className="text-muted-foreground">
-              {t.subtitle}
-            </p>
-          </div>
-
-          {/* Progress Indicator */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              {t.steps.map((_, index) => (
-                <div key={index} className="flex items-center flex-1">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all ${
-                    index === currentStep
-                      ? 'bg-emerald-600 text-white scale-110'
-                      : index < currentStep
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+        {/* Progress Steps */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between max-w-3xl mx-auto">
+            {t.steps.map((step, index) => (
+              <div key={index} className="flex items-center flex-1">
+                <div className="flex flex-col items-center flex-1">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all ${
+                    index <= currentStep 
+                      ? 'bg-emerald-500 text-white' 
+                      : 'bg-gray-200 text-gray-500'
                   }`}>
                     {index < currentStep ? <Check className="w-5 h-5" /> : index + 1}
                   </div>
-                  {index < t.steps.length - 1 && (
-                    <div className={`flex-1 h-1 mx-1 transition-all ${
-                      index < currentStep ? 'bg-emerald-600' : 'bg-gray-200 dark:bg-gray-700'
-                    }`} />
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between">
-              {t.steps.map((step, index) => (
-                <div key={index} className="flex-1 text-center">
-                  <p className={`text-xs font-medium ${
-                    index <= currentStep ? 'text-emerald-600' : 'text-gray-400'
+                  <span className={`text-xs mt-2 text-center ${
+                    index <= currentStep ? 'text-emerald-600 font-semibold' : 'text-gray-500'
                   }`}>
                     {step}
-                  </p>
+                  </span>
                 </div>
-              ))}
-            </div>
+                {index < t.steps.length - 1 && (
+                  <div className={`h-1 flex-1 mx-2 transition-all ${
+                    index < currentStep ? 'bg-emerald-500' : 'bg-gray-200'
+                  }`} />
+                )}
+              </div>
+            ))}
           </div>
+        </div>
 
-          {/* Form Card */}
-          <Card className="border-0 shadow-2xl bg-white dark:bg-gray-800">
-            <CardContent className="p-6 md:p-8">
-              {/* Step 0: Device Type */}
-              {currentStep === 0 && (
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold text-emerald-600">{t.deviceTypeTitle}</Label>
-                  <div className="grid grid-cols-2 gap-4">
-                    {DEVICE_TYPES.map((device) => {
-                      const Icon = device.icon;
+        {/* Form Card */}
+        <Card className="shadow-2xl border-0">
+          <CardContent className="p-8">
+            {/* Step 0: Device Type */}
+            {currentStep === 0 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.deviceTypeTitle}</h2>
+                {loadingDeviceTypes ? (
+                  <div className="text-center py-8 text-gray-500">{t.loading}</div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {deviceTypes.map((type) => {
+                      const Icon = getCategoryIcon(type.category);
                       return (
                         <button
-                          key={device.id}
-                          onClick={() => setDeviceType(device.id)}
-                          className={`p-6 border-2 rounded-xl transition-all hover:scale-105 ${
-                            deviceType === device.id
-                              ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20'
-                              : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300'
+                          key={type.id}
+                          onClick={() => {
+                            setDeviceTypeId(type.id);
+                            setDeviceModelId(null);
+                          }}
+                          className={`p-6 rounded-xl border-2 transition-all hover:scale-105 ${
+                            deviceTypeId === type.id
+                              ? 'border-emerald-500 bg-emerald-50'
+                              : 'border-gray-200 hover:border-emerald-300'
                           }`}
                         >
                           <Icon className={`w-12 h-12 mx-auto mb-3 ${
-                            deviceType === device.id ? 'text-emerald-600' : 'text-gray-400'
+                            deviceTypeId === type.id ? 'text-emerald-600' : 'text-gray-600'
                           }`} />
-                          <p className="font-semibold text-center">
-                            {language === 'ar' ? device.nameAr : device.nameEn}
+                          <p className="font-semibold text-gray-900">
+                            {language === 'ar' ? type.nameAr : type.nameEn}
                           </p>
+                          <p className="text-sm text-gray-500">{type.brand}</p>
                         </button>
                       );
                     })}
                   </div>
-                </div>
-              )}
-
-              {/* Step 1: Brand */}
-              {currentStep === 1 && (
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold text-emerald-600">{t.brandTitle}</Label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {BRANDS[deviceType as keyof typeof BRANDS]?.map((b) => (
-                      <button
-                        key={b}
-                        onClick={() => setBrand(b)}
-                        className={`p-4 border-2 rounded-lg transition-all hover:scale-105 ${
-                          brand === b
-                            ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600'
-                            : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300'
-                        }`}
-                      >
-                        <p className="font-semibold text-center">{b}</p>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 2: Model */}
-              {currentStep === 2 && (
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold text-emerald-600">{t.modelTitle}</Label>
-                  {availableModels.length > 0 ? (
-                    <div className="grid gap-3">
-                      {availableModels.map((m) => (
-                        <button
-                          key={m}
-                          onClick={() => setModel(m)}
-                          className={`p-4 border-2 rounded-lg transition-all hover:scale-105 text-right ${
-                            model === m
-                              ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600'
-                              : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300'
-                          }`}
-                        >
-                          <p className="font-semibold">{m}</p>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <Input
-                      value={model}
-                      onChange={(e) => setModel(e.target.value)}
-                      placeholder={language === 'ar' ? 'أدخل الموديل' : 'Enter model'}
-                      className="h-12"
-                    />
-                  )}
-                </div>
-              )}
-
-              {/* Step 3: Issue */}
-              {currentStep === 3 && (
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold text-emerald-600">{t.issueTitle}</Label>
-                  <div className="grid gap-3">
-                    {ISSUES.map((iss) => (
-                      <button
-                        key={iss.id}
-                        onClick={() => setIssue(iss.id)}
-                        className={`p-4 border-2 rounded-lg transition-all hover:scale-105 ${
-                          issue === iss.id
-                            ? 'border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20'
-                            : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <p className={`font-semibold ${issue === iss.id ? 'text-emerald-600' : ''}`}>
-                            {language === 'ar' ? iss.nameAr : iss.nameEn}
-                          </p>
-                          <span className={`text-sm font-bold ${issue === iss.id ? 'text-emerald-600' : 'text-gray-500'}`}>
-                            {iss.price}
-                          </span>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: Description */}
-              {currentStep === 4 && (
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold text-emerald-600">{t.detailsTitle}</Label>
-                  <Textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder={t.descriptionPlaceholder}
-                    rows={6}
-                    className="resize-none"
-                  />
-                  {selectedIssueData && (
-                    <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border-2 border-emerald-200 dark:border-emerald-800">
-                      <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
-                        {language === 'ar' ? 'السعر التقديري: ' : 'Estimated Price: '}
-                        <span className="text-lg">{selectedIssueData.price}</span>
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Step 5: Contact Info */}
-              {currentStep === 5 && (
-                <div className="space-y-4">
-                  <Label className="text-lg font-semibold text-emerald-600 mb-4 block">{t.contactTitle}</Label>
-                  
-                  <div className="space-y-2">
-                    <Label>{t.name}</Label>
-                    <Input
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder={t.namePlaceholder}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>{t.phone}</Label>
-                    <Input
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder={t.phonePlaceholder}
-                      type="tel"
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>{t.address}</Label>
-                    <Input
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      placeholder={t.addressPlaceholder}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>{t.city}</Label>
-                    <Input
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder={t.cityPlaceholder}
-                      className="h-12"
-                    />
-                  </div>
-
-                  {/* Summary */}
-                  <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border">
-                    <h4 className="font-semibold mb-3 text-emerald-600">{language === 'ar' ? 'ملخص الطلب' : 'Order Summary'}</h4>
-                    <div className="space-y-2 text-sm">
-                      <p><span className="font-medium">{language === 'ar' ? 'الجهاز:' : 'Device:'}</span> {brand} {model}</p>
-                      <p><span className="font-medium">{language === 'ar' ? 'المشكلة:' : 'Issue:'}</span> {language === 'ar' ? selectedIssueData?.nameAr : selectedIssueData?.nameEn}</p>
-                      <p><span className="font-medium">{language === 'ar' ? 'السعر:' : 'Price:'}</span> {selectedIssueData?.price}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Navigation Buttons */}
-              <div className="flex gap-3 mt-8">
-                <Button
-                  variant="outline"
-                  onClick={handleBack}
-                  className="flex-1 h-12"
-                >
-                  {language === 'ar' ? <ChevronRight className="mr-2" /> : <ChevronLeft className="ml-2" />}
-                  {t.back}
-                </Button>
-                {currentStep < 5 ? (
-                  <Button
-                    onClick={handleNext}
-                    className="flex-1 h-12 bg-emerald-600 hover:bg-emerald-700"
-                  >
-                    {t.next}
-                    {language === 'ar' ? <ChevronLeft className="ml-2" /> : <ChevronRight className="mr-2" />}
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleSubmit}
-                    className="flex-1 h-12 bg-emerald-600 hover:bg-emerald-700"
-                  >
-                    {t.submit}
-                  </Button>
                 )}
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            )}
+
+            {/* Step 1: Model */}
+            {currentStep === 1 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.modelTitle}</h2>
+                {loadingModels ? (
+                  <div className="text-center py-8 text-gray-500">{t.loading}</div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {deviceModels.map((model) => (
+                      <button
+                        key={model.id}
+                        onClick={() => setDeviceModelId(model.id)}
+                        className={`p-4 rounded-xl border-2 text-right transition-all hover:scale-105 ${
+                          deviceModelId === model.id
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-emerald-300'
+                        }`}
+                      >
+                        <p className="font-semibold text-gray-900">
+                          {language === 'ar' ? model.modelNameAr : model.modelNameEn}
+                        </p>
+                        {model.releaseYear && (
+                          <p className="text-sm text-gray-500">{model.releaseYear}</p>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 2: Issue */}
+            {currentStep === 2 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.issueTitle}</h2>
+                {loadingServices ? (
+                  <div className="text-center py-8 text-gray-500">{t.loading}</div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {serviceTypes.map((service) => (
+                      <button
+                        key={service.id}
+                        onClick={() => setServiceTypeId(service.id)}
+                        className={`p-4 rounded-xl border-2 text-right transition-all hover:scale-105 ${
+                          serviceTypeId === service.id
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-emerald-300'
+                        }`}
+                      >
+                        <p className="font-semibold text-gray-900">
+                          {language === 'ar' ? service.nameAr : service.nameEn}
+                        </p>
+                        {service.descriptionAr && (
+                          <p className="text-sm text-gray-500 mt-1">
+                            {language === 'ar' ? service.descriptionAr : service.descriptionEn}
+                          </p>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 3: Details */}
+            {currentStep === 3 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.detailsTitle}</h2>
+                <Textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder={t.descriptionPlaceholder}
+                  className="min-h-[200px] text-lg"
+                />
+              </div>
+            )}
+
+            {/* Step 4: Contact Info & Summary */}
+            {currentStep === 4 && (
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">{t.contactTitle}</h2>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="name">{t.name}</Label>
+                      <Input
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder={t.namePlaceholder}
+                        className="text-lg"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">{t.phone}</Label>
+                      <Input
+                        id="phone"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder={t.phonePlaceholder}
+                        className="text-lg"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="address">{t.address}</Label>
+                      <Input
+                        id="address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder={t.addressPlaceholder}
+                        className="text-lg"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="city">{t.city}</Label>
+                      <Input
+                        id="city"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder={t.cityPlaceholder}
+                        className="text-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Summary */}
+                <div className="bg-emerald-50 p-6 rounded-xl">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{t.summary}</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">{t.device}:</span>
+                      <span className="font-semibold">
+                        {selectedDeviceType && (language === 'ar' ? selectedDeviceType.nameAr : selectedDeviceType.nameEn)}
+                        {' - '}
+                        {selectedModel && (language === 'ar' ? selectedModel.modelNameAr : selectedModel.modelNameEn)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">{t.service}:</span>
+                      <span className="font-semibold">
+                        {selectedService && (language === 'ar' ? selectedService.nameAr : selectedService.nameEn)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">{t.location}:</span>
+                      <span className="font-semibold">{city}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">{t.contact}:</span>
+                      <span className="font-semibold">{phone}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between mt-8">
+              {currentStep > 0 && (
+                <Button
+                  onClick={handleBack}
+                  variant="outline"
+                  size="lg"
+                  className="flex items-center gap-2"
+                >
+                  {language === 'ar' ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+                  {t.back}
+                </Button>
+              )}
+              
+              {currentStep < 4 ? (
+                <Button
+                  onClick={handleNext}
+                  size="lg"
+                  className="bg-emerald-600 hover:bg-emerald-700 mr-auto flex items-center gap-2"
+                >
+                  {t.next}
+                  {language === 'ar' ? <ChevronLeft className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleSubmit}
+                  size="lg"
+                  className="bg-emerald-600 hover:bg-emerald-700 mr-auto"
+                >
+                  {t.submit}
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

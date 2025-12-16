@@ -8,7 +8,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { seedDatabase } from "../seed";
-import { getAllServiceTypes } from "../db";
+import { getAllServiceTypes, getAllDeviceTypes, getDeviceModelsByType, getServicePrice } from "../db";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -58,6 +58,47 @@ async function startServer() {
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Simple auth endpoints are in tRPC router
+  
+  // REST API endpoints for mobile
+  app.get("/api/devices/types", async (req, res) => {
+    try {
+      const types = await getAllDeviceTypes();
+      res.json(types);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch device types" });
+    }
+  });
+
+  app.get("/api/devices/models/:deviceTypeId", async (req, res) => {
+    try {
+      const deviceTypeId = parseInt(req.params.deviceTypeId);
+      const models = await getDeviceModelsByType(deviceTypeId);
+      res.json(models);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch device models" });
+    }
+  });
+
+  app.get("/api/services/types", async (req, res) => {
+    try {
+      const types = await getAllServiceTypes();
+      res.json(types);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch service types" });
+    }
+  });
+
+  app.get("/api/services/price", async (req, res) => {
+    try {
+      const deviceModelId = parseInt(req.query.deviceModelId as string);
+      const serviceTypeId = parseInt(req.query.serviceTypeId as string);
+      const price = await getServicePrice(deviceModelId, serviceTypeId);
+      res.json(price);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch service price" });
+    }
+  });
+  
   // tRPC API
   app.use(
     "/api/trpc",
