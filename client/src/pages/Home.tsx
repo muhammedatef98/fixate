@@ -262,73 +262,124 @@ export default function Home() {
       </section>
 
       {/* Devices Section */}
-      <section id="services" className="py-16 md:py-24">
+      <section id="services" className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/20">
         <div className="container">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t("devices.title")}</h2>
-            <p className="text-lg text-muted-foreground">{t("devices.subtitle")}</p>
+            <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-4">
+              {t("devices.title")}
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{t("devices.subtitle")}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto mb-12">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all">
-              <CardContent className="pt-8">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 mx-auto">
-                  <Smartphone className="h-8 w-8 text-primary" />
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-16">
+            <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
+              <CardContent className="pt-10 pb-8">
+                <div className="relative mb-6">
+                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Smartphone className="h-10 w-10 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-center mb-3">{t("devices.phones")}</h3>
-                <p className="text-muted-foreground text-center text-sm leading-relaxed">{t("devices.phonesDesc")}</p>
+                <h3 className="text-2xl font-bold text-center mb-4 text-foreground">{t("devices.phones")}</h3>
+                <p className="text-muted-foreground text-center leading-relaxed">{t("devices.phonesDesc")}</p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all">
-              <CardContent className="pt-8">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 mx-auto">
-                  <Laptop className="h-8 w-8 text-primary" />
+            <Card className="group border-2 border-border/50 hover:border-indigo-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
+              <CardContent className="pt-10 pb-8">
+                <div className="relative mb-6">
+                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Laptop className="h-10 w-10 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-center mb-3">{t("devices.laptops")}</h3>
-                <p className="text-muted-foreground text-center text-sm leading-relaxed">{t("devices.laptopsDesc")}</p>
+                <h3 className="text-2xl font-bold text-center mb-4 text-foreground">{t("devices.laptops")}</h3>
+                <p className="text-muted-foreground text-center leading-relaxed">{t("devices.laptopsDesc")}</p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-all">
-              <CardContent className="pt-8">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 mx-auto">
-                  <Tablet className="h-8 w-8 text-primary" />
+            <Card className="group border-2 border-border/50 hover:border-pink-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
+              <CardContent className="pt-10 pb-8">
+                <div className="relative mb-6">
+                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Tablet className="h-10 w-10 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-center mb-3">{t("devices.tablets")}</h3>
-                <p className="text-muted-foreground text-center text-sm leading-relaxed">{t("devices.tabletsDesc")}</p>
+                <h3 className="text-2xl font-bold text-center mb-4 text-foreground">{t("devices.tablets")}</h3>
+                <p className="text-muted-foreground text-center leading-relaxed">{t("devices.tabletsDesc")}</p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Services List */}
-          <div className="max-w-2xl mx-auto bg-muted/30 rounded-2xl p-8 md:p-12">
-            <h3 className="text-2xl font-bold text-center mb-8">{language === 'ar' ? 'خدماتنا' : 'Our Services'}</h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{t("devices.screenReplacement")}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{t("devices.batteryReplacement")}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{t("devices.chargingPort")}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{t("devices.camera")}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{t("devices.software")}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{t("devices.cleaning")}</span>
-              </div>
+          {/* Services Grid */}
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-3">
+                {language === 'ar' ? 'خدماتنا المتكاملة' : 'Our Complete Services'}
+              </h3>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'نقدم جميع خدمات الصيانة والإصلاح' : 'We provide all repair and maintenance services'}
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">{t("devices.screenReplacement")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="group border-2 border-border/50 hover:border-indigo-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-indigo-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">{t("devices.batteryReplacement")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="group border-2 border-border/50 hover:border-pink-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-pink-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">{t("devices.chargingPort")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">{t("devices.camera")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="group border-2 border-border/50 hover:border-indigo-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-indigo-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">{t("devices.software")}</span>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="group border-2 border-border/50 hover:border-pink-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-pink-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle2 className="h-6 w-6 text-white" />
+                    </div>
+                    <span className="text-lg font-semibold text-foreground">{t("devices.cleaning")}</span>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

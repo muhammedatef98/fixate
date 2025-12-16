@@ -28,6 +28,7 @@ import TechnicianDashboardWeb from "./pages/TechnicianDashboardWeb";
 import TechniciansList from "./pages/TechniciansList";
 import Profile from "./pages/Profile";
 import BookingForm from "./pages/BookingForm";
+import NewBooking from "./pages/NewBooking";
 import AIChatbot from "./components/AIChatbot";
 // PWA removed
 
@@ -39,7 +40,8 @@ function Router() {
       <Route path="/calculator" component={Calculator} />
       <Route path="/price-calculator" component={PriceCalculator} />
       <Route path="/request" component={ServiceRequest} />
-      <Route path="/booking" component={BookingForm} />
+      <Route path="/booking" component={NewBooking} />
+      <Route path="/booking-old" component={BookingForm} />
       <Route path="/my-requests" component={MyRequests} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/coupons" component={CouponsManagement} />

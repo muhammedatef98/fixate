@@ -122,6 +122,18 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages]);
 
+  const isGreeting = (message: string): boolean => {
+    const greetings = {
+      ar: ["السلام", "مرحبا", "هلا", "اهلا", "صباح", "مساء", "كيف حالك", "كيفك", "شلونك"],
+      en: ["hello", "hi", "hey", "good morning", "good evening", "how are you", "greetings"]
+    };
+    
+    const greetingWords = greetings[language as keyof typeof greetings];
+    const lowerMessage = message.toLowerCase();
+    
+    return greetingWords.some(greeting => lowerMessage.includes(greeting));
+  };
+
   const isWorkRelated = (message: string): boolean => {
     const workKeywords = {
       ar: ["fixate", "إصلاح", "صيانة", "جوال", "لابتوب", "تابلت", "شاشة", "بطارية", "سعر", "حجز", "موعد", "ضمان", "فني", "خدمة", "جهاز", "أجهزة", "تكلفة", "دفع", "توصيل", "استلام", "كاميرا", "شحن", "برامج"],
@@ -136,6 +148,15 @@ export default function Chatbot() {
 
   const generateBotResponse = (userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase();
+    
+    // Check if it's a greeting
+    if (isGreeting(userMessage)) {
+      const greetingResponses = {
+        ar: "مرحباً بك! 👋 أنا مساعد Fixate، سعيد بخدمتك. كيف يمكنني مساعدتك اليوم؟",
+        en: "Hello! 👋 I'm Fixate assistant, happy to help you. How can I assist you today?"
+      };
+      return greetingResponses[language as keyof typeof greetingResponses];
+    }
     
     // Check if message is work-related
     if (!isWorkRelated(userMessage)) {
