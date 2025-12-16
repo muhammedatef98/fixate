@@ -19,7 +19,7 @@ import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import PWAInstallButton from "@/components/PWAInstallButton";
+// PWA removed
 import Logo from "@/components/Logo";
 
 export default function Home() {
@@ -71,7 +71,6 @@ export default function Home() {
               <Link href="/request">
                 <Button>{t("nav.bookNow")}</Button>
               </Link>
-              <PWAInstallButton />
               <Link href="/login">
                 <Button variant="outline">
                   {t("nav.login")}
@@ -156,7 +155,6 @@ export default function Home() {
                   <Button className="w-full">{t("nav.bookNow")}</Button>
                 </Link>
                 
-                <PWAInstallButton />
                 
                 <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full">
@@ -473,7 +471,6 @@ export default function Home() {
               <p className="text-background/60 text-sm leading-relaxed mb-4">
                 {t("footer.description")}
               </p>
-              <PWAInstallButton />
             </div>
 
             <div>
