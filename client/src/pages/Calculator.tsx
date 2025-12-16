@@ -51,7 +51,7 @@ export default function Calculator() {
                 <Logo />
               </div>
             </Link>
-            <Link href="/request">
+            <Link href="/booking">
               <Button>احجز الآن</Button>
             </Link>
           </div>
@@ -169,7 +169,7 @@ export default function Calculator() {
                       <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
                         <span>ضمان {pricing.warrantyDays} يوم</span>
                       </div>
-                      <Link href="/request">
+                      <Link href="/booking">
                         <Button className="mt-6 w-full" size="lg">
                           احجز الآن
                           <ArrowRight className="mr-2 h-5 w-5" />

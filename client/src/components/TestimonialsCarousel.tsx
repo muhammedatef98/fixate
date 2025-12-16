@@ -123,28 +123,28 @@ export default function TestimonialsCarousel() {
       number: "15,000+",
       labelAr: "عميل راضٍ",
       labelEn: "Happy Clients",
-      color: "from-emerald-500 via-indigo-500 to-pink-500"
+      color: "from-emerald-500 to-emerald-600"
     },
     {
       icon: CheckCircle2,
       number: "20,000+",
       labelAr: "جهاز تم إصلاحه",
       labelEn: "Devices Repaired",
-      color: "from-emerald-500 via-indigo-500 to-pink-500"
+      color: "from-emerald-500 to-emerald-600"
     },
     {
       icon: Award,
       number: "98%",
       labelAr: "نسبة الرضا",
       labelEn: "Satisfaction Rate",
-      color: "from-emerald-500 via-indigo-500 to-pink-500"
+      color: "from-emerald-500 to-emerald-600"
     },
     {
       icon: TrendingUp,
       number: "4.9/5",
       labelAr: "متوسط التقييم",
       labelEn: "Average Rating",
-      color: "from-emerald-500 via-indigo-500 to-pink-500"
+      color: "from-emerald-500 to-emerald-600"
     }
   ];
 
@@ -203,7 +203,7 @@ export default function TestimonialsCarousel() {
                 <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} mb-4 group-hover:scale-110 transition-transform`}>
                   <Icon className="h-6 w-6 text-white" />
                 </div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-2">
+                <div className="text-3xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent mb-2">
                   {stat.number}
                 </div>
                 <div className="text-sm text-muted-foreground font-medium">
@@ -233,14 +233,14 @@ export default function TestimonialsCarousel() {
                       {/* Avatar and Info */}
                       <div className="flex flex-col items-center md:items-start gap-4 md:w-1/3">
                         <div className="relative">
-                          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 p-1">
+                          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gradient-to-r from-emerald-500 to-emerald-600 p-1">
                             <img
                               src={testimonial.image}
                               alt={language === 'ar' ? testimonial.nameAr : testimonial.nameEn}
                               className="w-full h-full rounded-full object-cover bg-background"
                             />
                           </div>
-                          <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 rounded-full p-2">
+                          <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full p-2">
                             <Quote className="h-4 w-4 text-white" />
                           </div>
                         </div>
@@ -268,13 +268,13 @@ export default function TestimonialsCarousel() {
                         </p>
 
                         <div className="flex flex-wrap gap-3">
-                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 via-indigo-500/10 to-pink-500/10 border border-primary/20">
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-primary/20">
                             <span className="text-2xl">📱</span>
                             <span className="text-sm font-medium text-foreground">
                               {language === 'ar' ? testimonial.deviceAr : testimonial.deviceEn}
                             </span>
                           </div>
-                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 via-indigo-500/10 to-pink-500/10 border border-primary/20">
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-primary/20">
                             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                             <span className="text-sm font-medium text-foreground">
                               {language === 'ar' ? testimonial.serviceAr : testimonial.serviceEn}
@@ -293,14 +293,14 @@ export default function TestimonialsCarousel() {
         {/* Navigation Buttons */}
         <button
           onClick={prevTestimonial}
-          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'right-0 -mr-6' : 'left-0 -ml-6'} bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-10`}
+          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'right-0 -mr-6' : 'left-0 -ml-6'} bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-10`}
           aria-label={language === 'ar' ? 'السابق' : 'Previous'}
         >
           {language === 'ar' ? <ChevronRight className="h-6 w-6" /> : <ChevronLeft className="h-6 w-6" />}
         </button>
         <button
           onClick={nextTestimonial}
-          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'left-0 -ml-6' : 'right-0 -mr-6'} bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-10`}
+          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'left-0 -ml-6' : 'right-0 -mr-6'} bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-10`}
           aria-label={language === 'ar' ? 'التالي' : 'Next'}
         >
           {language === 'ar' ? <ChevronLeft className="h-6 w-6" /> : <ChevronRight className="h-6 w-6" />}
@@ -314,7 +314,7 @@ export default function TestimonialsCarousel() {
               onClick={() => goToTestimonial(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? 'w-8 bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500'
+                  ? 'w-8 bg-gradient-to-r from-emerald-500 to-emerald-600'
                   : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
               }`}
               aria-label={`${language === 'ar' ? 'اذهب إلى التقييم' : 'Go to review'} ${index + 1}`}
@@ -324,7 +324,7 @@ export default function TestimonialsCarousel() {
       </div>
 
       {/* CTA Section */}
-      <div className="text-center p-8 md:p-12 rounded-3xl bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500">
+      <div className="text-center p-8 md:p-12 rounded-3xl bg-gradient-to-r from-emerald-500 to-emerald-600">
         <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
           {language === 'ar' ? 'انضم إلى آلاف العملاء السعداء!' : 'Join thousands of happy customers!'}
         </h3>

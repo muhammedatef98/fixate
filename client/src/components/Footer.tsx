@@ -71,7 +71,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/request">
+                <Link href="/booking">
                   <span className="text-gray-300 hover:text-primary transition-colors cursor-pointer text-sm">
                     {t.services}
                   </span>

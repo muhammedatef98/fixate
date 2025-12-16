@@ -36,7 +36,7 @@ export default function AboutUs() {
               <Link href="/faq" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.faq")}
               </Link>
-              <Link href="/request">
+              <Link href="/booking">
                 <Button>{t("nav.bookNow")}</Button>
               </Link>
               <LanguageThemeSwitcher />
@@ -170,7 +170,7 @@ export default function AboutUs() {
                 ? "احجز خدمة الإصلاح الآن واحصل على خصم 20%"
                 : "Book repair service now and get 20% off"}
             </p>
-            <Link href="/request">
+            <Link href="/booking">
               <Button size="lg" variant="secondary" className="text-base px-8 h-12 rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
                 {t("cta.button")}
               </Button>

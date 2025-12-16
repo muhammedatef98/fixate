@@ -239,7 +239,7 @@ export default function Chatbot() {
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50 bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
+          className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 z-50 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
           size="icon"
         >
           <MessageCircle className="h-7 w-7" />
@@ -251,7 +251,7 @@ export default function Chatbot() {
       {isOpen && (
         <Card className="fixed bottom-6 right-6 w-[400px] h-[600px] shadow-2xl z-50 flex flex-col animate-in slide-in-from-bottom-4 duration-300">
           {/* Header */}
-          <CardHeader className="bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 text-white rounded-t-lg p-4">
+          <CardHeader className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-t-lg p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
@@ -285,14 +285,14 @@ export default function Chatbot() {
                 className={`flex gap-2 ${message.sender === "user" ? "justify-end" : "justify-start"}`}
               >
                 {message.sender === "bot" && (
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
                     <Bot className="h-5 w-5 text-white" />
                   </div>
                 )}
                 <div
                   className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                     message.sender === "user"
-                      ? "bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 text-white"
+                      ? "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white"
                       : "bg-background border border-border"
                   }`}
                 >
@@ -311,7 +311,7 @@ export default function Chatbot() {
             
             {isTyping && (
               <div className="flex gap-2 justify-start">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
                   <Bot className="h-5 w-5 text-white" />
                 </div>
                 <div className="bg-background border border-border rounded-2xl px-4 py-3">
@@ -360,7 +360,7 @@ export default function Chatbot() {
               <Button
                 onClick={() => handleSendMessage()}
                 size="icon"
-                className="bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
               >
                 <Send className="h-4 w-4" />
               </Button>

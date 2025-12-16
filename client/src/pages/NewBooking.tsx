@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,9 +17,11 @@ import {
   ArrowRight,
   ArrowLeft,
   Phone,
-  User
+  User,
+  Navigation
 } from "lucide-react";
 import { useLocation } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 interface BookingData {
   deviceType: string;
@@ -33,12 +35,16 @@ interface BookingData {
   city: string;
   date: string;
   time: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export default function NewBooking() {
   const { language } = useLanguage();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const [bookingData, setBookingData] = useState<BookingData>({
     deviceType: "",
     deviceBrand: "",
@@ -52,6 +58,21 @@ export default function NewBooking() {
     date: "",
     time: ""
   });
+
+  // Check if user is logged in
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      toast({
+        title: language === 'ar' ? "يجب تسجيل الدخول" : "Login Required",
+        description: language === 'ar' ? "يجب تسجيل الدخول أولاً للحجز" : "You must login first to book a service",
+        variant: "destructive"
+      });
+      setTimeout(() => {
+        setLocation("/login");
+      }, 2000);
+    }
+  }, []);
 
   const content = {
     ar: {
@@ -81,6 +102,7 @@ export default function NewBooking() {
       yourName: "الاسم الكامل",
       yourPhone: "رقم الجوال",
       yourAddress: "العنوان",
+      getCurrentLocation: "استخدام موقعي الحالي",
       selectCity: "اختر المدينة",
       riyadh: "الرياض",
       jeddah: "جدة",
@@ -96,7 +118,9 @@ export default function NewBooking() {
       submitting: "جاري الإرسال...",
       success: "تم إرسال طلبك بنجاح!",
       successDesc: "سيتم التواصل معك قريباً من قبل أحد الفنيين",
-      backHome: "العودة للرئيسية"
+      backHome: "العودة للرئيسية",
+      locationError: "تعذر الحصول على الموقع",
+      locationSuccess: "تم الحصول على موقعك"
     },
     en: {
       title: "Book Repair Service",
@@ -125,6 +149,7 @@ export default function NewBooking() {
       yourName: "Full Name",
       yourPhone: "Phone Number",
       yourAddress: "Address",
+      getCurrentLocation: "Use My Current Location",
       selectCity: "Select City",
       riyadh: "Riyadh",
       jeddah: "Jeddah",
@@ -140,7 +165,9 @@ export default function NewBooking() {
       submitting: "Submitting...",
       success: "Your request has been submitted successfully!",
       successDesc: "You will be contacted soon by one of our technicians",
-      backHome: "Back to Home"
+      backHome: "Back to Home",
+      locationError: "Could not get location",
+      locationSuccess: "Location obtained"
     }
   };
 
@@ -181,6 +208,61 @@ export default function NewBooking() {
     { label: t.evening, value: "evening" }
   ];
 
+  const getCurrentLocation = () => {
+    setIsLoadingLocation(true);
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          
+          // Use reverse geocoding to get address
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=${language}`
+            );
+            const data = await response.json();
+            
+            setBookingData({
+              ...bookingData,
+              address: data.display_name || `${latitude}, ${longitude}`,
+              latitude,
+              longitude
+            });
+            
+            toast({
+              title: t.locationSuccess,
+              description: data.display_name || `${latitude}, ${longitude}`
+            });
+          } catch (error) {
+            setBookingData({
+              ...bookingData,
+              address: `${latitude}, ${longitude}`,
+              latitude,
+              longitude
+            });
+          }
+          
+          setIsLoadingLocation(false);
+        },
+        (error) => {
+          toast({
+            title: t.locationError,
+            description: error.message,
+            variant: "destructive"
+          });
+          setIsLoadingLocation(false);
+        }
+      );
+    } else {
+      toast({
+        title: t.locationError,
+        description: "Geolocation is not supported",
+        variant: "destructive"
+      });
+      setIsLoadingLocation(false);
+    }
+  };
+
   const handleSubmit = async () => {
     // Here you would send the data to your backend
     console.log("Booking data:", bookingData);
@@ -204,7 +286,7 @@ export default function NewBooking() {
       case 3:
         return bookingData.name && bookingData.phone;
       case 4:
-        return bookingData.city && bookingData.date && bookingData.time;
+        return bookingData.city && bookingData.date && bookingData.time && bookingData.address;
       default:
         return false;
     }
@@ -212,17 +294,17 @@ export default function NewBooking() {
 
   if (step === 5) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 p-4">
-        <Card className="max-w-md w-full text-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-emerald-100 p-4">
+        <Card className="max-w-md w-full text-center border-2 border-emerald-200">
           <CardContent className="pt-12 pb-8">
-            <div className="h-20 w-20 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-6">
+            <div className="h-20 w-20 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-6 shadow-lg">
               <CheckCircle2 className="h-10 w-10 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-foreground mb-4">{t.success}</h2>
             <p className="text-muted-foreground mb-8">{t.successDesc}</p>
             <Button 
               onClick={() => setLocation("/")}
-              className="bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg"
             >
               {t.backHome}
             </Button>
@@ -233,11 +315,11 @@ export default function NewBooking() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-background to-emerald-50/30 py-12 px-4">
       <div className="container max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-emerald-600 mb-4">
             {t.title}
           </h1>
           <p className="text-lg text-muted-foreground">{t.subtitle}</p>
@@ -249,14 +331,14 @@ export default function NewBooking() {
             <div key={s} className="flex items-center flex-1">
               <div className={`h-10 w-10 rounded-full flex items-center justify-center font-bold transition-all ${
                 s <= step 
-                  ? "bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 text-white scale-110" 
+                  ? "bg-gradient-to-br from-emerald-500 to-emerald-600 text-white scale-110 shadow-lg" 
                   : "bg-muted text-muted-foreground"
               }`}>
                 {s}
               </div>
               {s < 4 && (
                 <div className={`h-1 flex-1 mx-2 rounded ${
-                  s < step ? "bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500" : "bg-muted"
+                  s < step ? "bg-gradient-to-r from-emerald-500 to-emerald-600" : "bg-muted"
                 }`} />
               )}
             </div>
@@ -264,12 +346,12 @@ export default function NewBooking() {
         </div>
 
         {/* Step Content */}
-        <Card className="border-2 border-border/50 shadow-xl">
+        <Card className="border-2 border-emerald-100 shadow-xl">
           <CardContent className="p-8 md:p-12">
             {/* Step 1: Device Type */}
             {step === 1 && (
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-center mb-8">{t.step1}</h2>
+                <h2 className="text-2xl font-bold text-center mb-8 text-emerald-600">{t.step1}</h2>
                 
                 <div>
                   <Label className="text-lg mb-4 block">{t.selectDevice}</Label>
@@ -282,12 +364,12 @@ export default function NewBooking() {
                           onClick={() => setBookingData({ ...bookingData, deviceType: device.value, deviceBrand: "", deviceModel: "" })}
                           className={`p-6 rounded-2xl border-2 transition-all hover:scale-105 ${
                             bookingData.deviceType === device.value
-                              ? "border-emerald-500 bg-gradient-to-br from-emerald-500/10 to-pink-500/10"
-                              : "border-border hover:border-emerald-500/50"
+                              ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 shadow-lg"
+                              : "border-border hover:border-emerald-300"
                           }`}
                         >
                           <Icon className={`h-12 w-12 mx-auto mb-3 ${
-                            bookingData.deviceType === device.value ? "text-emerald-500" : "text-muted-foreground"
+                            bookingData.deviceType === device.value ? "text-emerald-600" : "text-muted-foreground"
                           }`} />
                           <p className="font-semibold text-center">{device.label}</p>
                         </button>
@@ -306,8 +388,8 @@ export default function NewBooking() {
                           onClick={() => setBookingData({ ...bookingData, deviceBrand: brand })}
                           className={`p-4 rounded-xl border-2 transition-all hover:scale-105 font-semibold ${
                             bookingData.deviceBrand === brand
-                              ? "border-indigo-500 bg-gradient-to-br from-indigo-500/10 to-pink-500/10 text-indigo-600"
-                              : "border-border hover:border-indigo-500/50"
+                              ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 text-emerald-700 shadow-md"
+                              : "border-border hover:border-emerald-300"
                           }`}
                         >
                           {brand}
@@ -322,7 +404,7 @@ export default function NewBooking() {
             {/* Step 2: Service Type & Issue */}
             {step === 2 && (
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-center mb-8">{t.step2}</h2>
+                <h2 className="text-2xl font-bold text-center mb-8 text-emerald-600">{t.step2}</h2>
                 
                 <div>
                   <Label className="text-lg mb-4 block">{t.serviceType}</Label>
@@ -331,12 +413,12 @@ export default function NewBooking() {
                       onClick={() => setBookingData({ ...bookingData, serviceType: "home" })}
                       className={`p-6 rounded-2xl border-2 transition-all hover:scale-105 text-start ${
                         bookingData.serviceType === "home"
-                          ? "border-emerald-500 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10"
-                          : "border-border hover:border-emerald-500/50"
+                          ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 shadow-lg"
+                          : "border-border hover:border-emerald-300"
                       }`}
                     >
                       <MapPin className={`h-8 w-8 mb-3 ${
-                        bookingData.serviceType === "home" ? "text-emerald-500" : "text-muted-foreground"
+                        bookingData.serviceType === "home" ? "text-emerald-600" : "text-muted-foreground"
                       }`} />
                       <p className="font-bold text-lg mb-1">{t.homeService}</p>
                     </button>
@@ -344,12 +426,12 @@ export default function NewBooking() {
                       onClick={() => setBookingData({ ...bookingData, serviceType: "pickup" })}
                       className={`p-6 rounded-2xl border-2 transition-all hover:scale-105 text-start ${
                         bookingData.serviceType === "pickup"
-                          ? "border-indigo-500 bg-gradient-to-br from-indigo-500/10 to-pink-500/10"
-                          : "border-border hover:border-indigo-500/50"
+                          ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 shadow-lg"
+                          : "border-border hover:border-emerald-300"
                       }`}
                     >
                       <MapPin className={`h-8 w-8 mb-3 ${
-                        bookingData.serviceType === "pickup" ? "text-indigo-500" : "text-muted-foreground"
+                        bookingData.serviceType === "pickup" ? "text-emerald-600" : "text-muted-foreground"
                       }`} />
                       <p className="font-bold text-lg mb-1">{t.pickupService}</p>
                     </button>
@@ -365,8 +447,8 @@ export default function NewBooking() {
                         onClick={() => setBookingData({ ...bookingData, issue: issue.value })}
                         className={`p-4 rounded-xl border-2 transition-all hover:scale-105 font-semibold text-start ${
                           bookingData.issue === issue.value
-                            ? "border-pink-500 bg-gradient-to-br from-pink-500/10 to-emerald-500/10 text-pink-600"
-                            : "border-border hover:border-pink-500/50"
+                            ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 text-emerald-700 shadow-md"
+                            : "border-border hover:border-emerald-300"
                         }`}
                       >
                         {issue.label}
@@ -380,17 +462,17 @@ export default function NewBooking() {
             {/* Step 3: Contact Information */}
             {step === 3 && (
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-center mb-8">{t.step3}</h2>
+                <h2 className="text-2xl font-bold text-center mb-8 text-emerald-600">{t.step3}</h2>
                 
                 <div className="space-y-6">
                   <div>
                     <Label className="text-lg mb-3 block">{t.yourName}</Label>
                     <div className="relative">
-                      <User className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <User className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-600" />
                       <Input
                         value={bookingData.name}
                         onChange={(e) => setBookingData({ ...bookingData, name: e.target.value })}
-                        className="h-14 text-lg pr-12 border-2"
+                        className="h-14 text-lg pr-12 border-2 border-emerald-200 focus:border-emerald-500"
                         placeholder={language === 'ar' ? "أحمد محمد" : "Ahmed Mohammed"}
                       />
                     </div>
@@ -399,25 +481,15 @@ export default function NewBooking() {
                   <div>
                     <Label className="text-lg mb-3 block">{t.yourPhone}</Label>
                     <div className="relative">
-                      <Phone className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <Phone className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-600" />
                       <Input
                         value={bookingData.phone}
                         onChange={(e) => setBookingData({ ...bookingData, phone: e.target.value })}
-                        className="h-14 text-lg pr-12 border-2"
+                        className="h-14 text-lg pr-12 border-2 border-emerald-200 focus:border-emerald-500"
                         placeholder="+966 50 123 4567"
                         type="tel"
                       />
                     </div>
-                  </div>
-
-                  <div>
-                    <Label className="text-lg mb-3 block">{t.yourAddress}</Label>
-                    <Textarea
-                      value={bookingData.address}
-                      onChange={(e) => setBookingData({ ...bookingData, address: e.target.value })}
-                      className="min-h-[100px] text-lg border-2"
-                      placeholder={language === 'ar' ? "الحي، الشارع، رقم المبنى..." : "District, Street, Building number..."}
-                    />
                   </div>
                 </div>
               </div>
@@ -426,7 +498,7 @@ export default function NewBooking() {
             {/* Step 4: Appointment & Location */}
             {step === 4 && (
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-center mb-8">{t.step4}</h2>
+                <h2 className="text-2xl font-bold text-center mb-8 text-emerald-600">{t.step4}</h2>
                 
                 <div>
                   <Label className="text-lg mb-4 block">{t.selectCity}</Label>
@@ -437,8 +509,8 @@ export default function NewBooking() {
                         onClick={() => setBookingData({ ...bookingData, city: city.value })}
                         className={`p-6 rounded-2xl border-2 transition-all hover:scale-105 font-bold text-lg ${
                           bookingData.city === city.value
-                            ? "border-emerald-500 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10 text-emerald-600"
-                            : "border-border hover:border-emerald-500/50"
+                            ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 text-emerald-700 shadow-lg"
+                            : "border-border hover:border-emerald-300"
                         }`}
                       >
                         {city.label}
@@ -448,14 +520,37 @@ export default function NewBooking() {
                 </div>
 
                 <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <Label className="text-lg">{t.yourAddress}</Label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={getCurrentLocation}
+                      disabled={isLoadingLocation}
+                      className="border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+                    >
+                      <Navigation className={`h-4 w-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                      {isLoadingLocation ? "..." : t.getCurrentLocation}
+                    </Button>
+                  </div>
+                  <Textarea
+                    value={bookingData.address}
+                    onChange={(e) => setBookingData({ ...bookingData, address: e.target.value })}
+                    className="min-h-[100px] text-lg border-2 border-emerald-200 focus:border-emerald-500"
+                    placeholder={language === 'ar' ? "الحي، الشارع، رقم المبنى..." : "District, Street, Building number..."}
+                  />
+                </div>
+
+                <div>
                   <Label className="text-lg mb-3 block">{t.selectDate}</Label>
                   <div className="relative">
-                    <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-600" />
                     <Input
                       type="date"
                       value={bookingData.date}
                       onChange={(e) => setBookingData({ ...bookingData, date: e.target.value })}
-                      className="h-14 text-lg pr-12 border-2"
+                      className="h-14 text-lg pr-12 border-2 border-emerald-200 focus:border-emerald-500"
                       min={new Date().toISOString().split('T')[0]}
                     />
                   </div>
@@ -470,12 +565,12 @@ export default function NewBooking() {
                         onClick={() => setBookingData({ ...bookingData, time: time.value })}
                         className={`p-6 rounded-2xl border-2 transition-all hover:scale-105 ${
                           bookingData.time === time.value
-                            ? "border-pink-500 bg-gradient-to-br from-pink-500/10 to-emerald-500/10"
-                            : "border-border hover:border-pink-500/50"
+                            ? "border-emerald-500 bg-gradient-to-br from-emerald-50 to-emerald-100 shadow-lg"
+                            : "border-border hover:border-emerald-300"
                         }`}
                       >
                         <Clock className={`h-6 w-6 mx-auto mb-2 ${
-                          bookingData.time === time.value ? "text-pink-500" : "text-muted-foreground"
+                          bookingData.time === time.value ? "text-emerald-600" : "text-muted-foreground"
                         }`} />
                         <p className="font-semibold text-center text-sm">{time.label}</p>
                       </button>
@@ -491,7 +586,7 @@ export default function NewBooking() {
                 <Button
                   onClick={() => setStep(step - 1)}
                   variant="outline"
-                  className="flex-1 h-14 text-lg border-2"
+                  className="flex-1 h-14 text-lg border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50"
                 >
                   {language === 'ar' ? <ArrowRight className="ml-2 h-5 w-5" /> : <ArrowLeft className="mr-2 h-5 w-5" />}
                   {t.previous}
@@ -502,7 +597,7 @@ export default function NewBooking() {
                 <Button
                   onClick={() => setStep(step + 1)}
                   disabled={!canProceed()}
-                  className="flex-1 h-14 text-lg bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
+                  className="flex-1 h-14 text-lg bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg"
                 >
                   {t.next}
                   {language === 'ar' ? <ArrowLeft className="mr-2 h-5 w-5" /> : <ArrowRight className="ml-2 h-5 w-5" />}
@@ -511,7 +606,7 @@ export default function NewBooking() {
                 <Button
                   onClick={handleSubmit}
                   disabled={!canProceed()}
-                  className="flex-1 h-14 text-lg bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600"
+                  className="flex-1 h-14 text-lg bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg"
                 >
                   <CheckCircle2 className={language === 'ar' ? "mr-2 h-5 w-5" : "ml-2 h-5 w-5"} />
                   {t.submit}

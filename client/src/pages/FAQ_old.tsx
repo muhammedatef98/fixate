@@ -261,7 +261,7 @@ export default function FAQ() {
                 تواصل معنا عبر الدردشة
               </a>
               <a
-                href="/request"
+                href="/booking"
                 className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg font-bold border-2 border-blue-600 hover:bg-blue-50 transition-colors"
               >
                 احجز خدمة الآن

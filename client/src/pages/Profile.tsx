@@ -161,7 +161,7 @@ export default function Profile() {
             </Link>
             
             <div className="flex items-center gap-3">
-              <Link href="/request">
+              <Link href="/booking">
                 <Button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700">
                   {t.newRequest}
                 </Button>
@@ -312,7 +312,7 @@ export default function Profile() {
                     <p className="text-muted-foreground mb-6 text-center max-w-md">
                       {t.noOrdersDesc}
                     </p>
-                    <Link href="/request">
+                    <Link href="/booking">
                       <Button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700">
                         {t.startNow}
                         <ArrowRight className="ml-2 h-4 w-4" />

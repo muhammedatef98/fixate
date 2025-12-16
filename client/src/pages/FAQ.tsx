@@ -93,7 +93,7 @@ export default function FAQ() {
               <Link href="/faq" className="text-sm font-semibold text-foreground">
                 {t("nav.faq")}
               </Link>
-              <Link href="/request">
+              <Link href="/booking">
                 <Button>{t("nav.bookNow")}</Button>
               </Link>
               <LanguageThemeSwitcher />
@@ -165,7 +165,7 @@ export default function FAQ() {
                 ? "تواصل معنا وسنكون سعداء بمساعدتك"
                 : "Contact us and we'll be happy to help"}
             </p>
-            <Link href="/request">
+            <Link href="/booking">
               <Button size="lg" variant="secondary" className="text-base px-8 h-12 rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
                 {t("cta.button")}
               </Button>

@@ -70,7 +70,7 @@ export default function MyRequests() {
               <span className="text-sm text-muted-foreground hidden sm:inline">
                 {language === 'ar' ? `مرحباً، ${user?.name}` : `Hello, ${user?.name}`}
               </span>
-              <Link href="/request">
+              <Link href="/booking">
                 <Button className="font-semibold">
                   {language === 'ar' ? 'طلب جديد' : 'New Request'}
                 </Button>
@@ -223,7 +223,7 @@ export default function MyRequests() {
                 <p className="text-muted-foreground mb-8">
                   {language === 'ar' ? 'ابدأ بإنشاء أول طلب إصلاح لجهازك' : 'Create your first repair request'}
                 </p>
-                <Link href="/request">
+                <Link href="/booking">
                   <Button size="lg" className="font-semibold">
                     {language === 'ar' ? 'طلب خدمة إصلاح' : 'Request Repair Service'}
                   </Button>

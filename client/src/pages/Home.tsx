@@ -168,7 +168,7 @@ export default function Home() {
                 
                 <div className="border-t border-border my-4"></div>
                 
-                <Link href="/request" onClick={closeMobileMenu} className="block">
+                <Link href="/booking" onClick={closeMobileMenu} className="block">
                   <Button className="w-full h-11 font-semibold">{t("nav.bookNow")}</Button>
                 </Link>
                 
@@ -202,7 +202,7 @@ export default function Home() {
               {t("hero.description2")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/request">
+              <Link href="/booking">
                 <Button size="lg" className="text-base px-8 h-12 rounded-full font-semibold shadow-md hover:shadow-lg transition-all">
                   {t("hero.bookService")}
                 </Button>
@@ -265,7 +265,7 @@ export default function Home() {
       <section id="services" className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/20">
         <div className="container">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent mb-4">
               {t("devices.title")}
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{t("devices.subtitle")}</p>
@@ -275,7 +275,7 @@ export default function Home() {
             <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
               <CardContent className="pt-10 pb-8">
                 <div className="relative mb-6">
-                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Smartphone className="h-10 w-10 text-white" />
                   </div>
                 </div>
@@ -284,10 +284,10 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="group border-2 border-border/50 hover:border-indigo-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
+            <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
               <CardContent className="pt-10 pb-8">
                 <div className="relative mb-6">
-                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Laptop className="h-10 w-10 text-white" />
                   </div>
                 </div>
@@ -296,10 +296,10 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="group border-2 border-border/50 hover:border-pink-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
+            <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
               <CardContent className="pt-10 pb-8">
                 <div className="relative mb-6">
-                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 via-indigo-500 to-pink-500 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Tablet className="h-10 w-10 text-white" />
                   </div>
                 </div>
@@ -312,7 +312,7 @@ export default function Home() {
           {/* Services Grid */}
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-500 via-indigo-500 to-pink-500 bg-clip-text text-transparent mb-3">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent mb-3">
                 {language === 'ar' ? 'خدماتنا المتكاملة' : 'Our Complete Services'}
               </h3>
               <p className="text-muted-foreground">
@@ -320,7 +320,7 @@ export default function Home() {
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-500/5">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-600/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -330,27 +330,27 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="group border-2 border-border/50 hover:border-indigo-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-indigo-500/5">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-600/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       <CheckCircle2 className="h-6 w-6 text-white" />
                     </div>
                     <span className="text-lg font-semibold text-foreground">{t("devices.batteryReplacement")}</span>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="group border-2 border-border/50 hover:border-pink-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-pink-500/5">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-600/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       <CheckCircle2 className="h-6 w-6 text-white" />
                     </div>
                     <span className="text-lg font-semibold text-foreground">{t("devices.chargingPort")}</span>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-500/5">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-600/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -360,20 +360,20 @@ export default function Home() {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="group border-2 border-border/50 hover:border-indigo-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-indigo-500/5">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-600/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       <CheckCircle2 className="h-6 w-6 text-white" />
                     </div>
                     <span className="text-lg font-semibold text-foreground">{t("devices.software")}</span>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="group border-2 border-border/50 hover:border-pink-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-pink-500/5">
+              <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-md hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-emerald-600/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                       <CheckCircle2 className="h-6 w-6 text-white" />
                     </div>
                     <span className="text-lg font-semibold text-foreground">{t("devices.cleaning")}</span>
@@ -421,7 +421,7 @@ export default function Home() {
               <br />
               {t("cta.subtitle2")}
             </p>
-            <Link href="/request">
+            <Link href="/booking">
               <Button size="lg" className="text-base px-8 h-12 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all">
                 {t("cta.button")}
               </Button>

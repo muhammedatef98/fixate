@@ -214,7 +214,7 @@ export default function Testimonials() {
               </CardContent>
 
               {/* Gradient Overlay on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-purple-500/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </Card>
           ))}
         </div>
@@ -232,7 +232,7 @@ export default function Testimonials() {
                   احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 6 أشهر
                 </p>
                 <a
-                  href="/request"
+                  href="/booking"
                   className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-xl"
                 >
                   احجز خدمة الإصلاح الآن

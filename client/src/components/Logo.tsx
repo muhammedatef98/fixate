@@ -1,4 +1,4 @@
-function Logo({ className = "", showText = false }: { className?: string; showText?: boolean }) {
+function Logo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       <img 
@@ -6,11 +6,9 @@ function Logo({ className = "", showText = false }: { className?: string; showTe
         alt="Fixate" 
         className="h-10 w-10 object-contain"
       />
-      {showText && (
-        <span className="text-2xl font-bold text-primary">
-          Fixate
-        </span>
-      )}
+      <span className="text-2xl font-bold text-primary">
+        Fixate
+      </span>
     </div>
   );
 }
