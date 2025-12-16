@@ -83,11 +83,6 @@ export default function Home() {
                   {t("nav.bookNow")}
                 </Button>
               </Link>
-              <Link href="/technicians">
-                <Button variant="outline">
-                  {language === 'ar' ? 'الفنيون' : 'Technicians'}
-                </Button>
-              </Link>
               <Link href="/price-calculator" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {language === 'ar' ? 'احسب السعر' : 'Calculate Price'}
               </Link>
@@ -125,12 +120,6 @@ export default function Home() {
                 <Link href="/booking" onClick={closeMobileMenu} className="block">
                   <Button className="w-full h-12 font-semibold bg-emerald-600 hover:bg-emerald-700">
                     {t("nav.bookNow")}
-                  </Button>
-                </Link>
-                
-                <Link href="/technicians" onClick={closeMobileMenu} className="block">
-                  <Button variant="outline" className="w-full h-12 font-semibold">
-                    {language === 'ar' ? 'الفنيون' : 'Technicians'}
                   </Button>
                 </Link>
                 

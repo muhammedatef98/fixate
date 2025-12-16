@@ -77,13 +77,7 @@ export default function Footer() {
                   </span>
                 </Link>
               </li>
-              <li>
-                <Link href="/technicians">
-                  <span className="text-gray-300 hover:text-primary transition-colors cursor-pointer text-sm">
-                    {t.technicians}
-                  </span>
-                </Link>
-              </li>
+
               <li>
                 <Link href="/about">
                   <span className="text-gray-300 hover:text-primary transition-colors cursor-pointer text-sm">
