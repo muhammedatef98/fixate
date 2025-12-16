@@ -901,3 +901,76 @@ export async function createUser(userData: { name: string; email: string; phone:
     throw error;
   }
 }
+
+// Service Request Management Functions
+export async function getUserRequests(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const result = await db.select()
+    .from(serviceRequests)
+    .where(eq(serviceRequests.userId, userId))
+    .orderBy(desc(serviceRequests.createdAt));
+
+  return result;
+}
+
+export async function getPendingRequests(city: string) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const result = await db.select()
+    .from(serviceRequests)
+    .where(and(
+      eq(serviceRequests.status, 'pending'),
+      eq(serviceRequests.city, city),
+      isNull(serviceRequests.technicianId)
+    ))
+    .orderBy(desc(serviceRequests.createdAt));
+
+  return result;
+}
+
+export async function assignRequestToTechnician(requestId: number, technicianId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(serviceRequests)
+    .set({
+      technicianId,
+      assignedAt: new Date(),
+      status: 'confirmed',
+      updatedAt: new Date(),
+    })
+    .where(eq(serviceRequests.id, requestId));
+}
+
+export async function updateRequestStatus(requestId: number, status: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const updateData: any = {
+    status,
+    updatedAt: new Date(),
+  };
+
+  if (status === 'completed') {
+    updateData.completedAt = new Date();
+  }
+
+  await db.update(serviceRequests)
+    .set(updateData)
+    .where(eq(serviceRequests.id, requestId));
+}
+
+export async function getTechnicianRequests(technicianId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  const result = await db.select()
+    .from(serviceRequests)
+    .where(eq(serviceRequests.technicianId, technicianId))
+    .orderBy(desc(serviceRequests.createdAt));
+
+  return result;
+}
