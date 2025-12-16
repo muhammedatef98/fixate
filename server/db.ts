@@ -945,23 +945,6 @@ export async function assignRequestToTechnician(requestId: number, technicianId:
     .where(eq(serviceRequests.id, requestId));
 }
 
-export async function updateRequestStatus(requestId: number, status: string) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-
-  const updateData: any = {
-    status,
-    updatedAt: new Date(),
-  };
-
-  if (status === 'completed') {
-    updateData.completedAt = new Date();
-  }
-
-  await db.update(serviceRequests)
-    .set(updateData)
-    .where(eq(serviceRequests.id, requestId));
-}
 
 export async function getTechnicianRequests(technicianId: number) {
   const db = await getDb();
