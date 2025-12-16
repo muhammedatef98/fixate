@@ -8,10 +8,12 @@ import { Link, useLocation } from "wouter";
 import { Loader2, Mail, Lock, User, Phone, ArrowRight, Wrench, Users, ChevronLeft } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 export default function SignupNew() {
   const { language } = useLanguage();
   const [, setLocation] = useLocation();
+  const signupMutation = trpc.auth.signup.useMutation();
   
   const [userType, setUserType] = useState<'client' | 'technician' | null>(null);
   const [name, setName] = useState("");
@@ -119,33 +121,12 @@ export default function SignupNew() {
     setIsLoading(true);
 
     try {
-      const payload = {
+      await signupMutation.mutateAsync({
         name,
         email,
         phone,
         password,
-        userType,
-        ...(userType === 'technician' && {
-          specialization,
-          city,
-          yearsOfExperience: parseInt(yearsOfExperience),
-        })
-      };
-
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-        credentials: 'include',
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || t.error);
-      }
 
       toast.success(t.success);
       setLocation('/profile');
