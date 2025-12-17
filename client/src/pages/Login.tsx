@@ -2,25 +2,22 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Logo from "@/components/Logo";
 import { Link, useLocation } from "wouter";
-import { Loader2, Mail, Lock, ArrowRight } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Loader2, Mail, Lock, LogIn, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Login() {
-  const { language } = useLanguage();
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !password) {
-      toast.error(language === 'ar' ? 'الرجاء ملء جميع الحقول' : 'Please fill all fields');
+      toast.error('الرجاء ملء جميع الحقول');
       return;
     }
 
@@ -33,137 +30,114 @@ export default function Login() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include', // Important for cookies
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.error || 'فشل تسجيل الدخول');
       }
 
-      toast.success(language === 'ar' ? 'تم تسجيل الدخول بنجاح!' : 'Login successful!');
-      setLocation('/profile');
+      toast.success('تم تسجيل الدخول بنجاح!');
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setLocation('/');
     } catch (error: any) {
-      toast.error(error?.message || (language === 'ar' ? 'خطأ في تسجيل الدخول' : 'Login failed'));
+      toast.error(error?.message || 'خطأ في تسجيل الدخول');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const content = {
-    ar: {
-      title: 'تسجيل الدخول',
-      subtitle: 'مرحباً بعودتك إلى Fixate',
-      email: 'البريد الإلكتروني',
-      emailPlaceholder: 'name@example.com',
-      password: 'كلمة المرور',
-      passwordPlaceholder: '••••••••',
-      loginButton: 'تسجيل الدخول',
-      noAccount: 'ليس لديك حساب؟',
-      signup: 'إنشاء حساب',
-    },
-    en: {
-      title: 'Login',
-      subtitle: 'Welcome back to Fixate',
-      email: 'Email',
-      emailPlaceholder: 'name@example.com',
-      password: 'Password',
-      passwordPlaceholder: '••••••••',
-      loginButton: 'Login',
-      noAccount: "Don't have an account?",
-      signup: 'Sign up',
-    }
-  };
-
-  const t = content[language as keyof typeof content];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
-      {/* Logo */}
-      <Link href="/" className="absolute top-8 left-8">
-        <div className="flex items-center gap-3">
-          <Logo />
-        </div>
-      </Link>
-
-      <Card className="w-full max-w-md shadow-2xl border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl">
-        <CardHeader className="space-y-2 text-center pb-6">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-            <Lock className="w-8 h-8 text-white" />
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-md">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 mb-4">
+            <LogIn className="w-8 h-8 text-emerald-600" />
           </div>
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-            {t.title}
-          </CardTitle>
-          <CardDescription className="text-base text-muted-foreground">
-            {t.subtitle}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">مرحباً بعودتك!</h1>
+          <p className="text-gray-600">سجل دخولك للمتابعة</p>
+        </div>
+
+        {/* Login Form */}
+        <div className="bg-white rounded-2xl shadow-lg p-6">
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
-                <Mail className="w-4 h-4 text-emerald-600" />
-                {t.email}
+              <Label htmlFor="email" className="text-base font-semibold">
+                البريد الإلكتروني
               </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder={t.emailPlaceholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="h-11 border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-500"
-              />
+              <div className="relative">
+                <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="example@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pr-10 h-12 text-base border-gray-200 focus:border-emerald-500 focus:ring-emerald-500"
+                  disabled={isLoading}
+                  dir="ltr"
+                />
+              </div>
             </div>
 
+            {/* Password */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium flex items-center gap-2">
-                <Lock className="w-4 h-4 text-emerald-600" />
-                {t.password}
+              <Label htmlFor="password" className="text-base font-semibold">
+                كلمة المرور
               </Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder={t.passwordPlaceholder}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="h-11 border-gray-200 dark:border-gray-700 focus:border-emerald-500 dark:focus:border-emerald-500"
-              />
+              <div className="relative">
+                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pr-10 pl-10 h-12 text-base border-gray-200 focus:border-emerald-500 focus:ring-emerald-500"
+                  disabled={isLoading}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
             </div>
 
+            {/* Submit Button */}
             <Button
               type="submit"
+              className="w-full h-12 text-lg font-bold bg-emerald-600 hover:bg-emerald-700 mt-6"
               disabled={isLoading}
-              className="w-full h-12 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  {language === 'ar' ? 'جاري تسجيل الدخول...' : 'Logging in...'}
+                  <Loader2 className="ml-2 h-5 w-5 animate-spin" />
+                  جاري تسجيل الدخول...
                 </>
               ) : (
-                <>
-                  {t.loginButton}
-                  <ArrowRight className={`${language === 'ar' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
-                </>
+                'تسجيل الدخول'
               )}
             </Button>
-          </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-muted-foreground">
-              {t.noAccount}{' '}
+            {/* Signup link */}
+            <div className="text-center mt-6">
+              <span className="text-gray-600">ليس لديك حساب؟</span>{' '}
               <Link href="/signup">
-                <a className="font-medium text-emerald-600 hover:text-emerald-700 hover:underline">
-                  {t.signup}
-                </a>
+                <span className="text-emerald-600 font-bold hover:text-emerald-700 cursor-pointer">
+                  إنشاء حساب
+                </span>
               </Link>
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
