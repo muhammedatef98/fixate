@@ -880,22 +880,25 @@ export async function getUserById(userId: number) {
   }
 }
 
-export async function createUser(userData: { name: string; email: string; phone: string; password: string }) {
+export async function createUser(userData: { name: string; email: string; phone: string; password: string; role?: string }) {
   const db = await getDb();
   if (!db) throw new Error('Database not available');
 
   try {
-    const result = await db.execute(sql`
-      INSERT INTO users (name, email, phone, password, role, created_at)
-      VALUES (${userData.name}, ${userData.email}, ${userData.phone}, ${userData.password}, 'user', CURRENT_TIMESTAMP)
-      RETURNING id
-    `);
+    const result = await db.insert(users).values({
+      openId: userData.email,
+      name: userData.name,
+      email: userData.email,
+      phone: userData.phone,
+      password: userData.password,
+      role: userData.role || 'user',
+    }).returning({ id: users.id });
 
-    if (!result.rows || result.rows.length === 0) {
+    if (!result || result.length === 0) {
       throw new Error('Failed to create user');
     }
 
-    return (result.rows[0] as any).id;
+    return result[0].id;
   } catch (error) {
     console.error('[Database] Error creating user:', error);
     throw error;

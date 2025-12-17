@@ -98,6 +98,55 @@ async function startServer() {
       res.status(500).json({ error: "Failed to fetch service price" });
     }
   });
+
+  // Auth REST API endpoints
+  app.post("/api/auth/signup", async (req, res) => {
+    try {
+      const { name, email, phone, password } = req.body;
+      
+      // Validation
+      if (!name || !email || !phone || !password) {
+        return res.status(400).json({ error: "جميع الحقول مطلوبة" });
+      }
+      
+      // Check if user exists
+      const { getUserByEmail, createUser } = await import("../db");
+      const existingUser = await getUserByEmail(email);
+      if (existingUser) {
+        return res.status(409).json({ error: "البريد الإلكتروني مستخدم بالفعل" });
+      }
+      
+      // Create user
+      const userId = await createUser({ name, email, phone, password, role: "customer" });
+      
+      res.json({ success: true, user: { id: userId, name, email } });
+    } catch (error) {
+      console.error("Signup error:", error);
+      res.status(500).json({ error: "فشل إنشاء الحساب" });
+    }
+  });
+
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+      if (!email || !password) {
+        return res.status(400).json({ error: "البريد الإلكتروني وكلمة المرور مطلوبة" });
+      }
+      
+      const { getUserByEmail } = await import("../db");
+      const user = await getUserByEmail(email);
+      
+      if (!user || user.password !== password) {
+        return res.status(401).json({ error: "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
+      }
+      
+      res.json({ success: true, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ error: "فشل تسجيل الدخول" });
+    }
+  });
   
   // tRPC API
   app.use(
