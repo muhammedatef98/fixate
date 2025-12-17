@@ -251,38 +251,38 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto mb-16">
             <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
-              <CardContent className="pt-10 pb-8">
+              <CardContent className="pt-10 pb-8 min-h-[280px] flex flex-col">
                 <div className="relative mb-6">
                   <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Smartphone className="h-10 w-10 text-white" />
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-center mb-4 text-foreground">{t("devices.phones")}</h3>
-                <p className="text-muted-foreground text-center leading-relaxed">{t("devices.phonesDesc")}</p>
+                <p className="text-muted-foreground text-center leading-relaxed flex-1">{t("devices.phonesDesc")}</p>
               </CardContent>
             </Card>
 
             <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
-              <CardContent className="pt-10 pb-8">
+              <CardContent className="pt-10 pb-8 min-h-[280px] flex flex-col">
                 <div className="relative mb-6">
                   <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Laptop className="h-10 w-10 text-white" />
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-center mb-4 text-foreground">{t("devices.laptops")}</h3>
-                <p className="text-muted-foreground text-center leading-relaxed">{t("devices.laptopsDesc")}</p>
+                <p className="text-muted-foreground text-center leading-relaxed flex-1">{t("devices.laptopsDesc")}</p>
               </CardContent>
             </Card>
 
             <Card className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-background to-muted/20">
-              <CardContent className="pt-10 pb-8">
+              <CardContent className="pt-10 pb-8 min-h-[280px] flex flex-col">
                 <div className="relative mb-6">
                   <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <Tablet className="h-10 w-10 text-white" />
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-center mb-4 text-foreground">{t("devices.tablets")}</h3>
-                <p className="text-muted-foreground text-center leading-relaxed">{t("devices.tabletsDesc")}</p>
+                <p className="text-muted-foreground text-center leading-relaxed flex-1">{t("devices.tabletsDesc")}</p>
               </CardContent>
             </Card>
           </div>
