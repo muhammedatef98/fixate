@@ -845,15 +845,13 @@ export async function getUserByEmail(email: string) {
   if (!db) return null;
 
   try {
-    const result = await db.execute(sql`
-      SELECT * FROM users WHERE email = ${email} LIMIT 1
-    `);
+    const result = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
-    if (!result.rows || result.rows.length === 0) {
+    if (!result || result.length === 0) {
       return null;
     }
 
-    return result.rows[0] as any;
+    return result[0];
   } catch (error) {
     console.error('[Database] Error getting user by email:', error);
     return null;
@@ -892,13 +890,13 @@ export async function createUser(userData: { name: string; email: string; phone:
       phone: userData.phone,
       password: userData.password,
       role: userData.role || 'user',
-    }).returning({ id: users.id });
+    }).returning({ id: users.id, name: users.name, email: users.email });
 
     if (!result || result.length === 0) {
       throw new Error('Failed to create user');
     }
 
-    return result[0].id;
+    return result[0];
   } catch (error) {
     console.error('[Database] Error creating user:', error);
     throw error;

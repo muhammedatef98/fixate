@@ -23,6 +23,7 @@ export const users = pgTable("users", {
   name: text("name"),
   email: varchar("email", { length: 320 }),
   phone: varchar("phone", { length: 20 }),
+  password: varchar("password", { length: 255 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
   userType: userTypeEnum("userType").default("client").notNull(), // client or technician
   role: varchar("role", { length: 20 }).default("user").notNull(),

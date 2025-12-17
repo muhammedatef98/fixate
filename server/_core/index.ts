@@ -117,9 +117,9 @@ async function startServer() {
       }
       
       // Create user
-      const userId = await createUser({ name, email, phone, password, role: "customer" });
+      const user = await createUser({ name, email, phone, password, role: "customer" });
       
-      res.json({ success: true, user: { id: userId, name, email } });
+      res.json({ success: true, user });
     } catch (error) {
       console.error("Signup error:", error);
       res.status(500).json({ error: "فشل إنشاء الحساب" });
