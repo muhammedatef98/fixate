@@ -4,7 +4,7 @@
  */
 
 import { Router } from 'express';
-import { db } from '../db';
+import { getDb } from '../db';
 import { serviceRequests } from '../../drizzle/schema';
 import { eq, desc } from 'drizzle-orm';
 
@@ -57,6 +57,9 @@ router.post('/', async (req, res) => {
     const finalServiceType = service_type || serviceMode || 'mobile';
 
     // Insert the request
+    const db = await getDb();
+    if (!db) throw new Error('Database not available');
+    
     const [newRequest] = await db.insert(serviceRequests).values({
       userId,
       deviceModelId: deviceModelId || null,
@@ -146,6 +149,9 @@ router.get('/user/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
 
+    const db = await getDb();
+    if (!db) throw new Error('Database not available');
+    
     const requests = await db
       .select()
       .from(serviceRequests)
@@ -173,6 +179,9 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
+    const db = await getDb();
+    if (!db) throw new Error('Database not available');
+    
     const [request] = await db
       .select()
       .from(serviceRequests)
@@ -214,6 +223,9 @@ router.patch('/:id/status', async (req, res) => {
       });
     }
 
+    const db = await getDb();
+    if (!db) throw new Error('Database not available');
+    
     const [updatedRequest] = await db
       .update(serviceRequests)
       .set({
@@ -260,6 +272,9 @@ router.patch('/:id/assign', async (req, res) => {
       });
     }
 
+    const db = await getDb();
+    if (!db) throw new Error('Database not available');
+    
     const [updatedRequest] = await db
       .update(serviceRequests)
       .set({
