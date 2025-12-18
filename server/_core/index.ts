@@ -148,6 +148,10 @@ async function startServer() {
     }
   });
   
+  // Unified API for web and mobile
+  const unifiedRequestsRouter = await import("../routes/unified-requests");
+  app.use("/api/unified-requests", unifiedRequestsRouter.default);
+
   // tRPC API
   app.use(
     "/api/trpc",
