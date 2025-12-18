@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,143 +8,195 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl, isOAuthAvailable } from "@/const";
-import { Loader2, CheckCircle2, MapPin, Smartphone, Laptop, Tablet, ChevronLeft, ArrowRight, Clock, DollarSign } from "lucide-react";
+import { 
+  Loader2, CheckCircle2, MapPin, Navigation, Smartphone, Laptop, Tablet, 
+  ChevronLeft, ArrowLeft, Upload, X, Camera, Image as ImageIcon, Watch
+} from "lucide-react";
 import { Link, useLocation } from "wouter";
 import Logo from "@/components/Logo";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const brands = [
-  { id: 'apple', nameAr: 'آبل', nameEn: 'Apple', logo: '/brands/apple.png?v=2' },
-  { id: 'samsung', nameAr: 'سامسونج', nameEn: 'Samsung', logo: '/brands/samsung.png?v=2' },
-  { id: 'huawei', nameAr: 'هواوي', nameEn: 'Huawei', logo: '/brands/huawei.png?v=2' },
-  { id: 'dell', nameAr: 'ديل', nameEn: 'Dell', logo: '/brands/dell.png?v=2' },
-  { id: 'hp', nameAr: 'إتش بي', nameEn: 'HP', logo: '/brands/hp.png?v=2' },
-  { id: 'lenovo', nameAr: 'لينوفو', nameEn: 'Lenovo', logo: '/brands/lenovo.png?v=2' },
+// Device Types
+const DEVICE_TYPES = [
+  { id: 'phone', nameAr: 'جوال', nameEn: 'Phone', icon: Smartphone },
+  { id: 'tablet', nameAr: 'تابلت', nameEn: 'Tablet', icon: Tablet },
+  { id: 'laptop', nameAr: 'لابتوب', nameEn: 'Laptop', icon: Laptop },
+  { id: 'watch', nameAr: 'ساعة ذكية', nameEn: 'Smart Watch', icon: Watch },
 ];
 
-const mockModels = [
-  { id: 1, modelName: 'iPhone 16 Pro Max', deviceTypeId: 1, brandId: 'apple' },
-  { id: 2, modelName: 'iPhone 16 Pro', deviceTypeId: 1, brandId: 'apple' },
-  { id: 3, modelName: 'iPhone 16', deviceTypeId: 1, brandId: 'apple' },
-  { id: 4, modelName: 'iPhone 15 Pro Max', deviceTypeId: 1, brandId: 'apple' },
-  { id: 5, modelName: 'iPhone 15', deviceTypeId: 1, brandId: 'apple' },
-  { id: 6, modelName: 'MacBook Pro 16"', deviceTypeId: 2, brandId: 'apple' },
-  { id: 7, modelName: 'MacBook Air M2', deviceTypeId: 2, brandId: 'apple' },
-  { id: 8, modelName: 'iPad Pro 12.9"', deviceTypeId: 3, brandId: 'apple' },
-  { id: 11, modelName: 'Samsung Galaxy S24 Ultra', deviceTypeId: 1, brandId: 'samsung' },
-  { id: 12, modelName: 'Samsung Galaxy S24', deviceTypeId: 1, brandId: 'samsung' },
-  { id: 13, modelName: 'Samsung Galaxy A54', deviceTypeId: 1, brandId: 'samsung' },
-  { id: 15, modelName: 'Samsung Galaxy Tab S9', deviceTypeId: 3, brandId: 'samsung' },
-  { id: 16, modelName: 'Huawei P60 Pro', deviceTypeId: 1, brandId: 'huawei' },
-  { id: 17, modelName: 'Huawei Mate 60', deviceTypeId: 1, brandId: 'huawei' },
-  { id: 19, modelName: 'Dell XPS 15', deviceTypeId: 2, brandId: 'dell' },
-  { id: 20, modelName: 'Dell Inspiron 14', deviceTypeId: 2, brandId: 'dell' },
-  { id: 22, modelName: 'HP Spectre x360', deviceTypeId: 2, brandId: 'hp' },
-  { id: 23, modelName: 'HP Pavilion 15', deviceTypeId: 2, brandId: 'hp' },
-  { id: 25, modelName: 'Lenovo ThinkPad X1 Carbon', deviceTypeId: 2, brandId: 'lenovo' },
-  { id: 26, modelName: 'Lenovo IdeaPad 5', deviceTypeId: 2, brandId: 'lenovo' },
+// Service Types (Mobile/Pickup)
+const SERVICE_TYPES = [
+  { 
+    id: 'mobile', 
+    nameAr: 'فني متنقل', 
+    nameEn: 'Mobile Technician',
+    descriptionAr: 'يأتي الفني إلى موقعك ويصلح الجهاز في المكان',
+    descriptionEn: 'Technician comes to your location and fixes on-site',
+  },
+  { 
+    id: 'pickup', 
+    nameAr: 'استلام وتوصيل', 
+    nameEn: 'Pickup & Delivery',
+    descriptionAr: 'نستلم جهازك ونوصله لمحل متعاقد ونرجعه بعد الإصلاح',
+    descriptionEn: 'We pickup your device, deliver to partner shop, and return after repair',
+  },
+];
+
+// Brand data with logos
+const brands = [
+  { id: 'apple', nameAr: 'آبل', nameEn: 'Apple', logo: '/brands/apple.png?v=2', deviceTypes: ['phone', 'tablet', 'laptop'] },
+  { id: 'samsung', nameAr: 'سامسونج', nameEn: 'Samsung', logo: '/brands/samsung.png?v=2', deviceTypes: ['phone', 'tablet'] },
+  { id: 'huawei', nameAr: 'هواوي', nameEn: 'Huawei', logo: '/brands/huawei.png?v=2', deviceTypes: ['phone', 'tablet'] },
+  { id: 'dell', nameAr: 'ديل', nameEn: 'Dell', logo: '/brands/dell.png?v=2', deviceTypes: ['laptop'] },
+  { id: 'hp', nameAr: 'إتش بي', nameEn: 'HP', logo: '/brands/hp.png?v=2', deviceTypes: ['laptop'] },
+  { id: 'lenovo', nameAr: 'لينوفو', nameEn: 'Lenovo', logo: '/brands/lenovo.png?v=2', deviceTypes: ['laptop', 'tablet'] },
+];
+
+// Common issues with estimated prices
+const ISSUES = [
+  { id: 'screen_broken', nameAr: 'شاشة مكسورة', nameEn: 'Broken Screen', estimatedPrice: 300 },
+  { id: 'battery_drain', nameAr: 'البطارية تنفذ بسرعة', nameEn: 'Battery Draining Fast', estimatedPrice: 200 },
+  { id: 'charging_issue', nameAr: 'مشكلة في الشحن', nameEn: 'Charging Issue', estimatedPrice: 150 },
+  { id: 'camera_issue', nameAr: 'مشكلة في الكاميرا', nameEn: 'Camera Issue', estimatedPrice: 250 },
+  { id: 'speaker_issue', nameAr: 'مشكلة في السماعة', nameEn: 'Speaker Issue', estimatedPrice: 180 },
+  { id: 'microphone_issue', nameAr: 'مشكلة في الميكروفون', nameEn: 'Microphone Issue', estimatedPrice: 180 },
+  { id: 'button_issue', nameAr: 'مشكلة في الأزرار', nameEn: 'Button Issue', estimatedPrice: 120 },
+  { id: 'water_damage', nameAr: 'تلف بسبب الماء', nameEn: 'Water Damage', estimatedPrice: 400 },
+  { id: 'software_issue', nameAr: 'مشكلة في النظام', nameEn: 'Software Issue', estimatedPrice: 100 },
+  { id: 'other', nameAr: 'مشكلة أخرى', nameEn: 'Other Issue', estimatedPrice: 0 },
 ];
 
 export default function ServiceRequestNew() {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const [, setLocationNav] = useLocation();
 
+  // Step management (7 steps to match mobile)
   const [currentStep, setCurrentStep] = useState(1);
+
+  // Form data
+  const [selectedServiceType, setSelectedServiceType] = useState<string>('mobile');
+  const [selectedDeviceType, setSelectedDeviceType] = useState<string>('phone');
   const [selectedBrand, setSelectedBrand] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<string>("");
-  const [selectedService, setSelectedService] = useState<string>("");
-  const [serviceMode, setServiceMode] = useState<"mobile" | "pickup">("mobile");
+  const [selectedIssue, setSelectedIssue] = useState<string>("");
   const [issueDescription, setIssueDescription] = useState("");
+  const [mediaFiles, setMediaFiles] = useState<File[]>([]);
+  
+  // Location
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [preferredTimeSlot, setPreferredTimeSlot] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"cash_on_delivery" | "bank_transfer">("cash_on_delivery");
-  const [locationLoading, setLocationLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Search states
+  const [brandSearch, setBrandSearch] = useState('');
+  const [modelSearch, setModelSearch] = useState('');
+  const [issueSearch, setIssueSearch] = useState('');
 
-  const { data: serviceTypes } = trpc.services.getTypes.useQuery();
-  const { data: pricing } = trpc.services.getPrice.useQuery(
-    {
-      deviceModelId: parseInt(selectedModel),
-      serviceTypeId: parseInt(selectedService),
-    },
-    { enabled: !!selectedModel && !!selectedService }
+  const STEPS = language === 'ar' 
+    ? ['نوع الخدمة', 'نوع الجهاز', 'الماركة', 'الموديل', 'العطل', 'التفاصيل', 'الموقع']
+    : ['Service Type', 'Device Type', 'Brand', 'Model', 'Issue', 'Details', 'Location'];
+
+  // Filter brands by device type
+  const filteredBrands = brands.filter(b => 
+    b.deviceTypes.includes(selectedDeviceType) &&
+    (brandSearch === '' || b.nameAr.includes(brandSearch) || b.nameEn.toLowerCase().includes(brandSearch.toLowerCase()))
   );
 
-  const createRequest = trpc.requests.create.useMutation({
-    onSuccess: async (data) => {
-      try {
-        const selectedBrandData = brands.find(b => b.id === selectedBrand);
-        const selectedModelData = mockModels.find(m => m.id.toString() === selectedModel);
-        const selectedServiceData = serviceTypes?.find(s => s.id.toString() === selectedService);
-        
-        await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            access_key: 'd3ff12a4-e013-473f-8730-9d5760059a64',
-            subject: `🔔 حجز جديد - Fixate`,
-            from_name: 'Fixate Website',
-            to: 'fixate01@gmail.com',
-            message: `
-🆕 حجز جديد من الموقع!
+  // Mock models based on brand (in production, fetch from API)
+  const getModelsForBrand = (brandId: string) => {
+    const modelData: Record<string, string[]> = {
+      'apple': ['iPhone 15 Pro Max', 'iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'iPhone 13', 'MacBook Pro 16"', 'MacBook Air M2', 'iPad Pro 12.9"', 'iPad Air'],
+      'samsung': ['Galaxy S24 Ultra', 'Galaxy S24', 'Galaxy S23', 'Galaxy Z Fold 5', 'Galaxy A54', 'Galaxy Tab S9'],
+      'huawei': ['Mate 60 Pro', 'P60 Pro', 'Nova 12', 'MatePad Pro'],
+      'dell': ['XPS 15', 'XPS 13', 'Inspiron 15', 'Latitude 7420'],
+      'hp': ['Spectre x360', 'Pavilion 15', 'EliteBook 840', 'Envy'],
+      'lenovo': ['ThinkPad X1 Carbon', 'IdeaPad 5', 'Yoga 9i', 'Tab P12 Pro'],
+    };
+    return modelData[brandId] || [];
+  };
 
-📞 الجوال: ${phoneNumber}
-🔧 نوع الخدمة: ${serviceMode === 'mobile' ? 'فني متنقل' : 'استلام وتوصيل'}
-📱 الجهاز: ${selectedBrandData?.nameAr} - ${selectedModelData?.modelName}
-⚠️ الخدمة: ${selectedServiceData?.name}
-📝 التفاصيل: ${issueDescription || 'لا يوجد'}
-🏠 العنوان: ${address}
-🌆 المدينة: ${city}
-⏰ الوقت المفضل: ${preferredTimeSlot || 'لا يوجد'}
-💳 طريقة الدفع: ${paymentMethod === 'cash_on_delivery' ? 'نقدي' : 'تحويل بنكي'}
-⏰ التاريخ: ${new Date().toLocaleString('ar-SA')}
-            `.trim(),
-          }),
-        });
-      } catch (emailError) {
-        console.error('Email notification failed:', emailError);
-      }
+  const filteredModels = selectedBrand ? getModelsForBrand(selectedBrand).filter(m => 
+    modelSearch === '' || m.toLowerCase().includes(modelSearch.toLowerCase())
+  ) : [];
 
-      toast.success(language === 'ar' ? "تم إرسال طلبك بنجاح!" : "Request sent successfully!");
-      
-      // Redirect to technician details page
-      setTimeout(() => {
-        setLocationNav(`/technicians?booking=${data.id}`);
-      }, 1500);
-    },
-    onError: (error) => {
-      toast.error((language === 'ar' ? "خطأ: " : "Error: ") + error.message);
-      setIsSubmitting(false);
-    },
-  });
+  const filteredIssues = ISSUES.filter(issue => 
+    issueSearch === '' || 
+    issue.nameAr.includes(issueSearch) || 
+    issue.nameEn.toLowerCase().includes(issueSearch.toLowerCase())
+  );
 
-  const filteredModels = mockModels.filter(m => m.brandId === selectedBrand);
-
+  // Get current location
   const getCurrentLocation = () => {
-    setLocationLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-          setAddress(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
-          setLocationLoading(false);
-          toast.success(language === 'ar' ? "تم تحديد موقعك" : "Location detected");
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+          setAddress(`${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`);
+          toast.success(language === 'ar' ? "تم تحديد موقعك الحالي" : "Current location detected");
         },
-        () => {
-          setLocationLoading(false);
-          toast.error(language === 'ar' ? "فشل تحديد الموقع" : "Failed to get location");
+        (error) => {
+          toast.error(language === 'ar' ? "فشل في الحصول على الموقع" : "Failed to get location");
         }
       );
+    } else {
+      toast.error(language === 'ar' ? "المتصفح لا يدعم خدمات الموقع" : "Browser doesn't support location services");
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // Handle file upload
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      setMediaFiles([...mediaFiles, ...files]);
+    }
+  };
 
+  const removeFile = (index: number) => {
+    const newFiles = [...mediaFiles];
+    newFiles.splice(index, 1);
+    setMediaFiles(newFiles);
+  };
+
+  const handleNext = () => {
+    // Validation for each step
+    if (currentStep === 2 && !selectedDeviceType) {
+      toast.error(language === 'ar' ? 'الرجاء اختيار نوع الجهاز' : 'Please select device type');
+      return;
+    }
+    if (currentStep === 3 && !selectedBrand) {
+      toast.error(language === 'ar' ? 'الرجاء اختيار الماركة' : 'Please select brand');
+      return;
+    }
+    if (currentStep === 4 && !selectedModel) {
+      toast.error(language === 'ar' ? 'الرجاء اختيار الموديل' : 'Please select model');
+      return;
+    }
+    if (currentStep === 5 && !selectedIssue) {
+      toast.error(language === 'ar' ? 'الرجاء اختيار العطل' : 'Please select issue');
+      return;
+    }
+    if (currentStep === 7 && (!address || !city || !phoneNumber)) {
+      toast.error(language === 'ar' ? 'الرجاء ملء جميع حقول الموقع' : 'Please fill all location fields');
+      return;
+    }
+
+    if (currentStep < STEPS.length) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleSubmit = async () => {
     if (!isAuthenticated) {
       if (isOAuthAvailable()) {
         window.location.href = getLoginUrl();
@@ -154,360 +206,482 @@ export default function ServiceRequestNew() {
       return;
     }
 
-    if (!selectedModel || !selectedService || !address || !city || !phoneNumber) {
-      toast.error(language === 'ar' ? "الرجاء ملء جميع الحقول المطلوبة" : "Please fill all required fields");
-      return;
-    }
+    try {
+      // Upload media files first (implement S3 upload)
+      const mediaUrls: string[] = [];
+      // TODO: Upload files to S3 and get URLs
 
-    setIsSubmitting(true);
-    createRequest.mutate({
-      deviceModelId: parseInt(selectedModel),
-      serviceTypeId: parseInt(selectedService),
-      serviceMode,
-      issueDescription,
-      address,
-      city,
-      phoneNumber,
-      preferredTimeSlot,
-      paymentMethod,
-    });
+      const selectedIssueData = ISSUES.find(i => i.id === selectedIssue);
+      const selectedServiceTypeData = SERVICE_TYPES.find(s => s.id === selectedServiceType);
+
+      // Create request with unified data structure
+      const requestData = {
+        // Web fields
+        deviceModelId: 0, // Will be mapped from brand+model
+        serviceTypeId: 0, // Will be mapped from issue
+        serviceMode: selectedServiceType as 'express' | 'pickup',
+        issueDescription: `[${selectedServiceTypeData?.[language === 'ar' ? 'nameAr' : 'nameEn']}] ${selectedIssueData?.[language === 'ar' ? 'nameAr' : 'nameEn']}: ${issueDescription}`,
+        address,
+        city,
+        phoneNumber,
+        paymentMethod: 'cash_on_delivery' as const,
+        
+        // Mobile fields (additional)
+        device_type: selectedDeviceType,
+        device_brand: selectedBrand,
+        device_model: selectedModel,
+        service_type: selectedServiceType,
+        issue_id: selectedIssue,
+        estimated_price: selectedIssueData?.estimatedPrice || 0,
+        latitude: latitude || 0,
+        longitude: longitude || 0,
+        media_urls: mediaUrls,
+      };
+
+      // Send email notification
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'd3ff12a4-e013-473f-8730-9d5760059a64',
+          subject: `🔔 حجز جديد - Fixate`,
+          from_name: 'Fixate Website',
+          to: 'fixate01@gmail.com',
+          message: `
+🆕 حجز جديد من الموقع!
+
+👤 العميل: ${user?.name || user?.email}
+📞 الجوال: ${phoneNumber}
+
+🔧 نوع الخدمة: ${selectedServiceTypeData?.nameAr} (${selectedServiceTypeData?.nameEn})
+📱 الجهاز: ${selectedBrand} ${selectedModel} (${selectedDeviceType})
+⚠️ المشكلة: ${selectedIssueData?.nameAr}
+📝 التفاصيل: ${issueDescription}
+
+📍 الموقع: ${address}, ${city}
+🗺️ الإحداثيات: ${latitude}, ${longitude}
+💰 السعر التقديري: ${selectedIssueData?.estimatedPrice} ريال
+
+⏰ التاريخ: ${new Date().toLocaleString('ar-SA')}
+          `.trim(),
+        }),
+      });
+
+      toast.success(language === 'ar' ? "تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً" : "Request sent successfully! We'll contact you soon");
+      setLocationNav("/my-requests");
+    } catch (error) {
+      console.error('Error submitting request:', error);
+      toast.error(language === 'ar' ? "حدث خطأ أثناء إرسال الطلب" : "Error sending request");
+    }
   };
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/30" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-background" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <header className="border-b bg-background/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b bg-background/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container">
           <div className="flex items-center justify-between h-16">
             <Link href="/">
-              <Logo />
+              <div className="flex items-center gap-3 cursor-pointer">
+                <Logo />
+              </div>
             </Link>
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ChevronLeft className="h-4 w-4" />
-                {language === 'ar' ? 'رجوع' : 'Back'}
-              </Button>
-            </Link>
+            {isAuthenticated && (
+              <Link href="/my-requests">
+                <Button variant="outline">
+                  {language === 'ar' ? 'طلباتي' : 'My Requests'}
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </header>
 
-      <div className="container py-8 md:py-12">
-        <div className="max-w-3xl mx-auto">
+      <div className="container py-12">
+        <div className="max-w-4xl mx-auto">
           {/* Title */}
-          <div className="text-center mb-8 md:mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
               {language === 'ar' ? 'احجز خدمة الإصلاح' : 'Book Repair Service'}
             </h1>
-            <p className="text-muted-foreground text-lg">
-              {language === 'ar' ? 'اختر جهازك والخدمة المطلوبة' : 'Select your device and service'}
+            <p className="text-xl text-muted-foreground font-light">
+              {language === 'ar' ? 'املأ النموذج وسنتواصل معك لتأكيد الموعد' : 'Fill the form and we\'ll contact you to confirm'}
             </p>
           </div>
 
-          {/* Progress Steps */}
-          <div className="mb-8 md:mb-12">
+          {/* Progress Indicator */}
+          <div className="mb-12">
             <div className="flex items-center justify-between">
-              {[1, 2, 3].map((step) => (
-                <div key={step} className="flex items-center flex-1">
+              {STEPS.map((step, index) => (
+                <div key={index} className="flex items-center flex-1">
                   <div className="flex flex-col items-center flex-1">
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold transition-all ${
-                      currentStep >= step
-                        ? 'bg-primary text-primary-foreground shadow-md'
-                        : 'bg-muted text-muted-foreground'
-                    }`}>
-                      {currentStep > step ? <CheckCircle2 className="h-5 w-5" /> : step}
+                    <div
+                      className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                        currentStep > index + 1
+                          ? 'bg-primary text-primary-foreground'
+                          : currentStep === index + 1
+                          ? 'bg-primary text-primary-foreground shadow-lg'
+                          : 'bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      {currentStep > index + 1 ? <CheckCircle2 className="h-5 w-5" /> : index + 1}
                     </div>
-                    <span className="text-xs md:text-sm mt-2 text-muted-foreground text-center">
-                      {step === 1 ? (language === 'ar' ? 'الجهاز' : 'Device') : step === 2 ? (language === 'ar' ? 'التفاصيل' : 'Details') : (language === 'ar' ? 'الموقع' : 'Location')}
+                    <span className={`mt-2 text-xs font-medium text-center ${currentStep >= index + 1 ? 'text-foreground' : 'text-muted-foreground'}`}>
+                      {step}
                     </span>
                   </div>
-                  {step < 3 && <div className={`h-1 flex-1 mx-2 ${currentStep > step ? 'bg-primary' : 'bg-muted'}`}></div>}
+                  {index < STEPS.length - 1 && (
+                    <div className={`h-1 flex-1 mx-2 rounded transition-all ${currentStep > index + 1 ? 'bg-primary' : 'bg-muted'}`} />
+                  )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Step 1: Device Selection */}
-          {currentStep === 1 && (
-            <Card className="border-0 shadow-lg">
-              <CardHeader className="border-b">
-                <CardTitle className="text-2xl">{language === 'ar' ? 'اختر جهازك' : 'Select Your Device'}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-8">
-                {/* Brand Selection */}
-                <div className="mb-8">
-                  <Label className="text-base font-semibold mb-4 block">{language === 'ar' ? 'الماركة' : 'Brand'}</Label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {brands.map((brand) => (
+          {/* Step Content */}
+          <Card>
+            <CardContent className="pt-6 space-y-6">
+              {/* Step 1: Service Type */}
+              {currentStep === 1 && (
+                <div className="space-y-4 animate-in fade-in duration-500">
+                  <Label className="text-2xl font-semibold">
+                    {language === 'ar' ? 'اختر نوع الخدمة *' : 'Select Service Type *'}
+                  </Label>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {SERVICE_TYPES.map((type) => (
                       <button
-                        key={brand.id}
-                        onClick={() => {
-                          setSelectedBrand(brand.id);
-                          setSelectedModel("");
-                        }}
-                        className={`p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
-                          selectedBrand === brand.id
+                        key={type.id}
+                        type="button"
+                        onClick={() => setSelectedServiceType(type.id)}
+                        className={`p-6 border-2 rounded-2xl transition-all hover:border-primary hover:shadow-lg ${
+                          selectedServiceType === type.id
                             ? 'border-primary bg-primary/5'
-                            : 'border-muted hover:border-primary/50'
+                            : 'border-border bg-card'
                         }`}
                       >
-                        <img src={brand.logo} alt={brand.nameAr} className="h-8 w-8 object-contain" />
-                        <span className="text-sm font-medium">{language === 'ar' ? brand.nameAr : brand.nameEn}</span>
+                        <div className="text-center space-y-2">
+                          <h3 className="text-xl font-semibold">
+                            {language === 'ar' ? type.nameAr : type.nameEn}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {language === 'ar' ? type.descriptionAr : type.descriptionEn}
+                          </p>
+                        </div>
                       </button>
                     ))}
                   </div>
                 </div>
+              )}
 
-                {/* Model Selection */}
-                {selectedBrand && (
-                  <div className="mb-8">
-                    <Label className="text-base font-semibold mb-4 block">{language === 'ar' ? 'الموديل' : 'Model'}</Label>
-                    <div className="space-y-2 max-h-64 overflow-y-auto">
-                      {filteredModels.map((model) => (
+              {/* Step 2: Device Type */}
+              {currentStep === 2 && (
+                <div className="space-y-4 animate-in fade-in duration-500">
+                  <Label className="text-2xl font-semibold">
+                    {language === 'ar' ? 'اختر نوع الجهاز *' : 'Select Device Type *'}
+                  </Label>
+                  <div className="grid md:grid-cols-4 gap-4">
+                    {DEVICE_TYPES.map((type) => {
+                      const Icon = type.icon;
+                      return (
                         <button
-                          key={model.id}
-                          onClick={() => setSelectedModel(model.id.toString())}
-                          className={`w-full p-3 rounded-lg border-2 text-left transition-all ${
-                            selectedModel === model.id.toString()
+                          key={type.id}
+                          type="button"
+                          onClick={() => setSelectedDeviceType(type.id)}
+                          className={`p-6 border-2 rounded-2xl transition-all hover:border-primary hover:shadow-lg ${
+                            selectedDeviceType === type.id
                               ? 'border-primary bg-primary/5'
-                              : 'border-muted hover:border-primary/50'
+                              : 'border-border bg-card'
                           }`}
                         >
-                          {model.modelName}
+                          <div className="flex flex-col items-center gap-3">
+                            <Icon className="h-8 w-8" />
+                            <span className="text-sm font-semibold">
+                              {language === 'ar' ? type.nameAr : type.nameEn}
+                            </span>
+                          </div>
                         </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Service Selection */}
-                {selectedModel && (
-                  <div className="mb-8">
-                    <Label className="text-base font-semibold mb-4 block">{language === 'ar' ? 'نوع الخدمة' : 'Service Type'}</Label>
-                    <div className="space-y-2 max-h-64 overflow-y-auto">
-                      {serviceTypes?.map((service) => (
-                        <button
-                          key={service.id}
-                          onClick={() => setSelectedService(service.id.toString())}
-                          className={`w-full p-3 rounded-lg border-2 text-left transition-all flex justify-between items-center ${
-                            selectedService === service.id.toString()
-                              ? 'border-primary bg-primary/5'
-                              : 'border-muted hover:border-primary/50'
-                          }`}
-                        >
-                          <span>{service.name}</span>
-                          {pricing && <span className="text-primary font-semibold">{pricing.price} ر.س</span>}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Next Button */}
-                <Button
-                  onClick={() => setCurrentStep(2)}
-                  disabled={!selectedBrand || !selectedModel || !selectedService}
-                  className="w-full h-12 text-base font-semibold"
-                >
-                  {language === 'ar' ? 'التالي' : 'Next'} <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Step 2: Service Details */}
-          {currentStep === 2 && (
-            <Card className="border-0 shadow-lg">
-              <CardHeader className="border-b">
-                <CardTitle className="text-2xl">{language === 'ar' ? 'تفاصيل الخدمة' : 'Service Details'}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-8 space-y-6">
-                {/* Service Mode */}
-                <div>
-                  <Label className="text-base font-semibold mb-4 block">{language === 'ar' ? 'نوع الخدمة' : 'Service Mode'}</Label>
-                  <RadioGroup value={serviceMode} onValueChange={(value: any) => setServiceMode(value)}>
-                    <div className="flex items-center space-x-2 p-3 rounded-lg border-2 border-muted hover:border-primary/50 cursor-pointer">
-                      <RadioGroupItem value="mobile" id="mobile" />
-                      <Label htmlFor="mobile" className="cursor-pointer flex-1">
-                        <div className="font-semibold">{language === 'ar' ? 'فني متنقل' : 'Mobile Technician'}</div>
-                        <div className="text-sm text-muted-foreground">{language === 'ar' ? 'الفني يأتي إليك' : 'Technician comes to you'}</div>
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 rounded-lg border-2 border-muted hover:border-primary/50 cursor-pointer">
-                      <RadioGroupItem value="pickup" id="pickup" />
-                      <Label htmlFor="pickup" className="cursor-pointer flex-1">
-                        <div className="font-semibold">{language === 'ar' ? 'استلام وتوصيل' : 'Pickup & Delivery'}</div>
-                        <div className="text-sm text-muted-foreground">{language === 'ar' ? 'نستلم الجهاز ونوصله' : 'We pick up and deliver'}</div>
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                {/* Issue Description */}
-                <div>
-                  <Label className="text-base font-semibold mb-2 block">{language === 'ar' ? 'وصف المشكلة' : 'Issue Description'}</Label>
-                  <Textarea
-                    placeholder={language === 'ar' ? 'اشرح المشكلة بالتفصيل...' : 'Describe the issue...'}
-                    value={issueDescription}
-                    onChange={(e) => setIssueDescription(e.target.value)}
-                    className="min-h-24 resize-none"
-                  />
-                </div>
-
-                {/* Payment Method */}
-                <div>
-                  <Label className="text-base font-semibold mb-4 block">{language === 'ar' ? 'طريقة الدفع' : 'Payment Method'}</Label>
-                  <RadioGroup value={paymentMethod} onValueChange={(value: any) => setPaymentMethod(value)}>
-                    <div className="flex items-center space-x-2 p-3 rounded-lg border-2 border-muted hover:border-primary/50 cursor-pointer">
-                      <RadioGroupItem value="cash_on_delivery" id="cash" />
-                      <Label htmlFor="cash" className="cursor-pointer flex-1">
-                        {language === 'ar' ? 'نقدي عند الاستلام' : 'Cash on Delivery'}
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 rounded-lg border-2 border-muted hover:border-primary/50 cursor-pointer">
-                      <RadioGroupItem value="bank_transfer" id="bank" />
-                      <Label htmlFor="bank" className="cursor-pointer flex-1">
-                        {language === 'ar' ? 'تحويل بنكي' : 'Bank Transfer'}
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                {/* Navigation Buttons */}
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    onClick={() => setCurrentStep(1)}
-                    variant="outline"
-                    className="flex-1 h-12"
-                  >
-                    <ChevronLeft className="h-4 w-4 mr-2" />
-                    {language === 'ar' ? 'السابق' : 'Back'}
-                  </Button>
-                  <Button
-                    onClick={() => setCurrentStep(3)}
-                    className="flex-1 h-12 font-semibold"
-                  >
-                    {language === 'ar' ? 'التالي' : 'Next'} <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Step 3: Location & Confirmation */}
-          {currentStep === 3 && (
-            <Card className="border-0 shadow-lg">
-              <CardHeader className="border-b">
-                <CardTitle className="text-2xl">{language === 'ar' ? 'الموقع والتأكيد' : 'Location & Confirmation'}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-8 space-y-6">
-                {/* Phone Number */}
-                <div>
-                  <Label className="text-base font-semibold mb-2 block">{language === 'ar' ? 'رقم الجوال' : 'Phone Number'}</Label>
-                  <Input
-                    type="tel"
-                    placeholder={language === 'ar' ? '05xxxxxxxxx' : '+966...'}
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="h-12"
-                  />
-                </div>
-
-                {/* City */}
-                <div>
-                  <Label className="text-base font-semibold mb-2 block">{language === 'ar' ? 'المدينة' : 'City'}</Label>
-                  <Input
-                    placeholder={language === 'ar' ? 'الرياض' : 'Riyadh'}
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    className="h-12"
-                  />
-                </div>
-
-                {/* Address */}
-                <div>
-                  <Label className="text-base font-semibold mb-2 block">{language === 'ar' ? 'العنوان' : 'Address'}</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      placeholder={language === 'ar' ? 'أدخل العنوان...' : 'Enter address...'}
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      className="h-12 flex-1"
-                    />
-                    <Button
-                      onClick={getCurrentLocation}
-                      disabled={locationLoading}
-                      variant="outline"
-                      className="h-12 px-4"
-                    >
-                      {locationLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4" />}
-                    </Button>
+                      );
+                    })}
                   </div>
                 </div>
+              )}
 
-                {/* Preferred Time */}
-                <div>
-                  <Label className="text-base font-semibold mb-2 block">{language === 'ar' ? 'الوقت المفضل' : 'Preferred Time'}</Label>
+              {/* Step 3: Brand */}
+              {currentStep === 3 && (
+                <div className="space-y-4 animate-in fade-in duration-500">
+                  <Label className="text-2xl font-semibold">
+                    {language === 'ar' ? 'اختر الماركة *' : 'Select Brand *'}
+                  </Label>
                   <Input
-                    type="time"
-                    value={preferredTimeSlot}
-                    onChange={(e) => setPreferredTimeSlot(e.target.value)}
-                    className="h-12"
+                    placeholder={language === 'ar' ? 'ابحث عن الماركة...' : 'Search brand...'}
+                    value={brandSearch}
+                    onChange={(e) => setBrandSearch(e.target.value)}
+                    className="mb-4"
                   />
-                </div>
-
-                {/* Summary */}
-                <Card className="bg-muted/50 border-0">
-                  <CardContent className="pt-6">
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">{language === 'ar' ? 'الجهاز' : 'Device'}</span>
-                        <span className="font-semibold">{mockModels.find(m => m.id.toString() === selectedModel)?.modelName}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">{language === 'ar' ? 'الخدمة' : 'Service'}</span>
-                        <span className="font-semibold">{serviceTypes?.find(s => s.id.toString() === selectedService)?.name}</span>
-                      </div>
-                      {pricing && (
-                        <div className="flex justify-between pt-3 border-t">
-                          <span className="text-muted-foreground font-semibold">{language === 'ar' ? 'السعر' : 'Price'}</span>
-                          <span className="font-bold text-lg text-primary">{pricing.price} ر.س</span>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {filteredBrands.map((brand) => (
+                      <button
+                        key={brand.id}
+                        type="button"
+                        onClick={() => setSelectedBrand(brand.id)}
+                        className={`p-8 border-2 rounded-2xl transition-all hover:border-primary hover:shadow-lg ${
+                          selectedBrand === brand.id
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border bg-card'
+                        }`}
+                      >
+                        <div className="flex flex-col items-center gap-4">
+                          <img 
+                            src={brand.logo} 
+                            alt={language === 'ar' ? brand.nameAr : brand.nameEn}
+                            className="h-16 w-auto object-contain"
+                          />
+                          <span className="text-lg font-semibold">
+                            {language === 'ar' ? brand.nameAr : brand.nameEn}
+                          </span>
                         </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Navigation Buttons */}
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    onClick={() => setCurrentStep(2)}
-                    variant="outline"
-                    className="flex-1 h-12"
-                  >
-                    <ChevronLeft className="h-4 w-4 mr-2" />
-                    {language === 'ar' ? 'السابق' : 'Back'}
-                  </Button>
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={isSubmitting || !phoneNumber || !city || !address}
-                    className="flex-1 h-12 font-semibold"
-                  >
-                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <CheckCircle2 className="h-4 w-4 mr-2" />}
-                    {language === 'ar' ? 'تأكيد الحجز' : 'Confirm Booking'}
-                  </Button>
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              )}
+
+              {/* Step 4: Model */}
+              {currentStep === 4 && (
+                <div className="space-y-4 animate-in fade-in duration-500">
+                  <Label className="text-2xl font-semibold">
+                    {language === 'ar' ? 'اختر الموديل *' : 'Select Model *'}
+                  </Label>
+                  <Input
+                    placeholder={language === 'ar' ? 'ابحث عن الموديل...' : 'Search model...'}
+                    value={modelSearch}
+                    onChange={(e) => setModelSearch(e.target.value)}
+                    className="mb-4"
+                  />
+                  <RadioGroup value={selectedModel} onValueChange={setSelectedModel}>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {filteredModels.map((model) => (
+                        <div
+                          key={model}
+                          className={`flex items-center space-x-2 space-x-reverse p-4 border-2 rounded-lg cursor-pointer transition-all hover:border-primary ${
+                            selectedModel === model ? 'border-primary bg-primary/5' : 'border-border'
+                          }`}
+                          onClick={() => setSelectedModel(model)}
+                        >
+                          <RadioGroupItem value={model} id={model} />
+                          <Label htmlFor={model} className="cursor-pointer flex-1">
+                            {model}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </RadioGroup>
+                </div>
+              )}
+
+              {/* Step 5: Issue */}
+              {currentStep === 5 && (
+                <div className="space-y-4 animate-in fade-in duration-500">
+                  <Label className="text-2xl font-semibold">
+                    {language === 'ar' ? 'اختر المشكلة *' : 'Select Issue *'}
+                  </Label>
+                  <Input
+                    placeholder={language === 'ar' ? 'ابحث عن المشكلة...' : 'Search issue...'}
+                    value={issueSearch}
+                    onChange={(e) => setIssueSearch(e.target.value)}
+                    className="mb-4"
+                  />
+                  <RadioGroup value={selectedIssue} onValueChange={setSelectedIssue}>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {filteredIssues.map((issue) => (
+                        <div
+                          key={issue.id}
+                          className={`flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer transition-all hover:border-primary ${
+                            selectedIssue === issue.id ? 'border-primary bg-primary/5' : 'border-border'
+                          }`}
+                          onClick={() => setSelectedIssue(issue.id)}
+                        >
+                          <div className="flex items-center space-x-2 space-x-reverse flex-1">
+                            <RadioGroupItem value={issue.id} id={issue.id} />
+                            <Label htmlFor={issue.id} className="cursor-pointer flex-1">
+                              {language === 'ar' ? issue.nameAr : issue.nameEn}
+                            </Label>
+                          </div>
+                          {issue.estimatedPrice > 0 && (
+                            <span className="text-sm font-semibold text-primary">
+                              {issue.estimatedPrice} {language === 'ar' ? 'ريال' : 'SAR'}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </RadioGroup>
+                </div>
+              )}
+
+              {/* Step 6: Details & Media */}
+              {currentStep === 6 && (
+                <div className="space-y-6 animate-in fade-in duration-500">
+                  <div className="space-y-4">
+                    <Label className="text-2xl font-semibold">
+                      {language === 'ar' ? 'تفاصيل المشكلة' : 'Issue Details'}
+                    </Label>
+                    <Textarea
+                      placeholder={language === 'ar' ? 'اكتب تفاصيل المشكلة هنا...' : 'Describe the issue here...'}
+                      value={issueDescription}
+                      onChange={(e) => setIssueDescription(e.target.value)}
+                      rows={5}
+                      className="resize-none"
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label className="text-xl font-semibold">
+                      {language === 'ar' ? 'إضافة صور (اختياري)' : 'Add Images (Optional)'}
+                    </Label>
+                    <div className="border-2 border-dashed border-border rounded-lg p-6">
+                      <input
+                        type="file"
+                        id="file-upload"
+                        multiple
+                        accept="image/*,video/*"
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="file-upload"
+                        className="flex flex-col items-center gap-2 cursor-pointer"
+                      >
+                        <Upload className="h-10 w-10 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground">
+                          {language === 'ar' ? 'اضغط لرفع الصور أو الفيديو' : 'Click to upload images or video'}
+                        </span>
+                      </label>
+                    </div>
+
+                    {mediaFiles.length > 0 && (
+                      <div className="grid grid-cols-3 gap-4 mt-4">
+                        {mediaFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt={`Upload ${index + 1}`}
+                              className="w-full h-24 object-cover rounded-lg"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeFile(index)}
+                              className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 7: Location */}
+              {currentStep === 7 && (
+                <div className="space-y-6 animate-in fade-in duration-500">
+                  <Label className="text-2xl font-semibold">
+                    {language === 'ar' ? 'معلومات الموقع *' : 'Location Information *'}
+                  </Label>
+
+                  <div className="space-y-4">
+                    <div>
+                      <Label>{language === 'ar' ? 'العنوان' : 'Address'} *</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder={language === 'ar' ? 'أدخل العنوان' : 'Enter address'}
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          className="flex-1"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={getCurrentLocation}
+                        >
+                          <Navigation className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label>{language === 'ar' ? 'المدينة' : 'City'} *</Label>
+                      <Input
+                        placeholder={language === 'ar' ? 'أدخل المدينة' : 'Enter city'}
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                      />
+                    </div>
+
+                    <div>
+                      <Label>{language === 'ar' ? 'رقم الجوال' : 'Phone Number'} *</Label>
+                      <Input
+                        placeholder={language === 'ar' ? 'أدخل رقم الجوال' : 'Enter phone number'}
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        dir="ltr"
+                      />
+                    </div>
+
+                    {latitude && longitude && (
+                      <div className="text-sm text-muted-foreground">
+                        <MapPin className="inline h-4 w-4 mr-1" />
+                        {language === 'ar' ? 'الإحداثيات:' : 'Coordinates:'} {latitude.toFixed(6)}, {longitude.toFixed(6)}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Navigation Buttons */}
+              <div className="flex justify-between pt-6 border-t">
+                {currentStep > 1 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleBack}
+                  >
+                    <ArrowLeft className="h-4 w-4 ml-2" />
+                    {language === 'ar' ? 'رجوع' : 'Back'}
+                  </Button>
+                )}
+                
+                {currentStep < STEPS.length ? (
+                  <Button
+                    type="button"
+                    onClick={handleNext}
+                    className="ml-auto"
+                  >
+                    {language === 'ar' ? 'التالي' : 'Next'}
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="ml-auto"
+                  >
+                    {language === 'ar' ? 'إرسال الطلب' : 'Submit Request'}
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

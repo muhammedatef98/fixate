@@ -417,3 +417,6 @@ export const rewards = pgTable("rewards", {
 
 export type Reward = typeof rewards.$inferSelect;
 export type InsertReward = typeof rewards.$inferInsert;
+
+// Add new columns for unified mobile/web support (added for integration)
+// These are added as optional fields to the serviceRequests table
