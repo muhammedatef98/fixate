@@ -116,3 +116,9 @@ temp/
 
 # Python conversion scripts
 /tmp/convert_*.py
+
+# Mobile app (separate repository)
+mobile/
+mobile_backup*/
+presentation_images/
+logo_presentation*.md
