@@ -107,56 +107,70 @@ export default function Home() {
           <>
             {/* Backdrop */}
             <div 
-              className="md:hidden fixed inset-0 bg-black/50 z-[99]"
+              className="md:hidden fixed inset-0 bg-black/60 z-[99] backdrop-blur-sm"
               onClick={closeMobileMenu}
               aria-hidden="true"
             />
             
-            {/* Sidebar */}
-            <div className="md:hidden fixed top-16 left-0 right-0 bottom-0 w-full bg-background shadow-2xl z-[100] overflow-y-auto animate-in slide-in-from-top duration-200">
+            {/* Sidebar - slides from right */}
+            <div className="md:hidden fixed top-0 right-0 bottom-0 w-[280px] bg-white dark:bg-gray-900 shadow-2xl z-[100] overflow-y-auto transform transition-transform duration-300 ease-out">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-emerald-600">
+                <span className="text-lg font-bold text-white">القائمة</span>
+                <button 
+                  onClick={closeMobileMenu}
+                  className="p-2 text-white hover:bg-emerald-700 rounded-lg transition-colors"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
               {/* Navigation Links */}
-              <nav className="flex flex-col p-4 gap-2">
+              <nav className="flex flex-col p-4 gap-3">
                 {/* Primary Actions */}
                 <Link href="/booking" onClick={closeMobileMenu} className="block">
-                  <Button className="w-full h-12 font-semibold bg-emerald-600 hover:bg-emerald-700">
+                  <Button className="w-full h-14 font-bold text-lg bg-emerald-600 hover:bg-emerald-700 rounded-xl">
                     {t("nav.bookNow")}
                   </Button>
                 </Link>
                 
-                <div className="border-t border-border my-4"></div>
+                <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
                 
                 {/* Secondary Links */}
                 <Link 
                   href="/price-calculator" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
+                  className="flex items-center gap-3 text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl"
                   onClick={closeMobileMenu}
                 >
+                  <span className="text-2xl">💰</span>
                   {language === 'ar' ? 'احسب السعر' : 'Calculate Price'}
                 </Link>
                 <Link 
                   href="/faq" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
+                  className="flex items-center gap-3 text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl"
                   onClick={closeMobileMenu}
                 >
+                  <span className="text-2xl">❓</span>
                   {t("nav.faq")}
                 </Link>
                 <Link 
                   href="/about" 
-                  className="text-base font-medium text-foreground hover:text-primary hover:bg-muted transition-colors py-3 px-4 rounded-lg block"
+                  className="flex items-center gap-3 text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl"
                   onClick={closeMobileMenu}
                 >
+                  <span className="text-2xl">ℹ️</span>
                   {t("nav.about")}
                 </Link>
                 
-                <div className="border-t border-border my-4"></div>
+                <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
                 
                 <Link href="/login" onClick={closeMobileMenu} className="block">
-                  <Button variant="ghost" className="w-full h-11 font-medium">
+                  <Button variant="outline" className="w-full h-12 font-medium text-lg rounded-xl border-2">
                     {t("nav.login")}
                   </Button>
                 </Link>
                 
-                <div className="mt-4 pt-4 border-t border-border">
+                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <LanguageThemeSwitcher />
                 </div>
               </nav>
