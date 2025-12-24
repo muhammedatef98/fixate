@@ -30,6 +30,8 @@ import Profile from "./pages/Profile";
 import BookingForm from "./pages/BookingForm";
 import NewBooking from "./pages/NewBooking";
 import BookingComingSoon from "./pages/BookingComingSoon";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import AIChatbot from "./components/AIChatbot";
 // PWA removed
 
@@ -54,6 +56,8 @@ function Router() {
       <Route path="/payment" component={Payment} />
       <Route path="/about" component={AboutUs} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route path="/track-order/:id" component={TrackOrder} />
       <Route path="/login" component={BookingComingSoon} />
       <Route path="/signup" component={BookingComingSoon} />
