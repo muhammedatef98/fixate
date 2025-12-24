@@ -49,6 +49,11 @@ export default function Home() {
     setMobileMenuOpen(false);
   };
   
+  const toggleMenu = () => {
+    console.log('Toggle menu clicked, current state:', mobileMenuOpen);
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+  
   return (
     <div className="min-h-screen bg-background" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <SEO
@@ -68,10 +73,10 @@ export default function Home() {
             
             {/* Mobile Menu Button */}
             <button
-              onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(true); }}
-              onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); setMobileMenuOpen(true); }}
-              className="md:hidden p-3 text-foreground hover:bg-muted rounded-lg transition-colors active:bg-muted/80 touch-manipulation"
-              aria-label="فتح القائمة"
+              onClick={toggleMenu}
+              className="md:hidden p-3 text-foreground hover:bg-muted rounded-lg transition-colors"
+              style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+              aria-label="القائمة"
               type="button"
             >
               <Menu className="h-7 w-7" />
@@ -106,27 +111,37 @@ export default function Home() {
       </header>
 
       {/* Mobile Menu Overlay - Outside header for proper z-index */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-[9999]">
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/70"
-            onClick={closeMobileMenu}
-            onTouchEnd={closeMobileMenu}
-          />
-          
-          {/* Sidebar - slides from right */}
-          <div 
-            className="absolute top-0 right-0 bottom-0 w-[85%] max-w-[320px] bg-white dark:bg-gray-900 shadow-2xl overflow-y-auto"
-            style={{ WebkitOverflowScrolling: 'touch' }}
-          >
+      <div 
+        className="md:hidden fixed inset-0"
+        style={{ 
+          zIndex: 99999,
+          pointerEvents: mobileMenuOpen ? 'auto' : 'none',
+          visibility: mobileMenuOpen ? 'visible' : 'hidden'
+        }}
+      >
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/70 transition-opacity duration-300"
+          style={{ opacity: mobileMenuOpen ? 1 : 0 }}
+          onClick={closeMobileMenu}
+        />
+        
+        {/* Sidebar - slides from right */}
+        <div 
+          className="absolute top-0 bottom-0 w-[85%] max-w-[320px] bg-white dark:bg-gray-900 shadow-2xl overflow-y-auto transition-transform duration-300"
+          style={{ 
+            right: 0,
+            transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+            WebkitOverflowScrolling: 'touch'
+          }}
+        >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-emerald-600 sticky top-0">
               <span className="text-xl font-bold text-white">القائمة</span>
               <button 
                 onClick={closeMobileMenu}
-                onTouchEnd={(e) => { e.preventDefault(); closeMobileMenu(); }}
                 className="p-3 text-white hover:bg-emerald-700 rounded-lg transition-colors active:bg-emerald-800"
+                type="button"
               >
                 <X className="h-7 w-7" />
               </button>
@@ -183,7 +198,7 @@ export default function Home() {
             </nav>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Hero Section */}
       <section className="pt-16 pb-16 md:pt-24 md:pb-20">
