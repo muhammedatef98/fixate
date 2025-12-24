@@ -68,12 +68,13 @@ export default function Home() {
             
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-foreground hover:bg-muted rounded-lg transition-colors"
-              aria-label={mobileMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
-              aria-expanded={mobileMenuOpen}
+              onClick={(e) => { e.stopPropagation(); setMobileMenuOpen(true); }}
+              onTouchEnd={(e) => { e.preventDefault(); e.stopPropagation(); setMobileMenuOpen(true); }}
+              className="md:hidden p-3 text-foreground hover:bg-muted rounded-lg transition-colors active:bg-muted/80 touch-manipulation"
+              aria-label="فتح القائمة"
+              type="button"
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <Menu className="h-7 w-7" />
             </button>
 
             {/* Desktop Navigation */}
@@ -102,82 +103,87 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <div 
-              className="md:hidden fixed inset-0 bg-black/60 z-[99] backdrop-blur-sm"
-              onClick={closeMobileMenu}
-              aria-hidden="true"
-            />
-            
-            {/* Sidebar - slides from right */}
-            <div className="md:hidden fixed top-0 right-0 bottom-0 w-[280px] bg-white dark:bg-gray-900 shadow-2xl z-[100] overflow-y-auto transform transition-transform duration-300 ease-out">
-              {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-emerald-600">
-                <span className="text-lg font-bold text-white">القائمة</span>
-                <button 
-                  onClick={closeMobileMenu}
-                  className="p-2 text-white hover:bg-emerald-700 rounded-lg transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-              
-              {/* Navigation Links */}
-              <nav className="flex flex-col p-4 gap-3">
-                {/* Primary Actions */}
-                <Link href="/booking" onClick={closeMobileMenu} className="block">
-                  <Button className="w-full h-14 font-bold text-lg bg-emerald-600 hover:bg-emerald-700 rounded-xl">
-                    {t("nav.bookNow")}
-                  </Button>
-                </Link>
-                
-                <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-                
-                {/* Secondary Links */}
-                <Link 
-                  href="/price-calculator" 
-                  className="flex items-center gap-3 text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl"
-                  onClick={closeMobileMenu}
-                >
-                  <span className="text-2xl">💰</span>
-                  {language === 'ar' ? 'احسب السعر' : 'Calculate Price'}
-                </Link>
-                <Link 
-                  href="/faq" 
-                  className="flex items-center gap-3 text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl"
-                  onClick={closeMobileMenu}
-                >
-                  <span className="text-2xl">❓</span>
-                  {t("nav.faq")}
-                </Link>
-                <Link 
-                  href="/about" 
-                  className="flex items-center gap-3 text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl"
-                  onClick={closeMobileMenu}
-                >
-                  <span className="text-2xl">ℹ️</span>
-                  {t("nav.about")}
-                </Link>
-                
-                <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-                
-                <Link href="/login" onClick={closeMobileMenu} className="block">
-                  <Button variant="outline" className="w-full h-12 font-medium text-lg rounded-xl border-2">
-                    {t("nav.login")}
-                  </Button>
-                </Link>
-                
-                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <LanguageThemeSwitcher />
-                </div>
-              </nav>
-            </div>
-          </>
-        )}
       </header>
+
+      {/* Mobile Menu Overlay - Outside header for proper z-index */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-[9999]">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/70"
+            onClick={closeMobileMenu}
+            onTouchEnd={closeMobileMenu}
+          />
+          
+          {/* Sidebar - slides from right */}
+          <div 
+            className="absolute top-0 right-0 bottom-0 w-[85%] max-w-[320px] bg-white dark:bg-gray-900 shadow-2xl overflow-y-auto"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-emerald-600 sticky top-0">
+              <span className="text-xl font-bold text-white">القائمة</span>
+              <button 
+                onClick={closeMobileMenu}
+                onTouchEnd={(e) => { e.preventDefault(); closeMobileMenu(); }}
+                className="p-3 text-white hover:bg-emerald-700 rounded-lg transition-colors active:bg-emerald-800"
+              >
+                <X className="h-7 w-7" />
+              </button>
+            </div>
+            
+            {/* Navigation Links */}
+            <nav className="flex flex-col p-5 gap-4">
+              {/* Primary Actions */}
+              <Link href="/booking" onClick={closeMobileMenu}>
+                <Button className="w-full h-16 font-bold text-xl bg-emerald-600 hover:bg-emerald-700 rounded-xl active:bg-emerald-800">
+                  {t("nav.bookNow")}
+                </Button>
+              </Link>
+              
+              <div className="border-t border-gray-200 dark:border-gray-700 my-3"></div>
+              
+              {/* Secondary Links */}
+              <Link 
+                href="/price-calculator" 
+                className="flex items-center gap-4 text-xl font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-5 px-5 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
+                onClick={closeMobileMenu}
+              >
+                <span className="text-3xl">💰</span>
+                {language === 'ar' ? 'احسب السعر' : 'Calculate Price'}
+              </Link>
+              <Link 
+                href="/faq" 
+                className="flex items-center gap-4 text-xl font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-5 px-5 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
+                onClick={closeMobileMenu}
+              >
+                <span className="text-3xl">❓</span>
+                {t("nav.faq")}
+              </Link>
+              <Link 
+                href="/about" 
+                className="flex items-center gap-4 text-xl font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-5 px-5 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
+                onClick={closeMobileMenu}
+              >
+                <span className="text-3xl">ℹ️</span>
+                {t("nav.about")}
+              </Link>
+              
+              <div className="border-t border-gray-200 dark:border-gray-700 my-3"></div>
+              
+              <Link href="/login" onClick={closeMobileMenu}>
+                <Button variant="outline" className="w-full h-14 font-medium text-xl rounded-xl border-2">
+                  {t("nav.login")}
+                </Button>
+              </Link>
+              
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <LanguageThemeSwitcher />
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="pt-16 pb-16 md:pt-24 md:pb-20">
