@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "wouter";
 import { Clock, ArrowRight, ArrowLeft, Smartphone } from "lucide-react";
+import Footer from "@/components/Footer";
 
 export default function BookingComingSoon() {
   const { language } = useLanguage();
@@ -121,6 +122,7 @@ export default function BookingComingSoon() {
           </div>
         </CardContent>
       </Card>
+      <Footer />
     </div>
   );
 }

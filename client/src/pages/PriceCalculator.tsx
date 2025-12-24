@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
+import Footer from "@/components/Footer";
 
 // قاعدة بيانات الأسعار الواقعية (بالريال السعودي)
 const pricingData = {
@@ -549,6 +550,7 @@ export default function PriceCalculator() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

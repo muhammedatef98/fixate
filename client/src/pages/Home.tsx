@@ -18,6 +18,7 @@ import {
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
+import { MobileLanguageThemeSwitcher } from "@/components/MobileLanguageThemeSwitcher";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Logo from "@/components/Logo";
 import Footer from "@/components/Footer";
@@ -193,7 +194,7 @@ export default function Home() {
             </Link>
             
             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <LanguageThemeSwitcher />
+              <MobileLanguageThemeSwitcher />
             </div>
           </nav>
         </div>

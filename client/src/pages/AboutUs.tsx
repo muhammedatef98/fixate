@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
+import Footer from "@/components/Footer";
 
 export default function AboutUs() {
   const { t, language } = useLanguage();
@@ -179,55 +180,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 bg-foreground text-background border-t border-border/10">
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="mb-4">
-                <Logo />
-              </div>
-              <p className="text-background/60 text-sm leading-relaxed">
-                {t("footer.description")}
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4 text-background">{t("footer.services")}</h4>
-              <ul className="space-y-2 text-sm text-background/60">
-                <li>{t("footer.phoneRepair")}</li>
-                <li>{t("footer.laptopRepair")}</li>
-                <li>{t("footer.tabletRepair")}</li>
-                <li>{t("footer.calculator")}</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4 text-background">{t("footer.company")}</h4>
-              <ul className="space-y-2 text-sm text-background/60">
-                <li><Link href="/about" className="hover:text-background transition-colors">{t("footer.about")}</Link></li>
-                <li><Link href="/faq" className="hover:text-background transition-colors">{t("footer.faq")}</Link></li>
-                <li>{t("footer.technicians")}</li>
-                <li>{t("footer.terms")}</li>
-                <li>{t("footer.privacy")}</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4 text-background">{t("footer.contact")}</h4>
-              <ul className="space-y-2 text-sm text-background/60">
-                <li>{t("footer.location")}</li>
-                <li>support@fixate.sa</li>
-                <li>+966 XX XXX XXXX</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-background/10 mt-12 pt-8 text-center text-sm text-background/50">
-            <p>{t("footer.copyright")}</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
