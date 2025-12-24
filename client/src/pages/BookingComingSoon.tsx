@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "wouter";
-import { Clock, ArrowRight, ArrowLeft, Smartphone, Home } from "lucide-react";
+import { Clock, ArrowRight, ArrowLeft, Smartphone, Home, Mail, Phone, MessageCircle } from "lucide-react";
 import Logo from "@/components/Logo";
 import SEO from "@/components/SEO";
 
@@ -24,7 +24,12 @@ export default function BookingComingSoon() {
       downloadApp: "حمّل التطبيق الآن",
       appDescription: "يمكنك الآن استخدام تطبيق Fixate للحجز الفوري",
       backHome: "العودة للرئيسية",
-      contactUs: "تواصل معنا"
+      contactUs: "تواصل معنا",
+      contactTitle: "تواصل معنا الآن",
+      contactDescription: "نحن هنا لمساعدتك! تواصل معنا عبر أي من الوسائل التالية:",
+      email: "البريد الإلكتروني",
+      phoneNumber: "رقم الهاتف",
+      whatsapp: "واتساب"
     },
     en: {
       title: "Coming Soon",
@@ -39,7 +44,12 @@ export default function BookingComingSoon() {
       downloadApp: "Download App Now",
       appDescription: "You can now use Fixate app for instant booking",
       backHome: "Back to Home",
-      contactUs: "Contact Us"
+      contactUs: "Contact Us",
+      contactTitle: "Contact Us Now",
+      contactDescription: "We're here to help! Reach us through any of the following:",
+      email: "Email",
+      phoneNumber: "Phone Number",
+      whatsapp: "WhatsApp"
     }
   };
 
@@ -135,8 +145,60 @@ export default function BookingComingSoon() {
             </CardContent>
           </Card>
 
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Contact Section */}
+          <Card className="mb-8 border-2">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-center mb-3 text-gray-800 dark:text-gray-100">
+                {t.contactTitle}
+              </h3>
+              <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
+                {t.contactDescription}
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Email */}
+                <a
+                  href="mailto:fixate01@gmail.com"
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-all duration-300 hover:scale-105 group"
+                >
+                  <div className="bg-emerald-600 p-4 rounded-full group-hover:scale-110 transition-transform">
+                    <Mail className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="font-semibold text-gray-800 dark:text-gray-200">{t.email}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">fixate01@gmail.com</span>
+                </a>
+
+                {/* Phone */}
+                <a
+                  href="tel:+966548940042"
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-105 group"
+                >
+                  <div className="bg-blue-600 p-4 rounded-full group-hover:scale-110 transition-transform">
+                    <Phone className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="font-semibold text-gray-800 dark:text-gray-200">{t.phoneNumber}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 text-center" dir="ltr">+966 54 894 0042</span>
+                </a>
+
+                {/* WhatsApp */}
+                <a
+                  href="https://wa.me/966548940042"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-3 p-6 rounded-xl bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 hover:scale-105 group"
+                >
+                  <div className="bg-green-600 p-4 rounded-full group-hover:scale-110 transition-transform">
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="font-semibold text-gray-800 dark:text-gray-200">{t.whatsapp}</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 text-center" dir="ltr">+966 54 894 0042</span>
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Back Home Button */}
+          <div className="flex justify-center">
             <Button
               size="lg"
               variant="outline"
@@ -145,14 +207,6 @@ export default function BookingComingSoon() {
             >
               {language === 'ar' ? <ArrowRight className="w-5 h-5" /> : <ArrowLeft className="w-5 h-5" />}
               {t.backHome}
-            </Button>
-            <Button
-              size="lg"
-              className="gap-2 min-w-[200px] bg-emerald-600 hover:bg-emerald-700"
-              onClick={() => window.location.href = 'mailto:fixate01@gmail.com'}
-            >
-              {t.contactUs}
-              {language === 'ar' ? <ArrowLeft className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}
             </Button>
           </div>
         </div>
