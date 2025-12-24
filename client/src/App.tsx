@@ -55,9 +55,9 @@ function Router() {
       <Route path="/about" component={AboutUs} />
       <Route path="/faq" component={FAQ} />
       <Route path="/track-order/:id" component={TrackOrder} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/signup-new" component={SignupNew} />
+      <Route path="/login" component={BookingComingSoon} />
+      <Route path="/signup" component={BookingComingSoon} />
+      <Route path="/signup-new" component={BookingComingSoon} />
       <Route path="/technician-dashboard" component={TechnicianDashboardWeb} />
       <Route path="/technicians" component={TechniciansList} />
       <Route path="/profile" component={Profile} />
