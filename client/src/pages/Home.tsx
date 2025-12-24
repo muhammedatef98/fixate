@@ -107,13 +107,13 @@ export default function Home() {
           <>
             {/* Backdrop */}
             <div 
-              className="md:hidden fixed inset-0 bg-black/50 z-40"
+              className="md:hidden fixed inset-0 bg-black/50 z-[99]"
               onClick={closeMobileMenu}
               aria-hidden="true"
             />
             
             {/* Sidebar */}
-            <div className="md:hidden fixed top-16 right-0 bottom-0 w-full max-w-xs bg-background shadow-2xl z-50 overflow-y-auto">
+            <div className="md:hidden fixed top-16 left-0 right-0 bottom-0 w-full bg-background shadow-2xl z-[100] overflow-y-auto animate-in slide-in-from-top duration-200">
               {/* Navigation Links */}
               <nav className="flex flex-col p-4 gap-2">
                 {/* Primary Actions */}
