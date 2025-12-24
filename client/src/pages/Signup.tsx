@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useLocation } from "wouter";
 import { Loader2, Mail, Lock, User, Phone, UserPlus, Eye, EyeOff } from "lucide-react";
-import Footer from "@/components/Footer";
+
 import { toast } from "sonner";
 
 export default function Signup() {
