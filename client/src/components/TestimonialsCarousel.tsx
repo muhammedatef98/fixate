@@ -177,15 +177,6 @@ export default function TestimonialsCarousel() {
     <div className="w-full space-y-12">
       {/* Stats Section */}
       <div className="bg-gradient-to-br from-background to-muted/30 rounded-3xl p-8 md:p-12 border border-border/50">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-            {language === 'ar' ? 'تقييمات عملائنا' : 'Customer Reviews'}
-          </h3>
-          <p className="text-muted-foreground">
-            {language === 'ar' ? 'ماذا يقول عملاؤنا؟' : 'What our customers say?'}
-          </p>
-        </div>
-
         <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
           {language === 'ar' 
             ? 'آلاف العملاء السعداء يثقون في خدماتنا. اقرأ تجاربهم الحقيقية!'
