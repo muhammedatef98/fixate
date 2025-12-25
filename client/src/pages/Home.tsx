@@ -138,7 +138,7 @@ export default function Home() {
         >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-emerald-600 sticky top-0">
-            <span className="text-xl font-bold text-white">القائمة</span>
+            <span className="text-lg font-bold text-white">القائمة</span>
             <button 
               onClick={closeMobileMenu}
               className="p-3 text-white hover:bg-emerald-700 rounded-lg transition-colors active:bg-emerald-800"
@@ -152,7 +152,7 @@ export default function Home() {
           <nav className="flex flex-col p-5 gap-4">
             {/* Primary Actions */}
             <Link href="/booking" onClick={closeMobileMenu}>
-              <Button className="w-full h-16 font-bold text-xl bg-emerald-600 hover:bg-emerald-700 rounded-xl active:bg-emerald-800">
+              <Button className="w-full h-14 font-bold text-base bg-emerald-600 hover:bg-emerald-700 rounded-xl active:bg-emerald-800">
                 {t("nav.bookNow")}
               </Button>
             </Link>
@@ -162,7 +162,7 @@ export default function Home() {
             {/* Secondary Links */}
             <Link 
               href="/price-calculator" 
-              className="flex items-center gap-4 text-xl font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-5 px-5 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
+              className="flex items-center gap-3 text-base font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
               onClick={closeMobileMenu}
             >
               <span className="text-3xl">💰</span>
@@ -170,7 +170,7 @@ export default function Home() {
             </Link>
             <Link 
               href="/faq" 
-              className="flex items-center gap-4 text-xl font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-5 px-5 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
+              className="flex items-center gap-3 text-base font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
               onClick={closeMobileMenu}
             >
               <span className="text-3xl">❓</span>
@@ -178,7 +178,7 @@ export default function Home() {
             </Link>
             <Link 
               href="/about" 
-              className="flex items-center gap-4 text-xl font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-5 px-5 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
+              className="flex items-center gap-3 text-base font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-4 px-4 rounded-xl active:bg-gray-100 dark:active:bg-gray-800"
               onClick={closeMobileMenu}
             >
               <span className="text-3xl">ℹ️</span>
@@ -188,7 +188,7 @@ export default function Home() {
             <div className="border-t border-gray-200 dark:border-gray-700 my-3"></div>
             
             <Link href="/login" onClick={closeMobileMenu}>
-              <Button variant="outline" className="w-full h-14 font-medium text-xl rounded-xl border-2">
+              <Button variant="outline" className="w-full h-12 font-medium text-base rounded-xl border-2">
                 {t("nav.login")}
               </Button>
             </Link>
