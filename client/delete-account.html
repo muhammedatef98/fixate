@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حذف الحساب - Fixate | Delete Account</title>
+    <meta name="description" content="طلب حذف حساب Fixate - Request to delete your Fixate account">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .warning-box {
+            background: #FEE2E2;
+            border-left: 4px solid #EF4444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .warning-box h2 {
+            color: #991B1B;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-box ul {
+            list-style: none;
+            padding-right: 20px;
+        }
+
+        .warning-box li {
+            color: #991B1B;
+            margin-bottom: 10px;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .warning-box li:before {
+            content: "•";
+            position: absolute;
+            right: 0;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: #DBEAFE;
+            border-left: 4px solid #3B82F6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #1E40AF;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #1E40AF;
+            line-height: 1.6;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: #1F2937;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .required {
+            color: #EF4444;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .contact-section {
+            background: #F9FAFB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-section h4 {
+            color: #1F2937;
+            margin-bottom: 15px;
+        }
+
+        .contact-section p {
+            color: #6B7280;
+            margin-bottom: 10px;
+        }
+
+        .contact-section a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            display: none;
+            background: #D1FAE5;
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            color: #065F46;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #065F46;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .warning-box,
+            .info-box {
+                padding: 15px;
+            }
+        }
+
+        /* English version styles */
+        [dir="ltr"] .warning-box,
+        [dir="ltr"] .info-box {
+            border-left: none;
+            border-right: 4px solid;
+        }
+
+        [dir="ltr"] .warning-box li {
+            padding-right: 0;
+            padding-left: 20px;
+        }
+
+        [dir="ltr"] .warning-box li:before {
+            right: auto;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗑️ حذف الحساب / Delete Account</h1>
+            <p>نأسف لرؤيتك تغادر | We're sorry to see you go</p>
+        </div>
+
+        <div class="content">
+            <div class="success-message" id="successMessage">
+                <h3>✅ تم إرسال طلبك بنجاح / Request Submitted Successfully</h3>
+                <p>سيتم معالجة طلب حذف حسابك خلال 24-48 ساعة. ستتلقى رسالة تأكيد عبر البريد الإلكتروني.</p>
+                <p>Your account deletion request will be processed within 24-48 hours. You will receive a confirmation email.</p>
+            </div>
+
+            <div class="warning-box">
+                <h2>⚠️ تحذير مهم / Important Warning</h2>
+                <p style="margin-bottom: 15px; color: #991B1B; font-weight: 600;">
+                    حذف حسابك سيؤدي إلى / Deleting your account will result in:
+                </p>
+                <ul>
+                    <li>حذف جميع بياناتك الشخصية نهائياً / Permanent deletion of all your personal data</li>
+                    <li>حذف سجل طلباتك وخدماتك / Deletion of your order and service history</li>
+                    <li>فقدان الوصول الكامل إلى التطبيق / Complete loss of access to the app</li>
+                    <li>لا يمكن التراجع عن هذا الإجراء / This action cannot be undone</li>
+                    <li>قد نحتفظ ببعض البيانات لمدة 30 يوماً لأغراض قانونية / We may retain some data for 30 days for legal purposes</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>ℹ️ كيف تعمل العملية / How the Process Works</h3>
+                <p>
+                    بعد إرسال هذا النموذج، سيتم مراجعة طلبك من قبل فريقنا. سنرسل لك رسالة تأكيد عبر البريد الإلكتروني خلال 24-48 ساعة. بعد التأكيد، سيتم حذف جميع بياناتك بشكل دائم من أنظمتنا.
+                </p>
+                <p style="margin-top: 10px;">
+                    After submitting this form, your request will be reviewed by our team. We will send you a confirmation email within 24-48 hours. After confirmation, all your data will be permanently deleted from our systems.
+                </p>
+            </div>
+
+            <form id="deleteAccountForm" class="form-section">
+                <h3>معلومات الطلب / Request Information</h3>
+
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني / Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف / Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+966XXXXXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="accountType">نوع الحساب / Account Type <span class="required">*</span></label>
+                    <select id="accountType" name="accountType" required style="width: 100%; padding: 12px 15px; border: 2px solid #E5E7EB; border-radius: 8px; font-size: 16px;">
+                        <option value="">اختر / Select</option>
+                        <option value="customer">عميل / Customer</option>
+                        <option value="technician">فني / Technician</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">سبب الحذف (اختياري) / Reason for Deletion (Optional)</label>
+                    <textarea id="reason" name="reason" placeholder="يرجى مشاركة سبب حذف حسابك (اختياري) / Please share why you're deleting your account (optional)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="confirm" name="confirm" required style="width: auto; margin-left: 10px;">
+                        أؤكد أنني أفهم أن هذا الإجراء لا يمكن التراجع عنه
+                        <br>
+                        I confirm that I understand this action cannot be undone
+                        <span class="required">*</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    🗑️ إرسال طلب حذف الحساب / Submit Account Deletion Request
+                </button>
+            </form>
+
+            <div class="contact-section">
+                <h4>هل تحتاج مساعدة؟ / Need Help?</h4>
+                <p>إذا كنت تواجه مشكلة أو لديك أسئلة، يرجى التواصل معنا:</p>
+                <p>If you're having issues or have questions, please contact us:</p>
+                <p>
+                    <strong>Email:</strong> <a href="mailto:fixate01@gmail.com">fixate01@gmail.com</a><br>
+                    <strong>Phone:</strong> <a href="tel:+966548940042">+966548940042</a><br>
+                    <strong>Website:</strong> <a href="https://fixate.site">fixate.site</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('deleteAccountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const accountType = document.getElementById('accountType').value;
+            const reason = document.getElementById('reason').value;
+            const confirm = document.getElementById('confirm').checked;
+
+            if (!confirm) {
+                alert('يرجى تأكيد أنك تفهم أن هذا الإجراء لا يمكن التراجع عنه\nPlease confirm that you understand this action cannot be undone');
+                return;
+            }
+
+            // In production, this would send to your backend
+            // For now, we'll show success message and send email
+            const subject = 'طلب حذف حساب Fixate - Account Deletion Request';
+            const body = `
+طلب حذف حساب جديد / New Account Deletion Request
+
+البريد الإلكتروني / Email: ${email}
+رقم الهاتف / Phone: ${phone}
+نوع الحساب / Account Type: ${accountType}
+السبب / Reason: ${reason || 'لم يتم تحديد سبب / No reason provided'}
+
+تاريخ الطلب / Request Date: ${new Date().toLocaleString('ar-SA')}
+            `.trim();
+
+            // Open email client
+            window.location.href = `mailto:fixate01@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Show success message
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('deleteAccountForm').style.display = 'none';
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
