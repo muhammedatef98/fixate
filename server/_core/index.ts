@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import helmet from "helmet";
+import cors from "cors";
+import { rateLimit } from "express-rate-limit";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 // OAuth removed - using simple email/password auth
 import { appRouter } from "../routers";
@@ -54,11 +57,56 @@ async function startServer() {
 
   const app = express();
   const server = createServer(app);
+
+  // Security headers
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://www.googletagmanager.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        imgSrc: ["'self'", "data:", "https:", "blob:"],
+        connectSrc: ["'self'", "https:"],
+        frameSrc: ["'none'"],
+        objectSrc: ["'none'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false, // needed for Google Maps / iframes
+  }));
+
+  // CORS — allow only trusted origins
+  const allowedOrigins = [
+    "https://fixate.sa",
+    "https://www.fixate.sa",
+    "https://fixate.site",
+    "https://www.fixate.site",
+    ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000", "http://localhost:5173"] : []),
+  ];
+  app.use(cors({
+    origin: (origin, cb) => {
+      // Allow requests with no origin (mobile apps, curl, Render health pings)
+      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      cb(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  }));
+
+  // Rate limiting on auth endpoints — 20 req/15 min per IP
+  const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: "Too many requests, please try again later." },
+  });
+
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Simple auth endpoints are in tRPC router
-  
+
   // Keep-alive endpoint — no DB calls, instant 200 for cron-job.org pings
   app.get("/api/ping", (_req, res) => {
     res.status(200).json({ ok: true, ts: Date.now() });
@@ -69,10 +117,10 @@ async function startServer() {
     const start = Date.now();
     try {
       const { getDb } = await import("../db");
+      const { sql } = await import("drizzle-orm");
       const db = await getDb();
       if (!db) throw new Error("DB unavailable");
-      // lightweight query
-      await db.execute("SELECT 1");
+      await db.execute(sql`SELECT 1`);
       res.status(200).json({ ok: true, db: "up", latency_ms: Date.now() - start });
     } catch (err) {
       res.status(503).json({ ok: false, db: "down", error: String(err) });
@@ -119,8 +167,8 @@ async function startServer() {
     }
   });
 
-  // Auth REST API endpoints
-  app.post("/api/auth/signup", async (req, res) => {
+  // Auth REST API endpoints (rate-limited)
+  app.post("/api/auth/signup", authLimiter, async (req, res) => {
     try {
       const { name, email, phone, password } = req.body;
       
@@ -146,7 +194,7 @@ async function startServer() {
     }
   });
 
-  app.post("/api/auth/login", async (req, res) => {
+  app.post("/api/auth/login", authLimiter, async (req, res) => {
     try {
       const { email, password } = req.body;
       

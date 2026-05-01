@@ -4,16 +4,26 @@ Allow: /
 # Sitemap
 Sitemap: https://fixate.sa/sitemap.xml
 
-# Disallow admin pages
+# Disallow internal/admin pages
 Disallow: /admin
+Disallow: /admin/
 Disallow: /technician
+Disallow: /technician-dashboard
 Disallow: /analytics
+Disallow: /chat
+Disallow: /my-requests
+Disallow: /payment
+Disallow: /loyalty
+Disallow: /track
+Disallow: /profile
+Disallow: /login
+Disallow: /signup
+Disallow: /api/
 
-# Allow important pages
+# Allow important public pages
 Allow: /
-Allow: /calculator
-Allow: /request
-Allow: /about
 Allow: /faq
-Allow: /track
-Allow: /loyalty
+Allow: /about
+Allow: /price-calculator
+Allow: /privacy
+Allow: /terms

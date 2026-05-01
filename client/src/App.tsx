@@ -33,6 +33,7 @@ import BookingComingSoon from "./pages/BookingComingSoon";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import AIChatbot from "./components/AIChatbot";
+import StickyDownloadBar from "./components/StickyDownloadBar";
 // PWA removed
 
 function Router() {
@@ -89,6 +90,7 @@ function App() {
             <Toaster />
             <Router />
             <AIChatbot />
+            <StickyDownloadBar />
           </TooltipProvider>
         </ThemeProvider>
       </LanguageProvider>
