@@ -37,9 +37,9 @@ export default function AboutUs() {
               <Link href="/faq" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.faq")}
               </Link>
-              <Link href="/booking">
-                <Button>{t("nav.bookNow")}</Button>
-              </Link>
+              <a href="/#download">
+                <Button>{isArabic ? "حمل التطبيق" : "Download App"}</Button>
+              </a>
               <LanguageThemeSwitcher />
             </nav>
           </div>
@@ -171,11 +171,11 @@ export default function AboutUs() {
                 ? "احجز خدمة الإصلاح الآن واحصل على خصم 20%"
                 : "Book repair service now and get 20% off"}
             </p>
-            <Link href="/booking">
+            <a href="/#download">
               <Button size="lg" variant="secondary" className="text-base px-8 h-12 rounded-full font-medium shadow-lg hover:shadow-xl transition-all">
-                {t("cta.button")}
+                {isArabic ? "حمل التطبيق الآن" : "Download the App"}
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </section>

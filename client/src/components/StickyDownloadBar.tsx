@@ -13,7 +13,7 @@ export default function StickyDownloadBar() {
 
   useEffect(() => {
     const ua = navigator.userAgent;
-    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) setPlatform("ios");
+    if (/iPad|iPhone|iPod/.test(ua)) setPlatform("ios");
     else if (/Android/.test(ua)) setPlatform("android");
     else setPlatform("desktop");
   }, []);

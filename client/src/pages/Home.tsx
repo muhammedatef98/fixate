@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { APP_LOGO } from "@/const";
 import SEO, { structuredDataTemplates } from "@/components/SEO";
 import {
   Smartphone,

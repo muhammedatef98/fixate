@@ -24,6 +24,26 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          // Heavy charting library — only used in admin dashboard
+          if (id.includes("recharts") || id.includes("/d3-")) return "vendor-charts";
+          // Animation library
+          if (id.includes("framer-motion")) return "vendor-motion";
+          // tRPC + React Query (data layer)
+          if (id.includes("@trpc")) return "vendor-trpc";
+          if (id.includes("@tanstack/react-query")) return "vendor-trpc";
+          // Radix UI primitives
+          if (id.includes("@radix-ui")) return "vendor-radix";
+          // OpenAI SDK — backend only, shouldn't land in frontend bundle
+          // but tree-shake it here as a safety net
+          if (id.includes("openai")) return "vendor-openai";
+        },
+      },
+    },
   },
   server: {
     host: true,

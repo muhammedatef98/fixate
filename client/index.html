@@ -53,9 +53,15 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <title>Fixate - منصة صيانة الأجهزة الإلكترونية</title>
+    <!-- Font preconnects -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Only load weights actually used; display=swap avoids FOIT -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Analytics placeholders — loaded by analytics.ts after cookie consent -->
+    <!-- TODO: set VITE_GA4_MEASUREMENT_ID env var to activate Google Analytics 4 -->
+    <!-- TODO: set VITE_CLARITY_PROJECT_ID env var to activate Microsoft Clarity -->
   </head>
 
   <body>
