@@ -442,3 +442,75 @@ jobs:
 **نصيحة:** ابدأ بـ Vercel + PlanetScale للبداية السريعة، ثم انتقل لحلول أخرى حسب الحاجة.
 
 ✨ **حظاً موفقاً!**
+
+---
+
+## 😴 حل مشكلة Sleep على Render (الخطة المجانية)
+
+الخطة المجانية على Render تُنيم السيرفر بعد 15 دقيقة من عدم النشاط، مما يسبب تأخيراً من 30-60 ثانية عند أول زيارة.
+
+### الحل الفوري: cron-job.org (مجاني)
+
+تم إضافة `GET /api/ping` — يُعيد 200 فوراً بدون أي استعلام من قاعدة البيانات.
+
+**خطوات الإعداد:**
+1. سجّل على https://cron-job.org (مجاني تماماً)
+2. أنشئ Cron Job جديد:
+   - **URL:** `https://fixate.onrender.com/api/ping`
+   - **Schedule:** كل 10 دقائق → `*/10 * * * *`
+   - **Method:** GET
+   - **Expected response:** HTTP 200
+3. فعّل الـ Job
+
+**للتحقق أن الـ ping يعمل:**
+```bash
+curl https://fixate.onrender.com/api/ping
+# يجب أن يُعيد: {"ok":true,"ts":1234567890}
+```
+
+**للتحقق من صحة قاعدة البيانات:**
+```bash
+curl https://fixate.onrender.com/api/health
+# يُعيد: {"ok":true,"db":"up","latency_ms":45}
+```
+
+### الحل الدائم: ترقية Render
+
+| الخطة | السعر | المميزات |
+|-------|-------|---------|
+| Free | $0 | ينام بعد 15 دقيقة |
+| Starter | $7/شهر | لا ينام، أسرع، SSL مخصص |
+| Standard | $25/شهر | موارد أكثر، مناسب للإنتاج |
+
+للترقية: Dashboard → your service → Settings → Instance Type → Starter
+
+### الانتقال إلى Vercel (الأفضل للمواقع التسويقية)
+
+Vercel مثالي للمواقع التسويقية لأنه:
+- لا ينام أبداً (حتى في الخطة المجانية)
+- CDN عالمي تلقائي
+- أسرع بكثير في تحميل الملفات الثابتة
+
+**خطوات الانتقال:**
+1. تأكد أن المشروع يبني بشكل صحيح محلياً: `pnpm build`
+2. سجّل على https://vercel.com
+3. أضف المشروع من GitHub
+4. أضف جميع متغيرات البيئة من Render
+5. اضبط الـ build command: `pnpm build`
+6. اضبط الـ output directory: `dist/public`
+
+**ملاحظة:** المشروع الحالي يستخدم Express server — ستحتاج إلى تحويله إلى Vercel serverless functions أو استخدام `vercel.json` لتوجيه الطلبات. راجع docs/ARCHITECTURE.md للتفاصيل.
+
+### الانتقال إلى Railway
+
+Railway أبسط من Vercel للمشاريع التي تستخدم Express:
+- يدعم Node.js مباشرة بدون تعديلات
+- لا ينام (حتى في الخطة المجانية الجديدة مع قيود)
+- سعر معقول: ~$5/شهر للاستخدام الفعلي
+
+**خطوات الانتقال إلى Railway:**
+1. سجّل على https://railway.app
+2. New Project → Deploy from GitHub
+3. اختر repository fixate
+4. أضف PostgreSQL service
+5. انقل متغيرات البيئة

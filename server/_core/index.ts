@@ -59,6 +59,26 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Simple auth endpoints are in tRPC router
   
+  // Keep-alive endpoint — no DB calls, instant 200 for cron-job.org pings
+  app.get("/api/ping", (_req, res) => {
+    res.status(200).json({ ok: true, ts: Date.now() });
+  });
+
+  // Health check endpoint — verifies DB connectivity
+  app.get("/api/health", async (_req, res) => {
+    const start = Date.now();
+    try {
+      const { getDb } = await import("../db");
+      const db = await getDb();
+      if (!db) throw new Error("DB unavailable");
+      // lightweight query
+      await db.execute("SELECT 1");
+      res.status(200).json({ ok: true, db: "up", latency_ms: Date.now() - start });
+    } catch (err) {
+      res.status(503).json({ ok: false, db: "down", error: String(err) });
+    }
+  });
+
   // REST API endpoints for mobile
   app.get("/api/devices/types", async (req, res) => {
     try {
