@@ -75,7 +75,9 @@ async function startServer() {
     crossOriginEmbedderPolicy: false, // needed for Google Maps / iframes
   }));
 
-  // CORS — allow only trusted origins
+  // CORS — allow only trusted origins. Applied to /api/* only so that
+  // same-origin asset requests (e.g. <script type="module" crossorigin>)
+  // never get blocked by CORS even on Render's preview domains.
   const allowedOrigins = [
     "https://fixate.sa",
     "https://www.fixate.sa",
@@ -83,10 +85,15 @@ async function startServer() {
     "https://www.fixate.site",
     ...(process.env.NODE_ENV === "development" ? ["http://localhost:3000", "http://localhost:5173"] : []),
   ];
-  app.use(cors({
+  app.use("/api", cors({
     origin: (origin, cb) => {
-      // Allow requests with no origin (mobile apps, curl, Render health pings)
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      // Allow no-origin (curl/mobile/health pings), allowlisted, and *.onrender.com
+      if (!origin) return cb(null, true);
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      try {
+        const host = new URL(origin).hostname;
+        if (host.endsWith(".onrender.com")) return cb(null, true);
+      } catch {}
       cb(new Error("Not allowed by CORS"));
     },
     credentials: true,
