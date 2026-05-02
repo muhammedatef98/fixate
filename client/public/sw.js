@@ -1,7 +1,5 @@
-const CACHE_NAME = 'fixate-pwa-v2';
+const CACHE_NAME = 'fixate-pwa-v3';
 const urlsToCache = [
-  '/',
-  '/index.html',
   '/manifest.json',
   '/icon-192.png',
   '/icon-384.png',
@@ -11,47 +9,42 @@ const urlsToCache = [
   '/favicon-16x16.png'
 ];
 
-// Install event - cache resources
+// Install — cache static assets only (NOT HTML, to avoid stale shells)
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
   self.skipWaiting();
 });
 
-// Fetch event - serve from cache when offline
+// Fetch — network-first for HTML/navigation, cache-first for static assets
 self.addEventListener('fetch', (event) => {
+  const req = event.request;
+
+  // Never cache API calls
+  if (req.url.includes('/api/')) return;
+
+  // Network-first for HTML/navigation
+  if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
+    event.respondWith(
+      fetch(req).catch(() => caches.match(req).then((r) => r || caches.match('/')))
+    );
+    return;
+  }
+
+  // Cache-first for everything else
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
+    caches.match(req).then((cached) => {
+      if (cached) return cached;
+      return fetch(req).then((response) => {
+        if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
-
-        return fetch(event.request).then(
-          (response) => {
-            // Check if we received a valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          }
-        );
-      })
+        const responseToCache = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(req, responseToCache));
+        return response;
+      });
+    })
   );
 });
 

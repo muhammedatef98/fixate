@@ -3,8 +3,11 @@ import fs from "fs";
 import { type Server } from "http";
 import { nanoid } from "nanoid";
 import path from "path";
+import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
@@ -26,7 +29,7 @@ export async function setupVite(app: Express, server: Server) {
 
     try {
       const clientTemplate = path.resolve(
-        import.meta.dirname,
+        __dirname,
         "../..",
         "client",
         "index.html"
@@ -48,20 +51,34 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath =
-    process.env.NODE_ENV === "development"
-      ? path.resolve(import.meta.dirname, "../..", "dist", "public")
-      : path.resolve(import.meta.dirname, "public");
-  if (!fs.existsSync(distPath)) {
+  const candidates = [
+    path.resolve(__dirname, "public"),
+    path.resolve(__dirname, "..", "public"),
+    path.resolve(__dirname, "..", "..", "dist", "public"),
+    path.resolve(process.cwd(), "dist", "public"),
+  ];
+  const distPath = candidates.find((p) => fs.existsSync(path.join(p, "index.html")));
+
+  if (!distPath) {
     console.error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`
+      `[serveStatic] Could not find dist/public/index.html. Tried:\n${candidates.join("\n")}`
     );
+    app.use("*", (_req, res) => {
+      res.status(500).send("Build directory not found on server");
+    });
+    return;
   }
 
-  app.use(express.static(distPath));
+  console.log(`[serveStatic] Serving static files from: ${distPath}`);
+  console.log(`[serveStatic] Assets dir exists: ${fs.existsSync(path.join(distPath, "assets"))}`);
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
+  app.use(express.static(distPath, { index: false }));
+
+  // SPA fallback — only for non-asset routes
+  app.use("*", (req, res) => {
+    if (req.originalUrl.startsWith("/assets/")) {
+      return res.status(404).send("Asset not found");
+    }
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
