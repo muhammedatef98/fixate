@@ -1,296 +1,216 @@
-# Fixate - منصة صيانة الأجهزة الإلكترونية
-
 <div align="center">
 
-**منصة ذكية لصيانة الأجهزة الإلكترونية**
+# Fixate
 
-**Smart Platform for Electronic Device Maintenance**
+**منصة صيانة الأجهزة الإلكترونية في المملكة العربية السعودية**
+*Mobile device repair platform for Saudi Arabia*
 
-[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://fixatee.onrender.com)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-19-61dafb)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-22-green)](https://nodejs.org/)
+[![Live](https://img.shields.io/badge/Live-fixatee.onrender.com-10b981?style=flat-square)](https://fixatee.onrender.com)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+[![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=flat-square&logo=typescript)](https://typescriptlang.org)
+[![Node](https://img.shields.io/badge/Node-22-339933?style=flat-square&logo=node.js)](https://nodejs.org)
+[![Vite](https://img.shields.io/badge/Vite-7-646cff?style=flat-square&logo=vite)](https://vitejs.dev)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-336791?style=flat-square&logo=postgresql)](https://neon.tech)
 
-> **Latest Update (Dec 3, 2024 - v2.0):** 
-> - ✨ **Professional Mobile Experience:** Complete mobile UI/UX overhaul
-> - 📱 **New Mobile Header:** Smooth animations, RTL support, body scroll lock
-> - 🎠 **Optimized Carousel:** Responsive sizing for all screen sizes
-> - 📦 **Enhanced PWA:** Full-width install button, improved manifest
-> - 🌐 **Better Viewport:** User-scalable, viewport-fit cover
-> - ✅ **Touch-Friendly:** Active states, professional spacing & shadows
-
-[العربية](#arabic) | [English](#english)
+[العربية](#-نظرة-عامة) · [English](#-overview) · [Live Demo](https://fixatee.onrender.com)
 
 </div>
 
 ---
 
-<a name="arabic"></a>
+## 📱 نظرة عامة
 
-## 🇸🇦 النسخة العربية
+**Fixate** منصة ذكية لصيانة الجوالات واللابتوبات والتابلت في السعودية. الفني يصل إليك أينما كنت بعربة مجهزة بالكامل، أو نستلم جهازك ونوصله بعد الإصلاح. خدمة سريعة، شفافة، ومضمونة ٦ أشهر.
 
-### 📱 نظرة عامة
-
-**Fixate** هي منصة ذكية لصيانة الأجهزة الإلكترونية توفر لك خدمة صيانة احترافية في منزلك. نمتلك فريقاً من الفنيين المحترفين وأسطولاً من العربات المجهزة بالكامل. يصل الفني إلى منزلك، يستلم الجهاز، ويقوم بإصلاحه في العربة المجهزة بجميع الأدوات والقطع، ثم يعيد لك الجهاز بعد التأكد من عمله بشكل صحيح.
-
-### ✨ لماذا Fixate؟
-
-#### 🏠 **صيانة في منزلك**
-لا حاجة للذهاب إلى مراكز الصيانة - الفني يأتي إليك أينما كنت
-
-#### ⚡ **سريع وسهل**
-احجز موعدك في دقائق واحصل على خدمة سريعة ومضمونة
-
-#### 🔧 **فنيون محترفون**
-جميع الفنيين تابعون للشركة ومدربون على أعلى مستوى
-
-#### 🚐 **عربات مجهزة بالكامل**
-كل عربة تحتوي على جميع الأدوات والقطع اللازمة للإصلاح الفوري
-
-#### 📍 **تتبع الفني مباشرة**
-تابع موقع الفني على الخريطة في الوقت الفعلي
-
-#### ⭐ **نظام تقييم شفاف**
-اقرأ تقييمات العملاء السابقين وشارك تجربتك
-
-#### 🎁 **برنامج الولاء**
-اكسب نقاط مع كل طلب واستبدلها بخصومات وهدايا
-
-#### 💬 **دعم فوري**
-تحدث مع chatbot ذكي للإجابة على جميع أسئلتك
-
-#### 🔔 **إشعارات لحظية**
-تلقى تحديثات فورية عن حالة طلبك في كل خطوة
-
-#### 📲 **تطبيق PWA**
-ثبّت التطبيق على جوالك (iOS و Android) للوصول السريع
-
-#### 🌙 **الوضع الليلي**
-تصميم متوافق مع الوضع الليلي لراحة عينيك
-
-### 📱 الأجهزة التي نصلحها
-
-#### 📱 **الجوالات**
-- iPhone (جميع الموديلات)
-- Samsung
-- Huawei
-- وجميع الماركات الأخرى
-
-#### 💻 **اللابتوبات**
-- MacBook
-- Dell
-- HP
-- Lenovo
-- وجميع الماركات الأخرى
-
-#### 📟 **التابلت**
-- iPad
-- Samsung Tab
-- وجميع الأنواع الأخرى
-
-### 🛠️ الخدمات المتوفرة
-
-- **إصلاح الشاشة:** تبديل الشاشات المكسورة أو التالفة
-- **إصلاح البطارية:** استبدال البطاريات الضعيفة
-- **إصلاح الشحن:** حل مشاكل منفذ الشحن
-- **إصلاح الصوت:** إصلاح السماعات والميكروفون
-- **إصلاح الكاميرا:** حل مشاكل الكاميرا الأمامية والخلفية
-- **تحديث النظام:** تحديث وتثبيت أنظمة التشغيل
-- **إزالة الفيروسات:** تنظيف الجهاز من البرمجيات الضارة
-- **صيانة شاملة:** فحص وصيانة كاملة للجهاز
-
-### 🎯 خيارات الخدمة
-
-نوفر لك خيارين مرنين حسب احتياجك:
-
-#### 🔧 **فني متنقل (Mobile Technician)**
-- يأتي الفني المحترف إلى موقعك (منزل، مكتب، أي مكان)
-- يصلح الجهاز في المكان باستخدام عربة مجهزة بالكامل
-- **مناسب للإصلاحات:** البسيطة والمتوسطة (شاشة، بطارية، شحن، صوت)
-- **الوقت:** نفس اليوم أو في موعد تختاره
-- **المميزات:** سرعة، راحة، تتبع مباشر للفني
-
-#### 🚚 **استلام وتوصيل (Pickup & Delivery)**
-- مندوب يستلم جهازك من موقعك
-- يوصل الجهاز لأحد محلاتنا المتعاقدة المتخصصة
-- الإصلاح يتم في المحل بمعدات وقطع غيار متقدمة
-- المندوب يرجع لك الجهاز بعد الإصلاح
-- **مناسب للإصلاحات:** المعقدة والمتقدمة (لوحة أم، معالج، إصلاحات دقيقة)
-- **الوقت:** 1-3 أيام حسب نوع الإصلاح
-- **المميزات:** إصلاحات احترافية، ضمان أطول، أسعار تنافسية
-
-### 🚀 كيف تعمل Fixate؟
-
-#### 1️⃣ **اختر نوع الخدمة**
-حدد: فني متنقل أو استلام وتوصيل
-
-#### 2️⃣ **اختر جهازك والمشكلة**
-حدد نوع الجهاز (جوال، لابتوب، تابلت) والخدمة المطلوبة
-
-#### 3️⃣ **احجز موعدك**
-اختر الوقت والموقع المناسب لك
-
-#### 4️⃣ **تتبع الطلب**
-راقب حالة طلبك وموقع الفني/المندوب على الخريطة
-
-#### 5️⃣ **استلم جهازك**
-احصل على جهازك جاهزاً ومضموناً
-
-### 💰 الأسعار
-
-أسعارنا شفافة وتنافسية:
-- **تكلفة الزيارة:** مجاناً
-- **تكلفة الإصلاح:** حسب نوع الخدمة والجهاز
-- **الضمان:** جميع الإصلاحات مضمونة
-
-### 📞 التواصل
-
-- **الموقع الإلكتروني:** [fixatee.onrender.com](https://fixatee.onrender.com)
-- **المطور:** محمد عاطف
-- **البريد الإلكتروني:** muhammedatef98@gmail.com
-- **GitHub:** [@muhammedatef98](https://github.com/muhammedatef98)
+> هذا الـ repo هو **الموقع التسويقي + الـ backend API**. تطبيقات الـ iOS و Android لسه قيد النشر.
 
 ---
 
-<a name="english"></a>
+## ✨ المميزات | Features
 
-## 🇬🇧 English Version
+| | الميزة | Feature |
+|---|---|---|
+| 🏠 | صيانة في موقعك | At-home repair service |
+| ⚡ | حجز في دقائق | Booking in minutes |
+| 📍 | تتبع الفني مباشرة | Live technician tracking |
+| 🛡️ | ضمان ٦ شهور | 6-month warranty |
+| 🎁 | برنامج ولاء بالنقاط | Points-based loyalty program |
+| 💬 | شات بوت ذكي | AI-powered chatbot |
+| 📲 | يعمل كتطبيق PWA | Installable PWA |
+| 🌙 | وضع ليلي + RTL | Dark mode + RTL support |
+| 🌐 | عربي / إنجليزي | Arabic / English |
 
-### 📱 Overview
+---
 
-**Fixate** is a smart platform for electronic device maintenance that provides professional repair service at your doorstep. We have a team of professional technicians and a fleet of fully-equipped mobile repair vans. The technician arrives at your home, collects the device, repairs it in the fully-equipped van, and returns it to you after ensuring it works properly.
+## 🛠️ التقنيات | Tech Stack
 
-### ✨ Why Fixate?
+**Frontend**
+- React 19 · TypeScript · Vite 7
+- TailwindCSS 4 · shadcn/ui · Framer Motion
+- Wouter (routing) · TanStack Query
 
-#### 🏠 **Repair at Your Doorstep**
-No need to visit repair centers - the technician comes to you wherever you are
+**Backend**
+- Node.js 22 · Express 4
+- tRPC 11 (type-safe API)
+- PostgreSQL (Neon) · Drizzle ORM
+- Helmet · express-rate-limit · CORS
 
-#### ⚡ **Fast and Easy**
-Book your appointment in minutes and get quick, guaranteed service
+**DevOps**
+- Render (hosting) · GitHub Actions (CI)
+- pnpm · esbuild
 
-#### 🔧 **Professional Technicians**
-All technicians are company-owned and trained to the highest standards
+---
 
-#### 🚐 **Fully-Equipped Vans**
-Each van contains all necessary tools and parts for immediate repair
+## 🚀 التشغيل المحلي | Running Locally
 
-#### 📍 **Track Your Technician**
-Follow the technician's location on the map in real-time
+```bash
+# 1. Clone & install
+git clone https://github.com/muhammedatef98/fixate.git
+cd fixate
+pnpm install
 
-#### ⭐ **Transparent Rating System**
-Read reviews from previous customers and share your experience
+# 2. Add .env at repo root
+echo "DATABASE_URL=postgresql://..." > .env
+echo "NODE_ENV=development" >> .env
 
-#### 🎁 **Loyalty Program**
-Earn points with every order and redeem them for discounts and gifts
+# 3. Start dev server (Vite + Express on port 3000)
+pnpm dev
+```
 
-#### 💬 **Instant Support**
-Chat with an AI-powered chatbot to answer all your questions
+| Script | Purpose |
+|---|---|
+| `pnpm dev` | Dev server with HMR |
+| `pnpm build` | Production build → `dist/` |
+| `pnpm start` | Run production build |
+| `pnpm check` | TypeScript type check |
+| `pnpm test` | Run Vitest tests |
+| `pnpm db:push` | Generate & run DB migrations |
 
-#### 🔔 **Live Notifications**
-Receive instant updates about your order status at every step
+---
 
-#### 📲 **PWA App**
-Install the app on your phone (iOS & Android) for quick access
+## 📂 هيكلة المشروع | Project Structure
 
-#### 🌙 **Dark Mode**
-Fully optimized design for dark mode to protect your eyes
+```
+fixate/
+├── client/                  # React frontend
+│   ├── src/
+│   │   ├── pages/           # Route components (Home, FAQ, Services, ...)
+│   │   ├── components/      # Shared UI (Header, Footer, SEO, ...)
+│   │   ├── contexts/        # Language (AR/EN) & Theme providers
+│   │   └── lib/             # tRPC client, analytics, utilities
+│   └── public/              # Static assets, sitemap, sw.js, icons
+├── server/
+│   ├── _core/               # Express entry + Vite middleware
+│   ├── db/                  # Drizzle schema & queries
+│   ├── routers/             # tRPC routers
+│   └── routes/              # REST endpoints
+├── shared/                  # Types shared between client & server
+├── render.yaml              # Render deployment config
+└── vite.config.ts
+```
 
-### 📱 Devices We Repair
+---
 
-#### 📱 **Smartphones**
-- iPhone (all models)
-- Samsung
-- Huawei
-- All other brands
+## 📡 API
 
-#### 💻 **Laptops**
-- MacBook
-- Dell
-- HP
-- Lenovo
-- All other brands
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/ping` | Keep-alive (no DB) |
+| `GET` | `/api/health` | DB connectivity check |
+| `POST` | `/api/contact` | Contact form submission |
+| `GET` | `/api/devices/types` | List device types |
+| `GET` | `/api/devices/models/:id` | Models by device type |
+| `GET` | `/api/services/types` | List service types |
+| `GET` | `/api/services/price` | Price lookup |
+| `POST` | `/api/auth/signup` | User signup *(rate-limited)* |
+| `POST` | `/api/auth/login` | User login *(rate-limited)* |
+| `*` | `/api/trpc/*` | Type-safe tRPC API |
 
-#### 📟 **Tablets**
-- iPad
-- Samsung Tab
-- All other types
+---
 
-### 🛠️ Available Services
+## 🚢 النشر | Deployment
 
-- **Screen Repair:** Replace broken or damaged screens
-- **Battery Replacement:** Replace weak batteries
-- **Charging Port Repair:** Fix charging port issues
-- **Audio Repair:** Fix speakers and microphone
-- **Camera Repair:** Solve front and back camera issues
-- **System Update:** Update and install operating systems
-- **Virus Removal:** Clean device from malware
-- **Full Maintenance:** Complete device inspection and maintenance
+المشروع منشور على **Render** (free tier) من خلال [`render.yaml`](render.yaml):
 
-### 🎯 Service Options
+```yaml
+buildCommand: npm install -g pnpm@10 && pnpm install --frozen-lockfile && pnpm build
+startCommand: node dist/index.js
+```
 
-We offer two flexible options to suit your needs:
+> **Tip:** الـ free tier بيدخل sleep بعد ١٥ دقيقة. استخدم cron-job.org لـ ping على `/api/ping` كل ١٤ دقيقة عشان يفضل صاحي.
 
-#### 🔧 **Mobile Technician**
-- Professional technician comes to your location (home, office, anywhere)
-- Repairs device on-site using fully-equipped mobile van
-- **Suitable for:** Simple to moderate repairs (screen, battery, charging, audio)
-- **Time:** Same day or scheduled appointment
-- **Benefits:** Speed, convenience, real-time technician tracking
+تفاصيل أكتر في [`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md).
 
-#### 🚚 **Pickup & Delivery**
-- Courier picks up your device from your location
-- Device delivered to one of our specialized partner shops
-- Repair performed at shop with advanced equipment and parts
-- Courier returns device after repair
-- **Suitable for:** Complex and advanced repairs (motherboard, processor, precision repairs)
-- **Time:** 1-3 days depending on repair type
-- **Benefits:** Professional repairs, extended warranty, competitive pricing
+---
 
-### 🚀 How Fixate Works?
+## 🔒 الأمان | Security
 
-#### 1️⃣ **Choose Service Type**
-Select: Mobile Technician or Pickup & Delivery
+- **Helmet** — CSP, HSTS, X-Frame-Options, و security headers تانية
+- **CORS** — مقصور على origins معتمدة (`/api/*` فقط)
+- **Rate limiting** — ٢٠ request / ١٥ دقيقة على endpoints الـ auth
+- **PDPL compliant** — cookie consent بثلاث مستويات (necessary / analytics / marketing)
 
-#### 2️⃣ **Choose Your Device & Issue**
-Select device type (phone, laptop, tablet) and required service
+---
 
-#### 3️⃣ **Book Your Appointment**
-Choose the time and location that suits you
+## 🌍 SEO
 
-#### 4️⃣ **Track Your Order**
-Monitor order status and technician/courier location on the map
+- Static OG/Twitter metadata + dynamic JSON-LD (LocalBusiness, FAQPage, Service)
+- Sitemap.xml + robots.txt
+- صفحات SEO landing لـ ٦ مدن (الرياض، جدة، الدمام، الخبر، مكة، المدينة) و ٦ خدمات
+- Lighthouse Performance >90 على mobile
 
-#### 5️⃣ **Receive Your Device**
-Get your device ready and guaranteed
+---
 
-### 💰 Pricing
+## 🔧 متغيرات البيئة | Environment Variables
 
-Our prices are transparent and competitive:
-- **Visit Cost:** Free
-- **Repair Cost:** Based on service type and device
-- **Warranty:** All repairs are guaranteed
+| Variable | Required | Purpose |
+|---|---|---|
+| `DATABASE_URL` | ✅ | PostgreSQL connection (Neon) |
+| `NODE_ENV` | ✅ | `production` on Render |
+| `VITE_APP_STORE_URL` | ⬜ | iOS App Store link |
+| `VITE_PLAY_STORE_URL` | ⬜ | Google Play link |
+| `VITE_GA4_MEASUREMENT_ID` | ⬜ | Google Analytics 4 |
+| `VITE_CLARITY_PROJECT_ID` | ⬜ | Microsoft Clarity |
+| `OPENAI_API_KEY` | ⬜ | AI chatbot |
 
-### 📞 Contact
+---
 
-- **Website:** [fixatee.onrender.com](https://fixatee.onrender.com)
-- **Developer:** Mohammed Atef
-- **Email:** muhammedatef98@gmail.com
-- **GitHub:** [@muhammedatef98](https://github.com/muhammedatef98)
+## 🇬🇧 Overview
+
+**Fixate** is a smart mobile device repair platform for Saudi Arabia. Our certified technicians come to your location with fully-equipped vans, or we collect & deliver for advanced repairs. Fast, transparent, and backed by a 6-month warranty.
+
+> This repository hosts the **marketing website + backend API**. The native iOS / Android apps are not yet published.
+
+**Service options:**
+- 🔧 **Mobile Technician** — On-site repair for screens, batteries, charging ports, and audio.
+- 🚚 **Pickup & Delivery** — For complex repairs (motherboard, processor, precision work) handled at our partner workshops.
+
+**Service area:** Riyadh, Jeddah, Dammam, Khobar, Mecca, Medina — and expanding.
+
+---
+
+## 📬 التواصل | Contact
+
+<div align="center">
+
+[![Website](https://img.shields.io/badge/Website-fixatee.onrender.com-10b981?style=for-the-badge)](https://fixatee.onrender.com)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-+966_54_894_0042-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/966548940042)
+[![Instagram](https://img.shields.io/badge/Instagram-@fixate.sa-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/fixate.sa)
+[![Email](https://img.shields.io/badge/Email-fixate01@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:fixate01@gmail.com)
+
+</div>
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+Released under the [MIT License](LICENSE).
 
 <div align="center">
 
-**Made with ❤️ by Mohammed Atef**
+**Built with ❤️ by [Mohammed Atef](https://github.com/muhammedatef98)**
 
-⭐ إذا أعجبك المشروع، لا تنسى إضافة نجمة! | If you like this project, don't forget to give it a star! ⭐
+⭐ Star this repo if you found it useful!
 
 </div>
-# Force redeploy
