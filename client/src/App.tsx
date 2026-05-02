@@ -42,6 +42,9 @@ const BookingForm = lazy(() => import("./pages/BookingForm"));
 const NewBooking = lazy(() => import("./pages/NewBooking"));
 const BookingComingSoon = lazy(() => import("./pages/BookingComingSoon"));
 const Profile = lazy(() => import("./pages/Profile"));
+const ServiceLanding = lazy(() => import("./pages/ServiceLanding"));
+const CityLanding = lazy(() => import("./pages/CityLanding"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 // Minimal full-screen loading shell shown while a lazy chunk loads
 function PageLoader() {
@@ -63,6 +66,9 @@ function Router() {
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
         <Route path="/price-calculator" component={PriceCalculator} />
+        <Route path="/services/:slug" component={ServiceLanding} />
+        <Route path="/cities/:slug" component={CityLanding} />
+        <Route path="/contact" component={Contact} />
         {/* ── Feature / internal pages ────────────────────── */}
         <Route path="/calculator" component={Calculator} />
         <Route path="/request" component={BookingComingSoon} />

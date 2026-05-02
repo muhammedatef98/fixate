@@ -216,6 +216,16 @@ async function startServer() {
     }
   });
   
+  // Contact form — logs submission (wire email/CRM later)
+  app.post("/api/contact", (req, res) => {
+    const { name, phone, city, message } = req.body as Record<string, string>;
+    if (!name || !phone || !message) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+    console.log("[contact]", { name, phone, city: city || "—", message });
+    res.json({ ok: true });
+  });
+
   // Unified API for web and mobile
   const unifiedRequestsRouter = await import("../routes/unified-requests");
   app.use("/api/unified-requests", unifiedRequestsRouter.default);

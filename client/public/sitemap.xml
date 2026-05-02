@@ -5,7 +5,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://fixate.sa/</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/" />
@@ -15,7 +15,7 @@
   <!-- FAQ -->
   <url>
     <loc>https://fixate.sa/faq</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/faq" />
@@ -25,7 +25,7 @@
   <!-- Price Calculator -->
   <url>
     <loc>https://fixate.sa/price-calculator</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/price-calculator" />
@@ -35,17 +35,27 @@
   <!-- About Us -->
   <url>
     <loc>https://fixate.sa/about</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/about" />
     <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/about" />
   </url>
 
+  <!-- Contact -->
+  <url>
+    <loc>https://fixate.sa/contact</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/contact" />
+  </url>
+
   <!-- Privacy Policy -->
   <url>
     <loc>https://fixate.sa/privacy</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/privacy" />
@@ -55,11 +65,121 @@
   <!-- Terms & Conditions -->
   <url>
     <loc>https://fixate.sa/terms</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/terms" />
     <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/terms" />
+  </url>
+
+  <!-- Service Landing Pages -->
+  <url>
+    <loc>https://fixate.sa/services/iphone-screen-repair</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/services/iphone-screen-repair" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/services/iphone-screen-repair" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/services/iphone-battery</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/services/iphone-battery" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/services/iphone-battery" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/services/samsung-repair</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/services/samsung-repair" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/services/samsung-repair" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/services/laptop-repair</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/services/laptop-repair" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/services/laptop-repair" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/services/macbook-repair</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/services/macbook-repair" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/services/macbook-repair" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/services/ipad-repair</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/services/ipad-repair" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/services/ipad-repair" />
+  </url>
+
+  <!-- City Landing Pages -->
+  <url>
+    <loc>https://fixate.sa/cities/riyadh</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/cities/riyadh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/cities/riyadh" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/cities/jeddah</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/cities/jeddah" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/cities/jeddah" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/cities/dammam</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/cities/dammam" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/cities/dammam" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/cities/khobar</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/cities/khobar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/cities/khobar" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/cities/mecca</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/cities/mecca" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/cities/mecca" />
+  </url>
+
+  <url>
+    <loc>https://fixate.sa/cities/medina</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/cities/medina" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/cities/medina" />
   </url>
 
 </urlset>
