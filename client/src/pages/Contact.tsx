@@ -55,20 +55,14 @@ export default function Contact() {
     }
     setError("");
     setSubmitting(true);
+    // Static build: no backend. Forward the message to WhatsApp instead of POST /api/contact.
+    const text = isArabic
+      ? `الاسم: ${form.name}%0Aالجوال: ${form.phone}%0Aالمدينة: ${form.city}%0Aالرسالة: ${form.message}`
+      : `Name: ${form.name}%0APhone: ${form.phone}%0ACity: ${form.city}%0AMessage: ${form.message}`;
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setSubmitted(true);
-        setForm({ name: "", phone: "", city: "", message: "" });
-      } else {
-        setError(isArabic ? "حدث خطأ، يرجى المحاولة مرة أخرى" : "Something went wrong, please try again");
-      }
-    } catch {
-      setError(isArabic ? "تعذر الاتصال بالخادم" : "Could not connect to server");
+      window.open(`https://wa.me/966548940042?text=${text}`, "_blank", "noopener,noreferrer");
+      setSubmitted(true);
+      setForm({ name: "", phone: "", city: "", message: "" });
     } finally {
       setSubmitting(false);
     }
