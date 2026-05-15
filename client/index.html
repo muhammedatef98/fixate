@@ -46,7 +46,7 @@
     <meta name="twitter:image" content="https://fixate.site/twitter-image.png" />
     <meta name="twitter:image:alt" content="Fixate - منصة صيانة الأجهزة الإلكترونية" />
     
-    <link rel="manifest" href="/manifest.json" />
+    <!-- Static build: PWA manifest disabled. -->
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -149,17 +149,10 @@
       }
     }
     </script>
+    <!-- Static build: service worker registration disabled. -->
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
-            });
-        });
+        navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => r.unregister()));
       }
     </script>
     <div id="root"></div>
