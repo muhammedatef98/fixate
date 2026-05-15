@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Quote, CheckCircle2, Users, Award, TrendingUp } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "wouter";
 
 interface Testimonial {
   id: number;
@@ -231,13 +232,13 @@ export default function Testimonials() {
                 <p className="text-white/90 mb-6 max-w-2xl mx-auto">
                   احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 6 أشهر
                 </p>
-                <a
+                <Link
                   href="/booking"
                   className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-xl"
                 >
                   احجز خدمة الإصلاح الآن
                   <CheckCircle2 className="h-5 w-5" />
-                </a>
+                </Link>
               </div>
             </CardContent>
           </Card>

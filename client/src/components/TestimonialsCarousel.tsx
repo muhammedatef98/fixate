@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Quote, CheckCircle2, Users, Award, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "wouter";
 
 interface Testimonial {
   id: number;
@@ -324,12 +325,12 @@ export default function TestimonialsCarousel() {
             ? 'احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 6 أشهر'
             : 'Book now and get professional repair service with gold warranty up to 6 months'}
         </p>
-        <a
+        <Link
           href="/booking"
           className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-600 font-bold rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
         >
           {language === 'ar' ? 'احجز خدمة الإصلاح الآن' : 'Book Repair Service Now'}
-        </a>
+        </Link>
       </div>
     </div>
   );
