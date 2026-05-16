@@ -11,7 +11,7 @@ export default function Terms() {
   const isArabic = language === "ar";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div key={language} className="min-h-screen bg-background">
       <SEO
         title={isArabic ? "الشروط والأحكام" : "Terms and Conditions"}
         description={isArabic ? "الشروط والأحكام لاستخدام تطبيق Fixate" : "Terms and Conditions for using Fixate app"}

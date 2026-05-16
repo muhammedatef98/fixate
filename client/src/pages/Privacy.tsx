@@ -11,7 +11,7 @@ export default function Privacy() {
   const isArabic = language === "ar";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div key={language} className="min-h-screen bg-background">
       <SEO
         title={isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
         description={isArabic ? "سياسة الخصوصية لتطبيق Fixate - كيف نحمي بياناتك الشخصية" : "Fixate Privacy Policy - How we protect your personal data"}
