@@ -15,6 +15,8 @@ import {
   ChevronDown,
   Download,
   MapPin,
+  Search,
+  Home,
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -292,25 +294,25 @@ export default function Home() {
             {[
               {
                 step: 1,
-                emoji: "📲",
+                Icon: Download,
                 title: isArabic ? "حمل التطبيق" : "Download the App",
                 desc: isArabic ? "مجاني على iOS و Android" : "Free on iOS and Android",
               },
               {
                 step: 2,
-                emoji: "🔍",
+                Icon: Search,
                 title: isArabic ? "اختر جهازك والمشكلة" : "Choose Device & Issue",
                 desc: isArabic ? "شاهد السعر الدقيق فوراً" : "See the exact price instantly",
               },
               {
                 step: 3,
-                emoji: "🏠",
+                Icon: Home,
                 title: isArabic ? "الفني يجي لك" : "Technician Comes to You",
                 desc: isArabic ? "في بيتك أو مكتبك أو أي مكان" : "Home, office, or anywhere",
               },
               {
                 step: 4,
-                emoji: "✅",
+                Icon: CheckCircle2,
                 title: isArabic ? "ادفع وقيّم" : "Pay & Rate",
                 desc: isArabic ? "ادفع بعد الانتهاء، ثم قيّم الخدمة" : "Pay on completion, then rate",
               },
@@ -320,8 +322,8 @@ export default function Home() {
                 {idx < arr.length - 1 && (
                   <div className="hidden md:block absolute top-7 w-full h-px bg-gradient-to-r from-primary/30 to-primary/10 start-1/2" />
                 )}
-                <div className="h-14 w-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-2xl mb-4 z-10 shadow-md">
-                  {item.emoji}
+                <div className="h-14 w-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center mb-4 z-10 shadow-md">
+                  <item.Icon className="h-6 w-6" />
                 </div>
                 <div className="text-xs font-bold text-primary mb-1">{isArabic ? `الخطوة ${item.step}` : `Step ${item.step}`}</div>
                 <h3 className="text-base font-semibold mb-1 text-foreground">{item.title}</h3>
@@ -336,7 +338,9 @@ export default function Home() {
       <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-emerald-600 to-emerald-700">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="text-5xl mb-4">📱</div>
+            <div className="flex justify-center mb-4">
+              <Smartphone className="h-12 w-12 text-white" />
+            </div>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
               {isArabic ? "احمل التطبيق الآن" : "Download the App Now"}
             </h2>

@@ -1,6 +1,7 @@
 import { useParams, Link } from "wouter";
 import { useState } from "react";
-import { Shield, Clock, CheckCircle2, Download, Menu, X, MessageCircle, ChevronDown } from "lucide-react";
+import { Shield, Clock, CheckCircle2, Download, Menu, X, MessageCircle, ChevronDown, Smartphone, Battery, Laptop, Tablet, FileText, MapPin } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Logo from "@/components/Logo";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ interface ServiceData {
   subheadEn: string;
   priceFromAr: string;
   priceFromEn: string;
-  icon: string;
+  icon: LucideIcon;
   faqAr: { q: string; a: string }[];
   faqEn: { q: string; a: string }[];
 }
@@ -46,7 +47,7 @@ const SERVICES: Record<string, ServiceData> = {
     subheadEn: "A certified technician reaches you within an hour, 6-month warranty on every repair",
     priceFromAr: "ابدأ من 150 ريال",
     priceFromEn: "Starting from 150 SAR",
-    icon: "📱",
+    icon: Smartphone,
     faqAr: [
       { q: "كم يستغرق تصليح شاشة آيفون؟", a: "يستغرق تصليح الشاشة عادةً بين 30 و60 دقيقة حسب الموديل." },
       { q: "هل تستخدمون قطع أصلية؟", a: "نعم، نستخدم قطع أصلية أو قطع عالية الجودة مضمونة لمدة 6 أشهر." },
@@ -74,7 +75,7 @@ const SERVICES: Record<string, ServiceData> = {
     subheadEn: "Original battery with 6-month warranty — technician arrives within an hour",
     priceFromAr: "ابدأ من 120 ريال",
     priceFromEn: "Starting from 120 SAR",
-    icon: "🔋",
+    icon: Battery,
     faqAr: [
       { q: "متى يجب تبديل بطارية آيفون؟", a: "إذا كانت صحة البطارية أقل من 80% أو إذا كان الجهاز يفقد الشحن بسرعة كبيرة." },
       { q: "كم يستغرق تبديل البطارية؟", a: "عادةً 20 إلى 30 دقيقة فقط." },
@@ -102,7 +103,7 @@ const SERVICES: Record<string, ServiceData> = {
     subheadEn: "Galaxy specialist reaches you in one hour — 6-month warranty",
     priceFromAr: "ابدأ من 130 ريال",
     priceFromEn: "Starting from 130 SAR",
-    icon: "📲",
+    icon: Smartphone,
     faqAr: [
       { q: "ما موديلات سامسونج التي تدعمونها؟", a: "ندعم جميع أجهزة Samsung Galaxy من S8 وحتى Galaxy S24 Ultra وفولد وفليب." },
       { q: "هل تصلحون شاشة سامسونج الأصلية AMOLED؟", a: "نعم، نستخدم شاشات AMOLED أصلية أو تعادلها بجودة OEM." },
@@ -130,7 +131,7 @@ const SERVICES: Record<string, ServiceData> = {
     subheadEn: "Specialist technician arrives in one hour — HP, Dell, Lenovo, Asus and more",
     priceFromAr: "ابدأ من 200 ريال",
     priceFromEn: "Starting from 200 SAR",
-    icon: "💻",
+    icon: Laptop,
     faqAr: [
       { q: "ما أنواع اللابتوب التي تدعمونها؟", a: "ندعم HP وDell وLenovo وAsus وAcer وMicrosoft Surface وغيرها." },
       { q: "هل تصلحون لوحة الأم للابتوب؟", a: "نعم، نصلح لوحات الأم والشاشات والبطاريات ومنافذ الشحن والمراوح." },
@@ -158,7 +159,7 @@ const SERVICES: Record<string, ServiceData> = {
     subheadEn: "Apple-certified technicians reach you in one hour — 6-month warranty",
     priceFromAr: "ابدأ من 250 ريال",
     priceFromEn: "Starting from 250 SAR",
-    icon: "🍎",
+    icon: Laptop,
     faqAr: [
       { q: "هل تصلحون MacBook Air وMacBook Pro؟", a: "نعم، ندعم جميع موديلات MacBook Air وPro من 2015 حتى الأحدث بشريحة M3." },
       { q: "هل تستخدمون قطع غيار Apple أصلية؟", a: "نعم، نستخدم قطع أصلية Apple أو قطع معتمدة بجودة OEM." },
@@ -186,7 +187,7 @@ const SERVICES: Record<string, ServiceData> = {
     subheadEn: "Certified technician reaches you within one hour — 6-month warranty on screen and battery",
     priceFromAr: "ابدأ من 180 ريال",
     priceFromEn: "Starting from 180 SAR",
-    icon: "⬜",
+    icon: Tablet,
     faqAr: [
       { q: "ما موديلات آيباد التي تدعمونها؟", a: "ندعم iPad Air وiPad Pro وiPad Mini وiPad (الجيل العاشر وأحدث)." },
       { q: "هل تصلحون الزجاج المكسور فقط دون الشاشة؟", a: "يعتمد ذلك على الموديل — في بعض الأحيان يجب استبدال الزجاج مع الشاشة معاً." },
@@ -254,18 +255,18 @@ export default function ServiceLanding() {
   const title = isArabic ? service.titleAr : service.titleEn;
   const schema = buildServiceSchema(service, isArabic);
 
-  const steps = isArabic
+  const steps: { Icon: LucideIcon; label: string }[] = isArabic
     ? [
-        { emoji: "📲", label: "حمل التطبيق" },
-        { emoji: "📝", label: "اختر الخدمة" },
-        { emoji: "🏠", label: "حدد موقعك" },
-        { emoji: "✅", label: "استقبل الفني" },
+        { Icon: Download, label: "حمل التطبيق" },
+        { Icon: FileText, label: "اختر الخدمة" },
+        { Icon: MapPin, label: "حدد موقعك" },
+        { Icon: CheckCircle2, label: "استقبل الفني" },
       ]
     : [
-        { emoji: "📲", label: "Download App" },
-        { emoji: "📝", label: "Choose Service" },
-        { emoji: "🏠", label: "Set Location" },
-        { emoji: "✅", label: "Welcome Technician" },
+        { Icon: Download, label: "Download App" },
+        { Icon: FileText, label: "Choose Service" },
+        { Icon: MapPin, label: "Set Location" },
+        { Icon: CheckCircle2, label: "Welcome Technician" },
       ];
 
   const faq = isArabic ? service.faqAr : service.faqEn;
@@ -344,7 +345,7 @@ export default function ServiceLanding() {
       <section className="pt-12 pb-16 md:pt-20 md:pb-24">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="text-6xl mb-6 block">{service.icon}</span>
+            <span className="flex justify-center mb-6"><service.icon className="h-14 w-14 text-primary" /></span>
             <h1 className="text-4xl md:text-6xl font-semibold text-foreground mb-5 tracking-tight">
               {isArabic ? service.heroAr : service.heroEn}
             </h1>
@@ -408,8 +409,8 @@ export default function ServiceLanding() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
             {steps.map((step, i) => (
               <div key={i} className="flex flex-col items-center text-center gap-3">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-3xl">
-                  {step.emoji}
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                  <step.Icon className="h-7 w-7" />
                 </div>
                 <p className="text-sm font-semibold text-foreground">{step.label}</p>
               </div>

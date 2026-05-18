@@ -1,6 +1,6 @@
 import { useParams, Link } from "wouter";
 import { useState } from "react";
-import { Shield, Clock, CheckCircle2, Download, Menu, X, MessageCircle, Smartphone, Laptop, Tablet } from "lucide-react";
+import { Shield, Clock, CheckCircle2, Download, Menu, X, MessageCircle, Smartphone, Laptop, Tablet, MapPin } from "lucide-react";
 import Logo from "@/components/Logo";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -186,7 +186,7 @@ export default function CityLanding() {
     { icon: <Smartphone className="h-6 w-6" />, labelAr: "جوالات", labelEn: "Phones" },
     { icon: <Laptop className="h-6 w-6" />, labelAr: "لابتوب", labelEn: "Laptops" },
     { icon: <Tablet className="h-6 w-6" />, labelAr: "آيباد وتابلت", labelEn: "iPad & Tablets" },
-    { icon: <span className="text-2xl">🍎</span>, labelAr: "ماك بوك", labelEn: "MacBook" },
+    { icon: <Laptop className="h-6 w-6" />, labelAr: "ماك بوك", labelEn: "MacBook" },
   ];
 
   return (
@@ -263,7 +263,7 @@ export default function CityLanding() {
       <section className="pt-12 pb-16 md:pt-20 md:pb-24">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="text-6xl mb-6 block">📍</span>
+            <span className="flex justify-center mb-6"><MapPin className="h-14 w-14 text-primary" /></span>
             <h1 className="text-4xl md:text-6xl font-semibold text-foreground mb-5 tracking-tight">
               {isArabic ? city.heroAr : city.heroEn}
             </h1>
