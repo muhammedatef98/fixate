@@ -16,7 +16,7 @@ import {
   Download,
   MapPin,
   Search,
-  Home,
+  Home as HomeIcon,
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -306,7 +306,7 @@ export default function Home() {
               },
               {
                 step: 3,
-                Icon: Home,
+                Icon: HomeIcon,
                 title: isArabic ? "الفني يجي لك" : "Technician Comes to You",
                 desc: isArabic ? "في بيتك أو مكتبك أو أي مكان" : "Home, office, or anywhere",
               },
