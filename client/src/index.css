@@ -3,6 +3,34 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  /* Refined type scale — slightly smaller than Tailwind's defaults with
+     precise rem steps (~1.2 modular ratio) and tuned line-heights for a
+     cleaner web reading rhythm. Tailwind v4 reads these --text-* tokens. */
+  --text-xs: 0.6875rem;        /* 11px */
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.8125rem;        /* 13px */
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.9375rem;      /* 15px */
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.0625rem;        /* 17px */
+  --text-lg--line-height: 1.6;
+  --text-xl: 1.1875rem;        /* 19px */
+  --text-xl--line-height: 1.55;
+  --text-2xl: 1.375rem;        /* 22px */
+  --text-2xl--line-height: 1.4;
+  --text-3xl: 1.6875rem;       /* 27px */
+  --text-3xl--line-height: 1.3;
+  --text-4xl: 2rem;            /* 32px */
+  --text-4xl--line-height: 1.2;
+  --text-5xl: 2.625rem;        /* 42px */
+  --text-5xl--line-height: 1.1;
+  --text-6xl: 3.25rem;         /* 52px */
+  --text-6xl--line-height: 1.05;
+  --text-7xl: 4rem;            /* 64px */
+  --text-7xl--line-height: 1.02;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -139,6 +167,17 @@
     width: 100%;
     max-width: 100vw;
   }
+  /* Unified iconography — one consistent style for every lucide icon.
+     A single stroke weight applied globally, with non-scaling stroke so
+     the weight reads identically whether the icon is rendered at h-3 or
+     h-10, plus consistent round caps/joins for matching proportions. */
+  svg.lucide {
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
