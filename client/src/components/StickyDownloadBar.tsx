@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, Download } from "lucide-react";
+import { X, Download, Smartphone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const APP_STORE_URL = (import.meta.env.VITE_APP_STORE_URL as string) || null;
@@ -61,7 +61,7 @@ export default function StickyDownloadBar() {
     >
       <div className="container flex items-center justify-between gap-3 py-3 px-4 max-w-6xl mx-auto">
         <div className="flex items-center gap-3 min-w-0">
-          <span className="text-2xl flex-shrink-0">📱</span>
+          <Smartphone className="h-6 w-6 flex-shrink-0" />
           <p className="text-sm font-medium leading-tight truncate">
             {language === "ar"
               ? "حمل تطبيق Fixate — صيانة جوالك في بيتك خلال ساعة"
