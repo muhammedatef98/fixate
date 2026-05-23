@@ -139,6 +139,9 @@ export default function Home() {
               <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.about")}
               </Link>
+              <Link href="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                {isArabic ? "تواصل معنا" : "Contact Us"}
+              </Link>
               <LanguageThemeSwitcher />
             </nav>
           </div>
@@ -176,6 +179,7 @@ export default function Home() {
               { href: "/market", emoji: "🛍️", label: isArabic ? "متجر فيكست" : "Fixate Market" },
               { href: "/faq", emoji: "❓", label: isArabic ? "الأسئلة الشائعة" : "FAQ" },
               { href: "/about", emoji: "ℹ️", label: isArabic ? "من نحن" : "About Us" },
+              { href: "/contact", emoji: "✉️", label: isArabic ? "تواصل معنا" : "Contact Us" },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -259,7 +263,7 @@ export default function Home() {
       </section>
 
       {/* ─── Features ────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-card-alt">
+      <section className="py-16 md:py-24 bg-card border-y border-border/60">
         <div className="container">
           <div className="grid md:grid-cols-3 gap-10 md:gap-12 max-w-5xl mx-auto">
             {[
@@ -280,7 +284,7 @@ export default function Home() {
       </section>
 
       {/* ─── How It Works ────────────────────────────────────── */}
-      <section id="how-it-works" className="py-16 md:py-24">
+      <section id="how-it-works" className="py-16 md:py-24 bg-background">
         <div className="container">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 tracking-tight">
@@ -374,7 +378,7 @@ export default function Home() {
       </section>
 
       {/* ─── Devices Section ─────────────────────────────────── */}
-      <section id="services" className="py-16 md:py-24">
+      <section id="services" className="py-16 md:py-24 bg-card-alt border-y border-border/60">
         <div className="container">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 tracking-tight">
@@ -383,17 +387,22 @@ export default function Home() {
             <p className="text-muted-foreground max-w-xl mx-auto">{t("devices.subtitle")}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto mb-16">
+          {/* Symmetric, centered device cards — balanced on both edges so the
+              layout reads identically in LTR and RTL. */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-20">
             {[
               { Icon: Smartphone, title: t("devices.phones"), desc: t("devices.phonesDesc") },
               { Icon: Laptop, title: t("devices.laptops"), desc: t("devices.laptopsDesc") },
               { Icon: Tablet, title: t("devices.tablets"), desc: t("devices.tabletsDesc") },
             ].map(({ Icon, title, desc }) => (
-              <div key={title} className="card-soft p-7 flex flex-col">
-                <div className="h-14 w-14 rounded-2xl bg-primary-soft flex items-center justify-center mb-5">
-                  <Icon className="h-7 w-7 text-primary" />
+              <div
+                key={title}
+                className="group relative bg-card rounded-2xl p-8 text-center flex flex-col items-center border border-border/60 shadow-[0_1px_2px_rgba(15,23,32,0.04),0_8px_24px_-8px_rgba(15,23,32,0.08)] hover:shadow-[0_4px_8px_rgba(15,23,32,0.06),0_18px_40px_-12px_rgba(15,23,32,0.18)] hover:-translate-y-1 hover:border-primary/30 transition-all duration-300"
+              >
+                <div className="h-20 w-20 rounded-3xl bg-primary-soft flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-105">
+                  <Icon className="h-10 w-10 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">{title}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-foreground">{title}</h3>
                 <p className="text-muted-foreground leading-relaxed whitespace-pre-line text-sm">{desc}</p>
               </div>
             ))}
@@ -413,9 +422,12 @@ export default function Home() {
                 t("devices.software"),
                 t("devices.cleaning"),
               ].map((svc) => (
-                <div key={svc} className="flex items-center gap-3 bg-card rounded-xl px-4 py-3.5 shadow-[0_1px_2px_rgba(15,23,32,0.04),0_4px_12px_-4px_rgba(15,23,32,0.06)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_12px_-4px_rgba(0,0,0,0.4)]">
-                  <div className="h-8 w-8 rounded-lg bg-primary-soft flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                <div
+                  key={svc}
+                  className="group flex items-center gap-3 bg-card rounded-xl px-4 py-3.5 border border-border/60 shadow-[0_1px_2px_rgba(15,23,32,0.04)] hover:border-primary/40 hover:shadow-[0_2px_4px_rgba(15,23,32,0.05),0_10px_24px_-10px_rgba(16,185,129,0.25)] hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                >
+                  <div className="h-8 w-8 rounded-lg bg-primary-soft flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-primary group-hover:text-white">
+                    <CheckCircle2 className="h-4 w-4 text-primary group-hover:text-white transition-colors" />
                   </div>
                   <span className="text-sm font-medium text-foreground">{svc.replace("• ", "")}</span>
                 </div>
@@ -426,7 +438,7 @@ export default function Home() {
       </section>
 
       {/* ─── Coverage Section ────────────────────────────────── */}
-      <section className="py-16 bg-card-alt">
+      <section className="py-16 bg-background">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft mb-5">
@@ -445,7 +457,7 @@ export default function Home() {
       </section>
 
       {/* ─── Testimonials ────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-muted/30">
+      <section className="py-16 md:py-24 bg-card border-y border-border/60">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
@@ -460,7 +472,7 @@ export default function Home() {
       </section>
 
       {/* ─── FAQ Teaser ──────────────────────────────────────── */}
-      <section className="py-14 bg-background">
+      <section className="py-16 md:py-20 bg-background">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">
@@ -499,7 +511,7 @@ export default function Home() {
       </section>
 
       {/* ─── Final CTA ───────────────────────────────────────── */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-card-alt border-t border-border/60">
         <div className="container">
           <div className="max-w-3xl mx-auto card-soft p-8 md:p-14 text-center">
             <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft mb-5 mx-auto">

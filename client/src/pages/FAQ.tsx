@@ -192,6 +192,9 @@ export default function FAQ() {
               <Link href="/faq" className="text-sm font-semibold text-foreground">
                 {t("nav.faq")}
               </Link>
+              <Link href="/contact" className="text-sm font-normal text-muted-foreground hover:text-foreground transition-colors">
+                {isArabic ? "تواصل معنا" : "Contact Us"}
+              </Link>
               <a href="/#download">
                 <Button>{isArabic ? "حمل التطبيق" : "Download App"}</Button>
               </a>

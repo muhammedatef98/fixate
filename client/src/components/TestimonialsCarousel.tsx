@@ -177,7 +177,7 @@ export default function TestimonialsCarousel() {
   return (
     <div className="w-full space-y-12">
       {/* Stats Section */}
-      <div className="bg-gradient-to-br from-background to-muted/30 rounded-3xl p-8 md:p-12 border border-border/50">
+      <div className="bg-card-alt rounded-3xl p-8 md:p-12">
         <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
           {language === 'ar' 
             ? 'آلاف العملاء السعداء يثقون في خدماتنا. اقرأ تجاربهم الحقيقية!'
@@ -190,12 +190,12 @@ export default function TestimonialsCarousel() {
             return (
               <div
                 key={index}
-                className="text-center p-6 rounded-2xl bg-background border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg group"
+                className="text-center p-6 rounded-2xl bg-card shadow-[0_1px_2px_rgba(15,23,32,0.04),0_8px_24px_-8px_rgba(15,23,32,0.08)] hover:shadow-[0_2px_4px_rgba(15,23,32,0.06),0_14px_32px_-10px_rgba(15,23,32,0.14)] hover:-translate-y-1 transition-all duration-300"
               >
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${stat.color} mb-4 group-hover:scale-110 transition-transform`}>
-                  <Icon className="h-6 w-6 text-white" />
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary-soft mb-4">
+                  <Icon className="h-6 w-6 text-primary" />
                 </div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent mb-2">
+                <div className="text-3xl font-semibold text-foreground mb-2 tracking-tight">
                   {stat.number}
                 </div>
                 <div className="text-sm text-muted-foreground font-medium">
@@ -219,13 +219,13 @@ export default function TestimonialsCarousel() {
                 key={testimonial.id}
                 className="w-full flex-shrink-0 px-4"
               >
-                <Card className="border-2 border-border/50 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-xl bg-gradient-to-br from-background to-muted/20">
+                <Card className="bg-card border border-border-strong/60 shadow-[0_2px_4px_rgba(15,23,32,0.04),0_16px_40px_-12px_rgba(15,23,32,0.14)] dark:border-border-strong/80 dark:shadow-[0_2px_4px_rgba(0,0,0,0.4),0_16px_40px_-12px_rgba(0,0,0,0.6)] transition-shadow">
                   <CardContent className="p-8 md:p-12">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
                       {/* Avatar and Info */}
                       <div className="flex flex-col items-center md:items-start gap-4 md:w-1/3">
                         <div className="relative">
-                          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gradient-to-r from-emerald-500 to-emerald-600 p-1">
+                          <div className="w-24 h-24 rounded-full overflow-hidden ring-4 ring-primary/15 p-1 bg-primary-soft">
                             <img
                               src={testimonial.image}
                               alt={language === 'ar' ? testimonial.nameAr : testimonial.nameEn}
@@ -260,13 +260,13 @@ export default function TestimonialsCarousel() {
                         </p>
 
                         <div className="flex flex-wrap gap-3">
-                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-primary/20">
+                          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-soft text-foreground/80">
                             <span className="text-2xl">📱</span>
                             <span className="text-sm font-medium text-foreground">
                               {language === 'ar' ? testimonial.deviceAr : testimonial.deviceEn}
                             </span>
                           </div>
-                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 border border-primary/20">
+                          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-soft text-foreground/80">
                             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                             <span className="text-sm font-medium text-foreground">
                               {language === 'ar' ? testimonial.serviceAr : testimonial.serviceEn}
@@ -285,14 +285,14 @@ export default function TestimonialsCarousel() {
         {/* Navigation Buttons */}
         <button
           onClick={prevTestimonial}
-          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'right-0 -mr-6' : 'left-0 -ml-6'} bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-10`}
+          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'right-0 -mr-6' : 'left-0 -ml-6'} bg-card text-foreground hover:text-primary border border-border-strong shadow-[0_2px_8px_rgba(15,23,32,0.08)] hover:shadow-[0_4px_14px_rgba(15,23,32,0.14)] p-3 rounded-full transition-all duration-300 hover:scale-105 z-10`}
           aria-label={language === 'ar' ? 'السابق' : 'Previous'}
         >
           {language === 'ar' ? <ChevronRight className="h-6 w-6" /> : <ChevronLeft className="h-6 w-6" />}
         </button>
         <button
           onClick={nextTestimonial}
-          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'left-0 -ml-6' : 'right-0 -mr-6'} bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:via-indigo-600 hover:to-pink-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-10`}
+          className={`absolute top-1/2 -translate-y-1/2 ${language === 'ar' ? 'left-0 -ml-6' : 'right-0 -mr-6'} bg-card text-foreground hover:text-primary border border-border-strong shadow-[0_2px_8px_rgba(15,23,32,0.08)] hover:shadow-[0_4px_14px_rgba(15,23,32,0.14)] p-3 rounded-full transition-all duration-300 hover:scale-105 z-10`}
           aria-label={language === 'ar' ? 'التالي' : 'Next'}
         >
           {language === 'ar' ? <ChevronLeft className="h-6 w-6" /> : <ChevronRight className="h-6 w-6" />}

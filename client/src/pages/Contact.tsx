@@ -185,8 +185,8 @@ export default function Contact() {
             </h1>
             <p className="text-xl text-muted-foreground font-light leading-relaxed">
               {isArabic
-                ? "فريقنا متاح من السبت إلى الخميس — نرد خلال ساعة"
-                : "Our team is available Sat–Thu — we reply within one hour"}
+                ? "فريقنا متاح على مدار الساعة طوال أيام الأسبوع — نرد خلال ساعة"
+                : "Our team is available 24/7 — we reply within one hour"}
             </p>
           </div>
         </div>
