@@ -4,31 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Refined type scale — slightly smaller than Tailwind's defaults with
-     precise rem steps (~1.2 modular ratio) and tuned line-heights for a
-     cleaner web reading rhythm. Tailwind v4 reads these --text-* tokens. */
-  --text-xs: 0.6875rem;        /* 11px */
+  /* Type scale mirrors the Fixate app (constants/theme.ts):
+     body 16px, h3 20px, h2 24px, h1 32px. Web display sizes scale up
+     from there for hero/landing rhythm. Line-heights are tuned for a
+     calmer reading experience that matches the app's typographic feel. */
+  --text-xs: 0.75rem;          /* 12px — caption */
   --text-xs--line-height: 1rem;
-  --text-sm: 0.8125rem;        /* 13px */
+  --text-sm: 0.875rem;         /* 14px — bodySmall */
   --text-sm--line-height: 1.25rem;
-  --text-base: 0.9375rem;      /* 15px */
+  --text-base: 1rem;           /* 16px — body */
   --text-base--line-height: 1.5rem;
-  --text-lg: 1.0625rem;        /* 17px */
+  --text-lg: 1.125rem;         /* 18px */
   --text-lg--line-height: 1.6;
-  --text-xl: 1.1875rem;        /* 19px */
-  --text-xl--line-height: 1.55;
-  --text-2xl: 1.375rem;        /* 22px */
-  --text-2xl--line-height: 1.4;
-  --text-3xl: 1.6875rem;       /* 27px */
-  --text-3xl--line-height: 1.3;
-  --text-4xl: 2rem;            /* 32px */
-  --text-4xl--line-height: 1.2;
-  --text-5xl: 2.625rem;        /* 42px */
-  --text-5xl--line-height: 1.1;
-  --text-6xl: 3.25rem;         /* 52px */
-  --text-6xl--line-height: 1.05;
-  --text-7xl: 4rem;            /* 64px */
-  --text-7xl--line-height: 1.02;
+  --text-xl: 1.25rem;          /* 20px — h3 */
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.5rem;          /* 24px — h2 */
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.75rem;         /* 28px */
+  --text-3xl--line-height: 2.125rem;
+  --text-4xl: 2rem;            /* 32px — h1 (app parity) */
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl: 2.5rem;          /* 40px — web hero */
+  --text-5xl--line-height: 1.15;
+  --text-6xl: 3rem;            /* 48px */
+  --text-6xl--line-height: 1.1;
+  --text-7xl: 3.75rem;         /* 60px */
+  --text-7xl--line-height: 1.05;
 }
 
 @theme inline {
@@ -68,79 +69,126 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  /* New Fixate-aligned tokens (additive) */
+  --color-card-alt: var(--card-alt);
+  --color-border-strong: var(--border-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
 }
 
 :root {
-  /* Apple-inspired modern color system */
-  --primary: oklch(0.45 0.15 170); /* Emerald green accent */
-  --primary-foreground: oklch(1 0 0);
-  --sidebar-primary: oklch(0.45 0.15 170);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --chart-1: oklch(0.65 0.15 170);
-  --chart-2: oklch(0.55 0.15 170);
-  --chart-3: oklch(0.45 0.15 170);
-  --chart-4: oklch(0.35 0.15 170);
-  --chart-5: oklch(0.25 0.15 170);
-  --radius: 1rem; /* Larger, softer corners */
-  --background: oklch(0.99 0 0); /* Almost white */
-  --foreground: oklch(0.15 0 0); /* Near black */
-  --card: oklch(1 0 0); /* Pure white */
-  --card-foreground: oklch(0.15 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0 0);
-  --secondary: oklch(0.96 0 0); /* Light gray */
-  --secondary-foreground: oklch(0.25 0 0);
-  --muted: oklch(0.94 0 0); /* Muted gray */
-  --muted-foreground: oklch(0.50 0 0); /* Medium gray */
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.15 0 0);
-  --destructive: oklch(0.55 0.22 25); /* Red */
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.90 0 0); /* Subtle border */
-  --input: oklch(0.94 0 0);
-  --ring: oklch(0.45 0.15 170);
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.15 0 0);
-  --sidebar-accent: oklch(0.94 0 0);
-  --sidebar-accent-foreground: oklch(0.15 0 0);
-  --sidebar-border: oklch(0.92 0 0);
-  --sidebar-ring: oklch(0.45 0.15 170);
+  /* ───────────────────────────────────────────────────────────────────────
+   * Fixate design system — palette mirrored from the mobile app
+   * (constants/theme.ts). The web uses the same neutrals, emerald primary,
+   * status soft tints, and surface hierarchy so the two products feel like
+   * one. Surfaces: page background is a soft warm-cool neutral, cards lift
+   * with shadows on a clean white surface. Restrained brand usage — green
+   * is reserved for primary CTAs, active states, and brand accents.
+   * ───────────────────────────────────────────────────────────────────── */
+
+  /* Brand */
+  --primary: #10B981;
+  --primary-foreground: #FFFFFF;
+  --primary-soft: #E7F7F0;
+
+  /* Surfaces */
+  --background: #F6F8FA;
+  --foreground: #10151B;
+  --card: #FFFFFF;
+  --card-foreground: #10151B;
+  --card-alt: #F1F4F8;
+  --popover: #FFFFFF;
+  --popover-foreground: #10151B;
+
+  /* Neutrals */
+  --secondary: #F1F4F8;
+  --secondary-foreground: #2C333D;
+  --muted: #F1F5F9;
+  --muted-foreground: #5B6573;
+  --accent: #E7F7F0;
+  --accent-foreground: #059669;
+
+  /* Status */
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --success: #16A34A;
+  --warning: #D97706;
+  --info: #2563EB;
+
+  /* Borders & inputs */
+  --border: #E8ECF1;
+  --border-strong: #D9DFE7;
+  --input: #E8ECF1;
+  --ring: #10B981;
+
+  /* Charts (kept as a brand-aligned emerald scale) */
+  --chart-1: #34D399;
+  --chart-2: #10B981;
+  --chart-3: #059669;
+  --chart-4: #047857;
+  --chart-5: #065F46;
+
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #10151B;
+  --sidebar-primary: #10B981;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1F4F8;
+  --sidebar-accent-foreground: #10151B;
+  --sidebar-border: #E8ECF1;
+  --sidebar-ring: #10B981;
+
+  /* Radius — app uses 12 (md) and 16 (lg). Default to 12 for a calmer feel. */
+  --radius: 0.75rem;
 }
 
 .dark {
-  /* Apple-inspired dark mode */
-  --primary: oklch(0.50 0.15 170); /* Brighter emerald for dark mode */
-  --primary-foreground: oklch(0.05 0 0);
-  --sidebar-primary: oklch(0.50 0.15 170);
-  --sidebar-primary-foreground: oklch(0.05 0 0);
-  --background: oklch(0.10 0 0); /* Very dark gray, not pure black */
-  --foreground: oklch(0.95 0 0); /* Almost white */
-  --card: oklch(0.15 0 0); /* Slightly lighter than background */
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.15 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --secondary: oklch(0.18 0 0); /* Dark gray */
-  --secondary-foreground: oklch(0.85 0 0);
-  --muted: oklch(0.20 0 0);
-  --muted-foreground: oklch(0.60 0 0); /* Medium gray */
-  --accent: oklch(0.18 0 0);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.60 0.22 25); /* Brighter red for dark mode */
-  --destructive-foreground: oklch(0.95 0 0);
-  --border: oklch(0.25 0 0); /* Subtle border */
-  --input: oklch(0.20 0 0);
-  --ring: oklch(0.50 0.15 170);
-  --chart-1: oklch(0.70 0.15 170);
-  --chart-2: oklch(0.60 0.15 170);
-  --chart-3: oklch(0.50 0.15 170);
-  --chart-4: oklch(0.40 0.15 170);
-  --chart-5: oklch(0.30 0.15 170);
-  --sidebar: oklch(0.12 0 0);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-accent: oklch(0.20 0 0);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.25 0 0);
-  --sidebar-ring: oklch(0.50 0.15 170);
+  --primary: #10B981;
+  --primary-foreground: #FFFFFF;
+  --primary-soft: #0E3A30;
+
+  --background: #0F141A;
+  --foreground: #F4F6F8;
+  --card: #181F29;
+  --card-foreground: #F4F6F8;
+  --card-alt: #212A36;
+  --popover: #181F29;
+  --popover-foreground: #F4F6F8;
+
+  --secondary: #212A36;
+  --secondary-foreground: #E2E7EC;
+  --muted: #1F2731;
+  --muted-foreground: #9AA5B4;
+  --accent: #0E3A30;
+  --accent-foreground: #34D399;
+
+  --destructive: #F87171;
+  --destructive-foreground: #0F141A;
+  --success: #22C55E;
+  --warning: #FBBF24;
+  --info: #60A5FA;
+
+  --border: #283341;
+  --border-strong: #36424F;
+  --input: #283341;
+  --ring: #10B981;
+
+  --chart-1: #6EE7B7;
+  --chart-2: #34D399;
+  --chart-3: #10B981;
+  --chart-4: #059669;
+  --chart-5: #047857;
+
+  --sidebar: #0F141A;
+  --sidebar-foreground: #F4F6F8;
+  --sidebar-primary: #10B981;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #212A36;
+  --sidebar-accent-foreground: #F4F6F8;
+  --sidebar-border: #283341;
+  --sidebar-ring: #10B981;
 }
 
 @layer base {
@@ -249,5 +297,68 @@
       padding-right: 2rem;
       max-width: 1280px; /* Standard content width */
     }
+  }
+
+  /* ─── Fixate card surfaces ─────────────────────────────────────────────
+   * Web equivalents of the app's NeuCard variants. Cards lift off the page
+   * with soft shadows instead of hairline borders, matching the mobile
+   * redesign. Hover applies a gentle lift to suggest interactivity. */
+  .card-soft {
+    background-color: var(--card);
+    border-radius: 1rem;
+    box-shadow:
+      0 1px 2px rgba(15, 23, 32, 0.04),
+      0 8px 24px -8px rgba(15, 23, 32, 0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .card-soft:hover {
+    box-shadow:
+      0 2px 4px rgba(15, 23, 32, 0.05),
+      0 14px 32px -10px rgba(15, 23, 32, 0.12);
+    transform: translateY(-2px);
+  }
+  .dark .card-soft {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.4),
+      0 8px 24px -8px rgba(0, 0, 0, 0.5);
+  }
+  .dark .card-soft:hover {
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.5),
+      0 14px 32px -10px rgba(0, 0, 0, 0.6);
+  }
+
+  .card-flat {
+    background-color: var(--card);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px rgba(15, 23, 32, 0.04), 0 4px 12px -4px rgba(15, 23, 32, 0.06);
+  }
+  .dark .card-flat {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px -4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Soft brand pill — used for active filters and accent tags */
+  .pill-primary {
+    background-color: var(--primary-soft);
+    color: #047857;
+  }
+  .dark .pill-primary {
+    color: #6EE7B7;
+  }
+
+  /* Comfortable tap targets across the site (app uses 48px minimum) */
+  .tap-target { min-height: 48px; min-width: 48px; }
+}
+
+@layer base {
+  /* Match the app's softer icon weight (was 1.75 — slightly heavy on web) */
+  svg.lucide {
+    stroke-width: 1.6;
+  }
+
+  /* Headings inherit the brand font but get a tighter, more refined
+     tracking — mirrors the app's confident-but-not-shouty hierarchy. */
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.015em;
   }
 }
