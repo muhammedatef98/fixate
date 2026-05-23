@@ -14,265 +14,111 @@ interface FAQItem {
   category: string;
 }
 
+// المصدر: نفس الأسئلة المعروضة داخل تطبيق Fixate (شاشة chatbot)
 const faqDataAr: FAQItem[] = [
-  // التطبيق والحجز
   {
-    category: "التطبيق والحجز",
-    question: "كيف أحمل تطبيق Fixate؟",
-    answer: "التطبيق متاح على App Store لأجهزة iPhone وiPad، وعلى Google Play لأجهزة Android. ابحث عن \"Fixate\" أو اضغط على زر التحميل في أي صفحة بالموقع. التطبيق مجاني تماماً."
+    category: "الطلب والحجز",
+    question: "كيف أطلب صيانة؟",
+    answer: "من الصفحة الرئيسية اضغط «اطلب صيانة جديدة»، اختر جهازك ونوع العطل وطريقة الخدمة، ثم أكمل الطلب. سيصلك فني معتمد لفحص الجهاز."
   },
   {
-    category: "التطبيق والحجز",
-    question: "كيف أحجز خدمة من خلال التطبيق؟",
-    answer: "بعد تحميل التطبيق: (1) أنشئ حساباً أو سجّل دخولك، (2) اختر نوع جهازك والمشكلة، (3) شاهد السعر الدقيق قبل التأكيد، (4) اختر الوقت والموقع المناسب، (5) الفني يصلك في الموعد المحدد."
-  },
-  {
-    category: "التطبيق والحجز",
-    question: "هل يمكنني إلغاء الحجز؟",
-    answer: "نعم، يمكنك إلغاء الحجز مجاناً قبل 2 ساعة من الموعد المحدد. الإلغاء بعد ذلك قد يخضع لرسوم رمزية. يمكن الإلغاء من داخل التطبيق بسهولة."
-  },
-  {
-    category: "التطبيق والحجز",
-    question: "ما هي ساعات الخدمة؟",
-    answer: "نعمل 7 أيام في الأسبوع من 8 صباحاً حتى 10 مساءً. في بعض المدن نوفر خدمة الطوارئ حتى منتصف الليل. يمكنك رؤية الأوقات المتاحة في منطقتك داخل التطبيق."
-  },
-  {
-    category: "التطبيق والحجز",
-    question: "كيف أتابع الفني أثناء توجهه إليّ؟",
-    answer: "بعد تأكيد الحجز، يمكنك متابعة موقع الفني على الخريطة في الوقت الفعلي من خلال التطبيق، مثلاً طلبات أوبر. ستصلك إشعارات عند تحرك الفني وعند وصوله."
-  },
-  // الأسعار والدفع
-  {
-    category: "الأسعار والدفع",
-    question: "كيف يتم تحديد أسعار الصيانة؟",
-    answer: "الأسعار محددة مسبقاً بناءً على نوع الجهاز والخدمة المطلوبة. يمكنك استخدام حاسبة الأسعار في الموقع أو التطبيق للحصول على سعر دقيق قبل الحجز. السعر الذي تراه هو ما ستدفعه — بدون مفاجآت."
-  },
-  {
-    category: "الأسعار والدفع",
-    question: "هل توجد رسوم للزيارة بغض النظر عن الإصلاح؟",
-    answer: "لا توجد رسوم زيارة إضافية. السعر الذي تراه يشمل التشخيص والإصلاح وقطع الغيار. في حال اكتشاف مشكلة إضافية غير متوقعة، سيُخبرك الفني ويأخذ موافقتك قبل أي عمل إضافي."
-  },
-  {
-    category: "الأسعار والدفع",
-    question: "ما هي طرق الدفع المتاحة؟",
-    answer: "نقبل: مدى، فيزا، ماستركارد، Apple Pay، STC Pay، تابي (تقسيط)، تمارة (تقسيط)، والدفع نقداً عند إتمام الخدمة. جميع المدفوعات الإلكترونية مؤمّنة بالكامل."
-  },
-  {
-    category: "الأسعار والدفع",
-    question: "هل يمكنني رؤية السعر قبل تأكيد الحجز؟",
-    answer: "نعم، بالكامل. سعر الخدمة يظهر بوضوح قبل أي خطوة. لن تُطلب منك بيانات الدفع حتى تكون راضياً تماماً عن السعر وتريد التأكيد."
-  },
-  {
-    category: "الأسعار والدفع",
-    question: "هل هناك عروض أو خصومات؟",
-    answer: "نعم! عند حجز أول خدمة من التطبيق، احصل على خصم 20%. كما نوفر كودات خصم دورية يمكنك إدخالها عند الحجز. اشترك في نشرتنا البريدية لتصلك العروض أولاً."
-  },
-  // الخدمة والجودة
-  {
-    category: "الخدمة والجودة",
+    category: "الطلب والحجز",
     question: "كم يستغرق الإصلاح؟",
-    answer: "يعتمد على نوع الإصلاح: تغيير الشاشة 30-60 دقيقة، تغيير البطارية 20-40 دقيقة، إصلاح منفذ الشحن 30-45 دقيقة، إصلاح الكاميرا 30-60 دقيقة. الفني يعمل أمامك في منزلك أو مكتبك."
+    answer: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد موافقتك على عرض السعر."
   },
   {
-    category: "الخدمة والجودة",
-    question: "هل قطع الغيار أصلية؟",
-    answer: "نستخدم قطع غيار عالية الجودة — إما أصلية من المصنّع أو قطع مُعتمدة بجودة مكافئة للأصلية. نوع القطعة المستخدمة يُذكر في عرض السعر. في حال طلبك قطعاً أصلية فقط، يمكننا توفيرها مع اختلاف طفيف في السعر."
+    category: "الطلب والحجز",
+    question: "هل يوجد استلام وتوصيل؟",
+    answer: "نعم. يمكنك اختيار استلام وتوصيل الجهاز، أو زيارة فني متنقل، أو تسليم الجهاز بنفسك في مركز الخدمة."
   },
   {
-    category: "الخدمة والجودة",
-    question: "هل بياناتي في أمان أثناء الإصلاح؟",
-    answer: "نعم. جميع فنيينا يوقّعون على اتفاقيات سرية صارمة. الإصلاح يتم أمامك مباشرة، ولا يحتاج الفني عادةً للوصول إلى بياناتك. ننصح بعمل نسخة احتياطية قبل أي إصلاح كإجراء احترازي."
+    category: "الطلب والحجز",
+    question: "كيف أتابع حالة طلبي؟",
+    answer: "افتح «طلباتي» من الصفحة الرئيسية لرؤية حالة كل طلب وتفاصيله لحظة بلحظة."
   },
   {
-    category: "الخدمة والجودة",
-    question: "ماذا لو لم تُحل المشكلة بعد الإصلاح؟",
-    answer: "إذا عادت نفس المشكلة خلال فترة الضمان (6 أشهر)، نُصلحها مجاناً بدون أي نقاش. ثقتك في خدمتنا هي أهم شيء."
+    category: "الأسعار والدفع",
+    question: "كيف يتم تحديد السعر؟",
+    answer: "الفحص مجاني. بعد فحص الفني لجهازك يرسل لك عرض سعر دقيق، وأنت تقرر قبوله أو رفضه قبل بدء أي إصلاح."
   },
   {
-    category: "الخدمة والجودة",
-    question: "هل يمكنني حضور عملية الإصلاح؟",
-    answer: "بالتأكيد! هذا هو الفرق الأساسي لدينا — الفني يأتي إليك ويعمل أمامك. يمكنك متابعة كل خطوة، وطرح أي سؤال، والتأكد من جودة العمل قبل الدفع."
-  },
-  // الضمان
-  {
-    category: "الضمان",
-    question: "ما هي مدة الضمان على الصيانة؟",
-    answer: "نوفر ضمان يصل إلى 6 أشهر على جميع خدمات الصيانة. الضمان يشمل قطع الغيار وجودة الإصلاح."
+    category: "الأسعار والدفع",
+    question: "ما طرق الدفع المتاحة؟",
+    answer: "يمكنك الدفع نقداً عند الإتمام أو بالبطاقة. يتم الدفع فقط بعد موافقتك على عرض السعر — لا تدفع شيئاً مقابل الفحص."
   },
   {
     category: "الضمان",
-    question: "ماذا يشمل الضمان تحديداً؟",
-    answer: "الضمان يشمل: (1) نفس المشكلة التي أُصلحت إذا عادت، (2) عيوب في قطعة الغيار المُستبدلة، (3) أعطال ناتجة عن خطأ في التركيب. لا يشمل الضمان: الكسر الجديد، الأضرار المائية اللاحقة، أو مشاكل غير مرتبطة بالإصلاح الأصلي."
-  },
-  {
-    category: "الضمان",
-    question: "كيف أستفيد من الضمان؟",
-    answer: "ببساطة، افتح التطبيق، اذهب إلى \"طلباتي\"، واختر الطلب القديم، واضغط \"المطالبة بالضمان\". سيتواصل معك فريقنا خلال ساعات لتحديد موعد الإصلاح المجاني."
-  },
-  // التغطية الجغرافية
-  {
-    category: "التغطية",
-    question: "في أي مدن متوفرة الخدمة؟",
-    answer: "نغطي حالياً: الرياض، جدة، الدمام، الخبر، الأحساء، مكة المكرمة، المدينة المنورة، الطائف، تبوك، أبها، خميس مشيط، جازان. نتوسع باستمرار — تحقق من التطبيق لرؤية التوفر في منطقتك."
+    question: "ما هو الضمان؟",
+    answer: "كل إصلاح يشمل ضمان ٦ أشهر على العمل والقطع المستبدلة."
   },
   {
     category: "التغطية",
-    question: "هل تغطون المناطق البعيدة داخل المدن؟",
-    answer: "في معظم المدن الكبرى نغطي جميع الأحياء. يمكنك إدخال عنوانك في التطبيق للتحقق من التوفر الفوري في منطقتك. إذا لم تكن منطقتك مغطاة بعد، يمكنك التسجيل لتُخطر عند التوسع."
+    question: "ما المناطق المغطاة؟",
+    answer: "الخدمة متاحة حالياً في القطيف بالمنطقة الشرقية، ونعمل على توسيع التغطية قريباً."
   },
   {
-    category: "التغطية",
-    question: "هل يمكن الخدمة خارج المدن المدرجة؟",
-    answer: "حالياً الخدمة متاحة في المدن المدرجة فقط. نعمل على التوسع لتغطية المزيد من المدن. للاستفسار عن منطقة محددة، تواصل معنا عبر WhatsApp أو من خلال نموذج الاتصال."
-  },
-  // الأجهزة المدعومة
-  {
-    category: "الأجهزة المدعومة",
-    question: "هل تصلحون أجهزة Apple؟",
-    answer: "نعم، نصلح جميع أجهزة Apple: iPhone (جميع الإصدارات)، iPad (جميع الموديلات)، MacBook (Air وPro)، iMac، Apple Watch، AirPods. جميع فنيينا مُدرَّبون على أجهزة Apple."
+    category: "متجر فيكست",
+    question: "كيف أبيع جهازاً في السوق؟",
+    answer: "افتح «السوق» ثم «إعلان جديد»، أضف الصور والتفاصيل والسعر. يظهر الإعلان بعد مراجعته من الفريق."
   },
   {
-    category: "الأجهزة المدعومة",
-    question: "ما هي ماركات الجوالات التي تدعمونها؟",
-    answer: "ندعم جميع الماركات الرئيسية: Apple iPhone، Samsung Galaxy (جميع السلاسل)، Huawei، Xiaomi، OPPO، vivo، OnePlus، Google Pixel، Sony Xperia، وغيرها. في حال عدم وجود جهازك في التطبيق، تواصل معنا."
-  },
-  {
-    category: "الأجهزة المدعومة",
-    question: "هل تصلحون اللابتوبات والماك بوك؟",
-    answer: "نعم! نصلح MacBook Air وPro، Dell، HP، Lenovo، ASUS، Acer، Microsoft Surface، وغيرها. الخدمات تشمل: استبدال البطارية، تغيير الشاشة، إصلاح لوحة المفاتيح، إصلاح منفذ الشحن، وحل مشاكل البرامج."
-  },
-  {
-    category: "الأجهزة المدعومة",
-    question: "هل هناك أجهزة لا تدعمونها؟",
-    answer: "الأجهزة القديمة جداً (أكثر من 8 سنوات) قد لا تتوفر لها قطع غيار. اللوحات الأم التالفة بالكامل قد تكون مكلفة للإصلاح. أجهزة الألعاب المحمولة مثل Nintendo Switch متوفرة في بعض المدن فقط. في جميع الأحوال، سيُعلمك الفني قبل أي عمل."
+    category: "انضم كفني",
+    question: "كيف أصبح فنياً معكم؟",
+    answer: "سجّل كفني من شاشة اختيار الدور، أكمل بياناتك ووثائقك، وبعد اعتماد الفريق ستبدأ باستقبال الطلبات."
   },
 ];
 
+// Source: the same FAQs shown inside the Fixate app (chatbot screen)
 const faqDataEn: FAQItem[] = [
   {
-    category: "App & Booking",
-    question: "How do I download the Fixate app?",
-    answer: "The app is available on the App Store for iPhone and iPad, and on Google Play for Android devices. Search for \"Fixate\" or tap the download button on any page of our website. The app is completely free."
+    category: "Booking",
+    question: "How do I request a repair?",
+    answer: "On the home screen tap \"Request a New Repair\", choose your device, the issue and a service method, then submit. A verified technician will be assigned to inspect your device."
   },
   {
-    category: "App & Booking",
-    question: "How do I book a service through the app?",
-    answer: "After downloading the app: (1) Create an account or sign in, (2) Select your device type and issue, (3) View the exact price before confirming, (4) Choose a convenient time and location, (5) The technician arrives at the scheduled time."
+    category: "Booking",
+    question: "How long does a repair take?",
+    answer: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you approve the quote."
   },
   {
-    category: "App & Booking",
-    question: "Can I cancel a booking?",
-    answer: "Yes, you can cancel for free up to 2 hours before the scheduled appointment. Cancellations after that may incur a small fee. You can cancel easily from within the app."
+    category: "Booking",
+    question: "Do you offer pickup & delivery?",
+    answer: "Yes. You can choose pickup & delivery, an on-site technician visit, or drop the device off yourself at our service center."
   },
   {
-    category: "App & Booking",
-    question: "What are your service hours?",
-    answer: "We operate 7 days a week from 8 AM to 10 PM. In some cities, we offer emergency service until midnight. You can see available times in your area within the app."
-  },
-  {
-    category: "App & Booking",
-    question: "How do I track the technician on the way?",
-    answer: "After booking confirmation, you can track the technician's real-time location on the map within the app — similar to Uber. You'll receive push notifications when the technician departs and when they arrive."
+    category: "Booking",
+    question: "How do I track my order?",
+    answer: "Open \"My Requests\" from the home screen to see the live status and details of every order."
   },
   {
     category: "Pricing & Payment",
-    question: "How are repair prices determined?",
-    answer: "Prices are set in advance based on device type and required service. Use our price calculator on the website or app to get an exact quote before booking. The price you see is what you pay — no surprises."
+    question: "How is the price decided?",
+    answer: "Inspection is free. After the technician inspects your device they send an accurate quote — you accept or reject it before any repair starts."
   },
   {
     category: "Pricing & Payment",
-    question: "Is there a visit fee regardless of repair?",
-    answer: "No visit fee is charged separately. The quoted price includes diagnostics, repair, and parts. If an unexpected additional issue is found, the technician will inform you and get your approval before any extra work."
-  },
-  {
-    category: "Pricing & Payment",
-    question: "What payment methods do you accept?",
-    answer: "We accept: Mada, Visa, Mastercard, Apple Pay, STC Pay, Tabby (installments), Tamara (installments), and cash on completion. All digital payments are fully secured."
-  },
-  {
-    category: "Pricing & Payment",
-    question: "Can I see the price before confirming the booking?",
-    answer: "Yes, completely. The service price is clearly displayed before any step. Payment details will not be requested until you are fully satisfied with the price and wish to confirm."
-  },
-  {
-    category: "Pricing & Payment",
-    question: "Are there any offers or discounts?",
-    answer: "Yes! Get 20% off your first service when you book through the app. We also offer periodic discount codes that you can enter at checkout. Subscribe to our newsletter to receive offers first."
-  },
-  {
-    category: "Service & Quality",
-    question: "How long does the repair take?",
-    answer: "It depends on the repair type: screen replacement 30-60 min, battery replacement 20-40 min, charging port repair 30-45 min, camera repair 30-60 min. The technician works in front of you at your home or office."
-  },
-  {
-    category: "Service & Quality",
-    question: "Are the replacement parts genuine?",
-    answer: "We use high-quality parts — either OEM (from the manufacturer) or certified parts equivalent in quality to OEM. The type of part used is stated in the quote. If you require only genuine OEM parts, we can provide them with a slight price difference."
-  },
-  {
-    category: "Service & Quality",
-    question: "Is my data safe during repair?",
-    answer: "Yes. All our technicians sign strict confidentiality agreements. Repairs are done directly in front of you, and the technician typically doesn't need access to your data. We recommend making a backup before any repair as a precaution."
-  },
-  {
-    category: "Service & Quality",
-    question: "What if the problem isn't resolved after repair?",
-    answer: "If the same issue returns within the warranty period (6 months), we fix it for free — no questions asked. Your trust in our service is our top priority."
-  },
-  {
-    category: "Service & Quality",
-    question: "Can I watch the repair being done?",
-    answer: "Absolutely! This is our core difference — the technician comes to you and works in front of you. You can follow every step, ask any question, and verify the quality of work before paying."
+    question: "What payment methods are available?",
+    answer: "You can pay cash on completion or by card. Payment happens only after you approve the quote — you pay nothing for the inspection."
   },
   {
     category: "Warranty",
-    question: "What is the warranty period?",
-    answer: "We provide up to 6 months warranty on all repair services. The warranty covers both parts and workmanship."
-  },
-  {
-    category: "Warranty",
-    question: "What exactly does the warranty cover?",
-    answer: "The warranty covers: (1) the same issue if it recurs, (2) defects in the replaced part, (3) problems resulting from installation errors. The warranty does NOT cover: new physical damage, subsequent water damage, or issues unrelated to the original repair."
-  },
-  {
-    category: "Warranty",
-    question: "How do I claim my warranty?",
-    answer: "Simply open the app, go to \"My Requests\", select the previous order, and tap \"Claim Warranty\". Our team will contact you within a few hours to schedule a free repair."
+    question: "What warranty do I get?",
+    answer: "Every repair includes a 6-month warranty covering the work and any replaced parts."
   },
   {
     category: "Coverage",
-    question: "Which cities do you service?",
-    answer: "We currently cover: Riyadh, Jeddah, Dammam, Khobar, Al Ahsa, Mecca, Medina, Taif, Tabuk, Abha, Khamis Mushait, and Jazan. We are continuously expanding — check the app to see availability in your area."
+    question: "Which areas do you cover?",
+    answer: "Service is currently available in Al Qatif, Eastern Province. We are expanding coverage soon."
   },
   {
-    category: "Coverage",
-    question: "Do you cover remote areas within cities?",
-    answer: "In most major cities, we cover all neighborhoods. Enter your address in the app to instantly check availability in your area. If your area isn't covered yet, you can register to be notified when we expand."
+    category: "Fixate Market",
+    question: "How do I sell a device in the marketplace?",
+    answer: "Open \"Marketplace\", tap \"New listing\", add photos, details and a price. Your listing goes live after the team reviews it."
   },
   {
-    category: "Coverage",
-    question: "Can you service areas outside listed cities?",
-    answer: "Currently, service is only available in listed cities. We are working on expanding to cover more cities. To inquire about a specific area, contact us via WhatsApp or the contact form."
-  },
-  {
-    category: "Supported Devices",
-    question: "Do you repair Apple devices?",
-    answer: "Yes, we repair all Apple devices: iPhone (all generations), iPad (all models), MacBook (Air and Pro), iMac, Apple Watch, and AirPods. All our technicians are trained on Apple devices."
-  },
-  {
-    category: "Supported Devices",
-    question: "Which phone brands do you support?",
-    answer: "We support all major brands: Apple iPhone, Samsung Galaxy (all series), Huawei, Xiaomi, OPPO, vivo, OnePlus, Google Pixel, Sony Xperia, and more. If your device is not listed in the app, contact us."
-  },
-  {
-    category: "Supported Devices",
-    question: "Do you repair laptops and MacBooks?",
-    answer: "Yes! We repair MacBook Air and Pro, Dell, HP, Lenovo, ASUS, Acer, Microsoft Surface, and others. Services include: battery replacement, screen replacement, keyboard repair, charging port repair, and software troubleshooting."
-  },
-  {
-    category: "Supported Devices",
-    question: "Are there devices you don't support?",
-    answer: "Very old devices (over 8 years) may not have available parts. Completely failed motherboards may be expensive to repair. Handheld gaming devices like Nintendo Switch are only available in some cities. In all cases, the technician will inform you before any work."
+    category: "Join as Technician",
+    question: "How do I become a technician?",
+    answer: "Sign up as a technician from the role-selection screen, complete your details and documents, and once the team approves you, you can start receiving jobs."
   },
 ];
 
@@ -292,8 +138,8 @@ function buildFaqSchema(items: FAQItem[]) {
   };
 }
 
-const CATEGORIES_AR = ["التطبيق والحجز", "الأسعار والدفع", "الخدمة والجودة", "الضمان", "التغطية", "الأجهزة المدعومة"] as const;
-const CATEGORIES_EN = ["App & Booking", "Pricing & Payment", "Service & Quality", "Warranty", "Coverage", "Supported Devices"] as const;
+const CATEGORIES_AR = ["الطلب والحجز", "الأسعار والدفع", "الضمان", "التغطية", "متجر فيكست", "انضم كفني"] as const;
+const CATEGORIES_EN = ["Booking", "Pricing & Payment", "Warranty", "Coverage", "Fixate Market", "Join as Technician"] as const;
 
 export default function FAQ() {
   const { t, language } = useLanguage();
