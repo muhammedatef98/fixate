@@ -122,3 +122,4 @@ mobile/
 mobile_backup*/
 presentation_images/
 logo_presentation*.md
+.claude/
