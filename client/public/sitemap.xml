@@ -22,14 +22,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/faq" />
   </url>
 
-  <!-- Price Calculator -->
+  <!-- Fixate Market (coming soon to web) -->
   <url>
-    <loc>https://fixate.sa/price-calculator</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/price-calculator" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/price-calculator" />
+    <loc>https://fixate.sa/market</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://fixate.sa/market" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fixate.sa/market" />
   </url>
 
   <!-- About Us -->

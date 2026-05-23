@@ -30,7 +30,7 @@ export default function Footer() {
       comingSoon: "قريباً",
       links: [
         { label: "الرئيسية", href: "/" },
-        { label: "احسب السعر", href: "/price-calculator" },
+        { label: "متجر فيكسات", href: "/market" },
         { label: "الأسئلة الشائعة", href: "/faq" },
         { label: "من نحن", href: "/about" },
         { label: "تواصل معنا", href: "/contact" },
@@ -55,7 +55,7 @@ export default function Footer() {
       comingSoon: "Coming Soon",
       links: [
         { label: "Home", href: "/" },
-        { label: "Price Calculator", href: "/price-calculator" },
+        { label: "Fixate Market", href: "/market" },
         { label: "FAQ", href: "/faq" },
         { label: "About Us", href: "/about" },
         { label: "Contact", href: "/contact" },

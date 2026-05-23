@@ -24,6 +24,6 @@ Disallow: /api/
 Allow: /
 Allow: /faq
 Allow: /about
-Allow: /price-calculator
+Allow: /market
 Allow: /privacy
 Allow: /terms

@@ -15,7 +15,7 @@ import FAQ from "./pages/FAQ";
 import AboutUs from "./pages/AboutUs";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
-import PriceCalculator from "./pages/PriceCalculator";
+import FixateMarket from "./pages/FixateMarket";
 import NotFound from "./pages/NotFound";
 
 // ── Lazily loaded: feature / internal pages ────────────────────────────────────
@@ -65,7 +65,8 @@ function Router() {
         <Route path="/about" component={AboutUs} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
-        <Route path="/price-calculator" component={PriceCalculator} />
+        <Route path="/market" component={FixateMarket} />
+        <Route path="/price-calculator" component={FixateMarket} />
         <Route path="/services/:slug" component={ServiceLanding} />
         <Route path="/cities/:slug" component={CityLanding} />
         <Route path="/contact" component={Contact} />
