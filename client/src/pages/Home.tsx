@@ -131,7 +131,7 @@ export default function Home() {
                 </Button>
               </a>
               <Link href="/market" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                {isArabic ? "متجر فيكسات" : "Fixate Market"}
+                {isArabic ? "متجر فيكست" : "Fixate Market"}
               </Link>
               <Link href="/faq" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {t("nav.faq")}
@@ -173,7 +173,7 @@ export default function Home() {
             </a>
             <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
             {[
-              { href: "/market", emoji: "🛍️", label: isArabic ? "متجر فيكسات" : "Fixate Market" },
+              { href: "/market", emoji: "🛍️", label: isArabic ? "متجر فيكست" : "Fixate Market" },
               { href: "/faq", emoji: "❓", label: isArabic ? "الأسئلة الشائعة" : "FAQ" },
               { href: "/about", emoji: "ℹ️", label: isArabic ? "من نحن" : "About Us" },
             ].map((item) => (

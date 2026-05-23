@@ -30,7 +30,7 @@ export default function Footer() {
       comingSoon: "قريباً",
       links: [
         { label: "الرئيسية", href: "/" },
-        { label: "متجر فيكسات", href: "/market" },
+        { label: "متجر فيكست", href: "/market" },
         { label: "الأسئلة الشائعة", href: "/faq" },
         { label: "من نحن", href: "/about" },
         { label: "تواصل معنا", href: "/contact" },

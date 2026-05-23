@@ -15,35 +15,35 @@ export default function FixateMarket() {
     ar: {
       badge: "متاح حالياً على التطبيق فقط",
       title: "Fixate Market",
-      subtitle: "متجر فيكسات",
+      subtitle: "متجر فيكست",
       tagline: "قريباً على الموقع",
       description:
-        "متجر فيكسات هو وجهتك لشراء الأجهزة الإلكترونية، الإكسسوارات، وقطع الغيار الأصلية بأسعار تنافسية وضمان موثوق — متوفر الآن داخل تطبيق فيكسات، وقريباً على الموقع.",
+        "متجر فيكست هو منصة إعلانات للأجهزة الإلكترونية المستعملة والجديدة. تصفّح الإعلانات، شوف التفاصيل والصور، وتواصل مباشرة مع البائع لشراء الجهاز اللي يناسبك — متاح الآن داخل تطبيق فيكست، وقريباً على الموقع.",
       features: [
-        { icon: Smartphone, label: "أجهزة جديدة ومجددة" },
-        { icon: Tag, label: "إكسسوارات أصلية بأسعار تنافسية" },
-        { icon: ShieldCheck, label: "قطع غيار معتمدة بضمان" },
-        { icon: Truck, label: "توصيل سريع داخل المملكة" },
+        { icon: Smartphone, label: "أجهزة مستعملة وجديدة من بائعين موثوقين" },
+        { icon: Tag, label: "انشر إعلانك لبيع جهازك بسهولة" },
+        { icon: ShieldCheck, label: "تواصل مباشر مع البائع قبل الشراء" },
+        { icon: Truck, label: "تصفّح وفلترة حسب النوع والمدينة والسعر" },
       ],
-      downloadApp: "حمّل التطبيق للتسوق الآن",
-      appDescription: "متجر فيكسات متاح حصرياً عبر تطبيق Fixate على iOS و Android.",
+      downloadApp: "حمّل التطبيق وتصفّح الإعلانات",
+      appDescription: "متجر فيكست متاح حصرياً عبر تطبيق Fixate على iOS و Android.",
       backHome: "العودة للرئيسية",
       websiteSoon: "النسخة الإلكترونية من المتجر قيد التطوير — ترقّبوا الإطلاق قريباً!",
     },
     en: {
       badge: "Currently available on the app only",
       title: "Fixate Market",
-      subtitle: "Fixate's in-app marketplace",
+      subtitle: "The Fixate marketplace",
       tagline: "Coming soon to the website",
       description:
-        "Fixate Market is your destination for buying electronic devices, accessories, and genuine spare parts at competitive prices with a trusted warranty — available now inside the Fixate app, and coming soon to the website.",
+        "Fixate Market is a classifieds platform for used and new electronic devices. Browse listings, view details and photos, and contact sellers directly to buy the device you want — available now inside the Fixate app, and coming soon to the website.",
       features: [
-        { icon: Smartphone, label: "New and refurbished devices" },
-        { icon: Tag, label: "Original accessories at great prices" },
-        { icon: ShieldCheck, label: "Certified spare parts with warranty" },
-        { icon: Truck, label: "Fast delivery across Saudi Arabia" },
+        { icon: Smartphone, label: "Used and new devices from trusted sellers" },
+        { icon: Tag, label: "Post your own ad to sell your device" },
+        { icon: ShieldCheck, label: "Contact sellers directly before buying" },
+        { icon: Truck, label: "Browse and filter by type, city, and price" },
       ],
-      downloadApp: "Download the app to shop now",
+      downloadApp: "Download the app to browse listings",
       appDescription: "Fixate Market is exclusively available through the Fixate app on iOS and Android.",
       backHome: "Back to Home",
       websiteSoon: "The web version of the marketplace is under development — stay tuned for launch!",
@@ -66,7 +66,7 @@ export default function FixateMarket() {
       dir={isArabic ? "rtl" : "ltr"}
     >
       <SEO
-        title={isArabic ? "متجر فيكسات — قريباً" : "Fixate Market — Coming Soon"}
+        title={isArabic ? "متجر فيكست — قريباً" : "Fixate Market — Coming Soon"}
         description={t.description}
         canonical="https://fixate.site/market"
       />
