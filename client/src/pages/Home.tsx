@@ -199,18 +199,18 @@ export default function Home() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300 text-sm font-medium mb-6">
+            <div className="pill-primary inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
               <MapPin className="h-3.5 w-3.5" />
-              {isArabic ? "خدمة متنقلة في جميع مدن المملكة" : "Mobile service across Saudi Arabia"}
+              {isArabic ? "خدمة منزلية في القطيف — المنطقة الشرقية" : "On-site service in Al Qatif, Eastern Province"}
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-5 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-6xl font-semibold text-foreground mb-5 tracking-tight leading-[1.1]">
               {isArabic ? "صيانة جوالك" : "Fix Your Device"}
               <br />
-              <span className="text-primary">{isArabic ? "في بيتك خلال ساعة" : "At Home in One Hour"}</span>
+              <span className="text-primary">{isArabic ? "في بيتك خلال ساعات" : "At Home in Hours"}</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               {isArabic
                 ? "فنيون معتمدون يصلون إليك، يصلحون جهازك أمامك، مع ضمان 6 أشهر على جميع قطع الغيار."
                 : "Certified technicians come to you, fix your device in front of you, with a 6-month warranty on all parts."}
@@ -222,23 +222,23 @@ export default function Home() {
               <AppStoreBadge platform="android" language={language} />
             </div>
 
-            {/* Trust indicators */}
-            <div className="flex flex-wrap gap-5 justify-center text-sm text-muted-foreground">
-              <div className="flex items-center gap-1.5">
-                <span className="text-yellow-400">⭐</span>
-                <span>4.9/5 {isArabic ? "تقييم" : "rating"}</span>
+            {/* Trust indicators — unified Lucide iconography, muted tone */}
+            <div className="flex flex-wrap gap-x-6 gap-y-3 justify-center text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Star className="h-4 w-4 text-primary fill-primary/30" />
+                <span>{isArabic ? "تقييم 4.9/5" : "4.9/5 rating"}</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span>👥</span>
-                <span>+15,000 {isArabic ? "عميل" : "customers"}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Shield className="h-4 w-4 text-emerald-500" />
+              <div className="flex items-center gap-2">
+                <Shield className="h-4 w-4 text-primary" />
                 <span>{isArabic ? "ضمان 6 أشهر" : "6-month warranty"}</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                <span>{isArabic ? "بدون رسوم خفية" : "No hidden fees"}</span>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <span>{isArabic ? "الفحص مجاني" : "Free inspection"}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-primary" />
+                <span>{isArabic ? "خلال ساعة إلى 3 ساعات" : "Done in 1–3 hours"}</span>
               </div>
             </div>
 
@@ -259,21 +259,20 @@ export default function Home() {
       </section>
 
       {/* ─── Features ────────────────────────────────────────── */}
-      <section className="py-14 md:py-20 bg-muted/30 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <section className="py-16 md:py-24 bg-card-alt">
         <div className="container">
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-10 md:gap-12 max-w-5xl mx-auto">
             {[
               { icon: CheckCircle2, title: t("features.transparency"), desc: `${t("features.transparencyDesc1")} ${t("features.transparencyDesc2")}` },
               { icon: Clock, title: t("features.fastService"), desc: `${t("features.fastServiceDesc1")} ${t("features.fastServiceDesc2")}` },
               { icon: Shield, title: t("features.warranty"), desc: `${t("features.warrantyDesc1")} ${t("features.warrantyDesc2")}` },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="flex flex-col items-center text-center">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
-                  <Icon className="h-8 w-8 text-primary" />
+                <div className="h-14 w-14 rounded-2xl bg-primary-soft flex items-center justify-center mb-5">
+                  <Icon className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">{title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{desc}</p>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">{title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm max-w-xs">{desc}</p>
               </div>
             ))}
           </div>
@@ -284,7 +283,7 @@ export default function Home() {
       <section id="how-it-works" className="py-16 md:py-24">
         <div className="container">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 tracking-tight">
               {isArabic ? "كيف يعمل Fixate؟" : "How Fixate Works"}
             </h2>
             <p className="text-muted-foreground">{isArabic ? "أربع خطوات بسيطة" : "Four simple steps"}</p>
@@ -364,50 +363,48 @@ export default function Home() {
             )}
 
             {/* Trust */}
-            <div className="flex flex-wrap gap-6 justify-center mt-8 text-white/80 text-sm">
-              <span>⭐ 4.9/5</span>
-              <span>👥 +15,000 {isArabic ? "عميل" : "customers"}</span>
-              <span>🛡️ {isArabic ? "ضمان 6 أشهر" : "6-month warranty"}</span>
-              <span>🚀 {isArabic ? "خدمة فورية" : "Same-day service"}</span>
+            <div className="flex flex-wrap gap-x-6 gap-y-3 justify-center mt-8 text-white/85 text-sm">
+              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-white/40" />4.9/5</span>
+              <span className="inline-flex items-center gap-2"><Shield className="h-4 w-4" />{isArabic ? "ضمان 6 أشهر" : "6-month warranty"}</span>
+              <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" />{isArabic ? "الفحص مجاني" : "Free inspection"}</span>
+              <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" />{isArabic ? "خلال ساعة إلى 3 ساعات" : "Done in 1–3 hours"}</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ─── Devices Section ─────────────────────────────────── */}
-      <section id="services" className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/20">
+      <section id="services" className="py-16 md:py-24">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent mb-3">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 tracking-tight">
               {t("devices.title")}
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">{t("devices.subtitle")}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
+          <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto mb-16">
             {[
               { Icon: Smartphone, title: t("devices.phones"), desc: t("devices.phonesDesc") },
               { Icon: Laptop, title: t("devices.laptops"), desc: t("devices.laptopsDesc") },
               { Icon: Tablet, title: t("devices.tablets"), desc: t("devices.tabletsDesc") },
             ].map(({ Icon, title, desc }) => (
-              <Card key={title} className="group border-2 border-border/50 hover:border-emerald-500/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-background to-muted/20">
-                <CardContent className="pt-10 pb-8 min-h-[240px] flex flex-col">
-                  <div className="h-20 w-20 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg mb-5">
-                    <Icon className="h-10 w-10 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-center mb-3 text-foreground">{title}</h3>
-                  <p className="text-muted-foreground text-center leading-relaxed flex-1 whitespace-pre-line text-sm">{desc}</p>
-                </CardContent>
-              </Card>
+              <div key={title} className="card-soft p-7 flex flex-col">
+                <div className="h-14 w-14 rounded-2xl bg-primary-soft flex items-center justify-center mb-5">
+                  <Icon className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">{title}</h3>
+                <p className="text-muted-foreground leading-relaxed whitespace-pre-line text-sm">{desc}</p>
+              </div>
             ))}
           </div>
 
           {/* Services Grid */}
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-center bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent mb-8">
+            <h3 className="text-xl md:text-2xl font-semibold text-center text-foreground mb-8 tracking-tight">
               {isArabic ? "خدماتنا" : "Our Services"}
             </h3>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
               {[
                 t("devices.screenReplacement"),
                 t("devices.batteryReplacement"),
@@ -416,9 +413,9 @@ export default function Home() {
                 t("devices.software"),
                 t("devices.cleaning"),
               ].map((svc) => (
-                <div key={svc} className="flex items-center gap-3 bg-card border border-border/50 hover:border-emerald-500/30 rounded-xl px-4 py-3 transition-colors group">
-                  <div className="h-8 w-8 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                <div key={svc} className="flex items-center gap-3 bg-card rounded-xl px-4 py-3.5 shadow-[0_1px_2px_rgba(15,23,32,0.04),0_4px_12px_-4px_rgba(15,23,32,0.06)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_12px_-4px_rgba(0,0,0,0.4)]">
+                  <div className="h-8 w-8 rounded-lg bg-primary-soft flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
                   </div>
                   <span className="text-sm font-medium text-foreground">{svc.replace("• ", "")}</span>
                 </div>
@@ -428,27 +425,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Cities Section ──────────────────────────────────── */}
-      <section className="py-12 bg-muted/20">
+      {/* ─── Coverage Section ────────────────────────────────── */}
+      <section className="py-16 bg-card-alt">
         <div className="container">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-              {isArabic ? "نغطي جميع مدن المملكة" : "We Cover All Saudi Cities"}
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft mb-5">
+              <MapPin className="h-7 w-7 text-primary" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 tracking-tight">
+              {isArabic ? "متوفر حالياً في القطيف" : "Currently available in Al Qatif"}
             </h2>
-            <p className="text-muted-foreground text-sm">
-              {isArabic ? "خدمة متاحة في أكثر من 12 مدينة" : "Service available in 12+ cities"}
+            <p className="text-muted-foreground leading-relaxed">
+              {isArabic
+                ? "نخدم القطيف في المنطقة الشرقية، ونعمل على التوسع لمدن أخرى قريباً. تابعنا للحصول على آخر المستجدات."
+                : "We serve Al Qatif in the Eastern Province and are expanding to more cities soon. Follow us for updates."}
             </p>
-          </div>
-          <div className="flex flex-wrap gap-3 justify-center max-w-3xl mx-auto">
-            {(isArabic
-              ? ["الرياض", "جدة", "الدمام", "الخبر", "مكة المكرمة", "المدينة المنورة", "الطائف", "تبوك", "أبها", "خميس مشيط", "الأحساء", "جازان"]
-              : ["Riyadh", "Jeddah", "Dammam", "Khobar", "Mecca", "Medina", "Taif", "Tabuk", "Abha", "Khamis Mushait", "Al Ahsa", "Jazan"]
-            ).map((city) => (
-              <span key={city} className="inline-flex items-center gap-1.5 bg-background border border-border rounded-full px-4 py-2 text-sm text-foreground hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-colors cursor-default">
-                <MapPin className="h-3 w-3 text-emerald-500" />
-                {city}
-              </span>
-            ))}
           </div>
         </div>
       </section>
@@ -457,7 +448,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
               {isArabic ? "آراء عملائنا" : "Customer Reviews"}
             </h2>
             <p className="text-muted-foreground">
@@ -473,26 +464,26 @@ export default function Home() {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
                 {isArabic ? "أسئلة شائعة" : "Common Questions"}
               </h2>
             </div>
             <div className="space-y-3">
               {(isArabic ? [
-                { q: "كم تكلفة تغيير شاشة آيفون؟", a: "الأسعار تبدأ من 150 ريال وتختلف حسب الموديل. استخدم حاسبة الأسعار للحصول على سعر دقيق لجهازك." },
-                { q: "كم يستغرق الإصلاح؟", a: "معظم الإصلاحات تتم في 30-60 دقيقة. الفني يعمل أمامك مباشرة." },
-                { q: "هل يوجد ضمان على الإصلاح؟", a: "نعم، ضمان 6 أشهر على جميع قطع الغيار والخدمات." },
+                { q: "كيف يتم تحديد السعر؟", a: "الفحص مجاني. بعد فحص الفني لجهازك يرسل لك عرض سعر دقيق، وأنت تقرر قبوله أو رفضه قبل بدء أي إصلاح." },
+                { q: "كم يستغرق الإصلاح؟", a: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد موافقتك على عرض السعر." },
+                { q: "ما هو الضمان؟", a: "كل إصلاح يشمل ضمان ٦ أشهر على العمل والقطع المستبدلة." },
               ] : [
-                { q: "How much does iPhone screen repair cost?", a: "Prices start from 150 SAR and vary by model. Use the price calculator for an exact quote." },
-                { q: "How long does the repair take?", a: "Most repairs take 30-60 minutes. The technician works in front of you." },
-                { q: "Is there a warranty on repairs?", a: "Yes, 6-month warranty on all parts and services." },
+                { q: "How is the price decided?", a: "Inspection is free. After the technician inspects your device they send an accurate quote — you accept or reject it before any repair starts." },
+                { q: "How long does a repair take?", a: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you approve the quote." },
+                { q: "What warranty do I get?", a: "Every repair includes a 6-month warranty covering the work and any replaced parts." },
               ]).map((item, i) => (
-                <details key={i} className="bg-card border border-border rounded-xl group">
-                  <summary className="px-5 py-4 font-medium text-foreground cursor-pointer list-none flex items-center justify-between hover:bg-muted/50 rounded-xl transition-colors">
+                <details key={i} className="bg-card rounded-2xl shadow-[0_1px_2px_rgba(15,23,32,0.04),0_4px_12px_-4px_rgba(15,23,32,0.06)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_12px_-4px_rgba(0,0,0,0.4)] group">
+                  <summary className="px-5 py-4 font-medium text-foreground cursor-pointer list-none flex items-center justify-between hover:bg-muted/50 rounded-2xl transition-colors">
                     <span>{item.q}</span>
                     <ChevronDown className="h-4 w-4 text-muted-foreground group-open:rotate-180 transition-transform" />
                   </summary>
-                  <div className="px-5 pb-4 text-sm text-muted-foreground">{item.a}</div>
+                  <div className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed">{item.a}</div>
                 </details>
               ))}
             </div>
@@ -510,11 +501,14 @@ export default function Home() {
       {/* ─── Final CTA ───────────────────────────────────────── */}
       <section className="py-16 md:py-24">
         <div className="container">
-          <div className="max-w-3xl mx-auto bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-8 md:p-14 text-center border border-primary/20">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="max-w-3xl mx-auto card-soft p-8 md:p-14 text-center">
+            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft mb-5 mx-auto">
+              <Smartphone className="h-7 w-7 text-primary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4 tracking-tight">
               {isArabic ? "جهازك يحتاج إصلاح؟" : "Need a Device Repair?"}
             </h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+            <p className="text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
               {isArabic
                 ? "احمل التطبيق الآن واحجز خدمتك في أقل من دقيقة. الفني يصلك في الوقت الذي يناسبك."
                 : "Download the app now and book your service in under a minute. The technician arrives at your preferred time."}

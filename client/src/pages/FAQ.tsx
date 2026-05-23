@@ -205,7 +205,7 @@ export default function FAQ() {
       <section className="pt-20 pb-12 md:pt-28 md:pb-16">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-semibold text-foreground mb-4 tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 tracking-tight">
               {isArabic ? "الأسئلة الشائعة" : "Frequently Asked Questions"}
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
@@ -270,7 +270,7 @@ export default function FAQ() {
               return (
                 <div
                   key={origIndex}
-                  className="bg-card rounded-2xl border border-border overflow-hidden hover:shadow-md transition-all duration-200"
+                  className="bg-card rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(15,23,32,0.04),0_4px_12px_-4px_rgba(15,23,32,0.06)] hover:shadow-[0_2px_4px_rgba(15,23,32,0.05),0_10px_24px_-8px_rgba(15,23,32,0.1)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_12px_-4px_rgba(0,0,0,0.4)] transition-shadow duration-200"
                 >
                   <button
                     onClick={() => setOpenIndex(openIndex === origIndex ? null : origIndex)}
