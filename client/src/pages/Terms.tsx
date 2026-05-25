@@ -353,8 +353,8 @@ export default function Terms() {
       title={isArabic ? "الشروط والأحكام" : "Terms & Conditions"}
       subtitle={
         isArabic
-          ? "القواعد التي تحكم استخدامك لتطبيق Fixate — مكتوبة بلغة واضحة ومباشرة."
-          : "The rules governing your use of the Fixate app — written in plain, direct language."
+          ? "القواعد التي تحكم استخدامك لتطبيق Fixate."
+          : "The rules governing your use of the Fixate app."
       }
       lastUpdated={isArabic ? "ديسمبر 2025" : "December 2025"}
       seoDescription={
