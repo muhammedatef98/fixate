@@ -3,7 +3,10 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  // Strip console.log / console.debug from production bundles; keep console.error and console.warn
+  // so real runtime errors still surface in browser devtools and crash-reporting tools.
+  esbuild: mode === "production" ? { pure: ["console.log", "console.debug"] } : {},
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -37,4 +40,4 @@ export default defineConfig({
     host: true,
     fs: { strict: true, deny: ["**/.*"] },
   },
-});
+}));

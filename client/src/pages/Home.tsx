@@ -102,7 +102,7 @@ export default function Home() {
       <SEO
         title="الصفحة الرئيسية"
         description="منصة Fixate — صيانة جوالك في بيتك خلال ساعة. فنيون معتمدون يصلون إليك في الرياض وجدة والدمام وجميع مدن السعودية. ضمان 6 أشهر. احمل التطبيق الآن!"
-        canonical="https://fixate.sa/"
+        canonical="https://fixate.site/"
         structuredData={structuredDataTemplates.organization}
       />
 

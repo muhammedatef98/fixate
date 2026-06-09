@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://fixate.sa/sitemap.xml
+Sitemap: https://fixate.site/sitemap.xml
 
 # Disallow internal/admin pages
 Disallow: /admin

@@ -17,7 +17,7 @@ export default function AboutUs() {
       <SEO
         title="من نحن"
         description="تعرف على Fixate - منصة رائدة في مجال صيانة الأجهزة الإلكترونية في السعودية. رؤيتنا، رسالتنا، وقيمنا في تقديم خدمات صيانة موثوقة واحترافية."
-        canonical="https://fixate.sa/about"
+        canonical="https://fixate.site/about"
       />
       
       {/* Header */}

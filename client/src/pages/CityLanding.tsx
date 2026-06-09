@@ -136,9 +136,9 @@ function buildCitySchema(city: CityData, isArabic: boolean) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: isArabic ? "الرئيسية" : "Home", item: "https://fixate.sa/" },
-        { "@type": "ListItem", position: 2, name: isArabic ? "المناطق" : "Areas", item: "https://fixate.sa/cities" },
-        { "@type": "ListItem", position: 3, name: isArabic ? city.nameAr : city.nameEn, item: `https://fixate.sa/cities/${city.slug}` },
+        { "@type": "ListItem", position: 1, name: isArabic ? "الرئيسية" : "Home", item: "https://fixate.site/" },
+        { "@type": "ListItem", position: 2, name: isArabic ? "المناطق" : "Areas", item: "https://fixate.site/cities" },
+        { "@type": "ListItem", position: 3, name: isArabic ? city.nameAr : city.nameEn, item: `https://fixate.site/cities/${city.slug}` },
       ],
     },
     {
@@ -146,7 +146,7 @@ function buildCitySchema(city: CityData, isArabic: boolean) {
       "@type": "LocalBusiness",
       name: "Fixate",
       description: isArabic ? city.descAr : city.descEn,
-      url: `https://fixate.sa/cities/${city.slug}`,
+      url: `https://fixate.site/cities/${city.slug}`,
       telephone: "+966548940042",
       address: {
         "@type": "PostalAddress",
@@ -195,7 +195,7 @@ export default function CityLanding() {
         title={isArabic ? city.heroAr : city.heroEn}
         description={isArabic ? city.descAr : city.descEn}
         keywords={isArabic ? city.keywordsAr : city.keywordsEn}
-        canonical={`https://fixate.sa/cities/${city.slug}`}
+        canonical={`https://fixate.site/cities/${city.slug}`}
         structuredData={schema as object}
       />
 

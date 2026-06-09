@@ -169,7 +169,7 @@ export default function FAQ() {
             ? "إجابات شاملة على جميع أسئلتك حول خدمات صيانة الأجهزة الإلكترونية في Fixate — الأسعار، الضمان، التغطية، وكيفية الحجز"
             : "Comprehensive answers to all your questions about Fixate device repair — pricing, warranty, coverage, and how to book"
         }
-        canonical="https://fixate.sa/faq"
+        canonical="https://fixate.site/faq"
         structuredData={buildFaqSchema(isArabic ? faqDataAr : faqDataEn)}
       />
 

@@ -210,9 +210,9 @@ function buildServiceSchema(service: ServiceData, isArabic: boolean) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: isArabic ? "الرئيسية" : "Home", item: "https://fixate.sa/" },
-        { "@type": "ListItem", position: 2, name: isArabic ? "الخدمات" : "Services", item: "https://fixate.sa/services" },
-        { "@type": "ListItem", position: 3, name: isArabic ? service.titleAr : service.titleEn, item: `https://fixate.sa/services/${service.slug}` },
+        { "@type": "ListItem", position: 1, name: isArabic ? "الرئيسية" : "Home", item: "https://fixate.site/" },
+        { "@type": "ListItem", position: 2, name: isArabic ? "الخدمات" : "Services", item: "https://fixate.site/services" },
+        { "@type": "ListItem", position: 3, name: isArabic ? service.titleAr : service.titleEn, item: `https://fixate.site/services/${service.slug}` },
       ],
     },
     {
@@ -223,7 +223,7 @@ function buildServiceSchema(service: ServiceData, isArabic: boolean) {
       provider: {
         "@type": "LocalBusiness",
         name: "Fixate",
-        url: "https://fixate.sa",
+        url: "https://fixate.site",
         telephone: "+966548940042",
         address: { "@type": "PostalAddress", addressCountry: "SA", addressLocality: "الرياض" },
       },
@@ -277,7 +277,7 @@ export default function ServiceLanding() {
         title={title}
         description={isArabic ? service.descAr : service.descEn}
         keywords={isArabic ? service.keywordsAr : service.keywordsEn}
-        canonical={`https://fixate.sa/services/${service.slug}`}
+        canonical={`https://fixate.site/services/${service.slug}`}
         structuredData={schema as object}
       />
 

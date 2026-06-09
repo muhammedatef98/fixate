@@ -14,7 +14,7 @@ export default function SEO({
   title,
   description = "منصة Fixate - أفضل خدمات صيانة الأجهزة الإلكترونية في السعودية. إصلاح الجوالات، اللابتوبات، الماك بوك والتابلت بأسعار تنافسية وضمان 6 أشهر.",
   keywords = "صيانة جوالات، إصلاح آيفون، صيانة سامسونج، إصلاح لابتوب، صيانة ماك بوك، صيانة تابلت، صيانة هواوي، خدمة صيانة منزلية، السعودية",
-  ogImage = "https://fixate.sa/og-image.png",
+  ogImage = "https://fixate.site/og-image.png",
   canonical,
   structuredData,
 }: SEOProps) {
@@ -96,8 +96,8 @@ export const structuredDataTemplates = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Fixate",
-    "url": "https://fixate.sa",
-    "logo": "https://fixate.sa/logo.png",
+    "url": "https://fixate.site",
+    "logo": "https://fixate.site/logo.png",
     "description": "منصة صيانة الأجهزة الإلكترونية في السعودية",
     "address": {
       "@type": "PostalAddress",

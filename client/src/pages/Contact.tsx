@@ -15,7 +15,7 @@ const contactSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
   name: "Fixate — تواصل معنا",
-  url: "https://fixate.sa/contact",
+  url: "https://fixate.site/contact",
   mainEntity: {
     "@type": "LocalBusiness",
     name: "Fixate",
@@ -121,7 +121,7 @@ export default function Contact() {
             ? "تواصل مع فريق Fixate لصيانة الأجهزة الإلكترونية في السعودية. واتساب، هاتف، أو نموذج تواصل — نرد خلال ساعة."
             : "Contact the Fixate team for electronics repair in Saudi Arabia. WhatsApp, phone, or contact form — we reply within one hour."
         }
-        canonical="https://fixate.sa/contact"
+        canonical="https://fixate.site/contact"
         structuredData={contactSchema}
       />
 
