@@ -15,9 +15,53 @@ services:
         source: /*
         destination: /index.html
     headers:
+      # Hashed bundle assets — cache forever
       - path: /assets/*
         name: Cache-Control
         value: public, max-age=31536000, immutable
+
+      # index.html — never cache so favicon/CSP updates ship instantly
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+      - path: /
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+
+      # Web app manifest — explicit MIME type for older user agents
+      - path: /manifest.webmanifest
+        name: Content-Type
+        value: application/manifest+json; charset=utf-8
+
+      # ---- Security headers (apply to all paths) ----
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains; preload
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin
+      - path: /*
+        name: Cross-Origin-Resource-Policy
+        value: same-origin
+
+      # Content Security Policy — delivered as a header so frame-ancestors is enforced
+      # (meta-tag CSP ignores frame-ancestors). Keep this in sync with the <meta> CSP
+      # in client/index.html until that fallback is removed.
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; manifest-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.clarity.ms; worker-src 'self' blob:; upgrade-insecure-requests"
     envVars:
       - key: NODE_VERSION
         value: 22

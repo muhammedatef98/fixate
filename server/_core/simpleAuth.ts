@@ -4,8 +4,14 @@ import type { Response } from "express";
 import { COOKIE_NAME } from "../../shared/const";
 import { getSessionCookieOptions } from "./cookies";
 
-const JWT_SECRET = process.env.JWT_SECRET || "default-secret-change-in-production";
-const secret = new TextEncoder().encode(JWT_SECRET);
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET || JWT_SECRET.length < 32) {
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("JWT_SECRET must be set (>=32 chars) in production");
+  }
+  console.warn("[auth] JWT_SECRET missing or weak — using dev fallback. DO NOT deploy without setting JWT_SECRET.");
+}
+const secret = new TextEncoder().encode(JWT_SECRET || "dev-only-fallback-secret-do-not-use-in-prod-xxxxxxxx");
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 10);

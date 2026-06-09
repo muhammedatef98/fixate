@@ -109,9 +109,9 @@ async function startServer() {
     message: { error: "Too many requests, please try again later." },
   });
 
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Body parsers — 1mb default protects API routes; raise for specific upload routes if needed.
+  app.use(express.json({ limit: "1mb" }));
+  app.use(express.urlencoded({ limit: "1mb", extended: true }));
   // Simple auth endpoints are in tRPC router
 
   // Keep-alive endpoint — no DB calls, instant 200 for cron-job.org pings
@@ -130,7 +130,8 @@ async function startServer() {
       await db.execute(sql`SELECT 1`);
       res.status(200).json({ ok: true, db: "up", latency_ms: Date.now() - start });
     } catch (err) {
-      res.status(503).json({ ok: false, db: "down", error: String(err) });
+      console.error("[health] DB check failed:", err);
+      res.status(503).json({ ok: false, db: "down" });
     }
   });
 
@@ -184,15 +185,25 @@ async function startServer() {
         return res.status(400).json({ error: "جميع الحقول مطلوبة" });
       }
       
+      // Basic input validation
+      if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ error: "بريد إلكتروني غير صالح" });
+      }
+      if (typeof password !== "string" || password.length < 8) {
+        return res.status(400).json({ error: "كلمة المرور يجب أن تكون 8 أحرف على الأقل" });
+      }
+
       // Check if user exists
       const { getUserByEmail, createUser } = await import("../db");
+      const { hashPassword } = await import("./simpleAuth");
       const existingUser = await getUserByEmail(email);
       if (existingUser) {
         return res.status(409).json({ error: "البريد الإلكتروني مستخدم بالفعل" });
       }
-      
-      // Create user
-      const user = await createUser({ name, email, phone, password, role: "customer" });
+
+      // Hash password before storing
+      const hashedPassword = await hashPassword(password);
+      const user = await createUser({ name, email, phone, password: hashedPassword, role: "customer" });
       
       res.json({ success: true, user });
     } catch (error) {
@@ -210,12 +221,18 @@ async function startServer() {
       }
       
       const { getUserByEmail } = await import("../db");
+      const { verifyPassword, createSession, setSessionCookie } = await import("./simpleAuth");
       const user = await getUserByEmail(email);
-      
-      if (!user || user.password !== password) {
+
+      // Constant-ish branch: always verify against a hash to avoid trivial timing oracle
+      const storedHash = user?.password ?? "$2a$10$invalidinvalidinvalidinvalidinvalidinvalidinvalidinvali";
+      const ok = await verifyPassword(password, storedHash);
+      if (!user || !ok) {
         return res.status(401).json({ error: "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
       }
-      
+
+      const token = await createSession(user.id, user.email, user.role);
+      setSessionCookie(res, token);
       res.json({ success: true, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
     } catch (error) {
       console.error("Login error:", error);
@@ -223,8 +240,15 @@ async function startServer() {
     }
   });
   
-  // Contact form — logs submission (wire email/CRM later)
-  app.post("/api/contact", (req, res) => {
+  // Contact form — rate-limited to deter spam
+  const contactLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: "Too many requests, please try again later." },
+  });
+  app.post("/api/contact", contactLimiter, (req, res) => {
     const { name, phone, city, message } = req.body as Record<string, string>;
     if (!name || !phone || !message) {
       return res.status(400).json({ error: "Missing required fields" });
