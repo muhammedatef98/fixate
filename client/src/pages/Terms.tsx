@@ -16,6 +16,7 @@ import {
   LogOut,
   Scale,
   Mail,
+  ClipboardCheck,
 } from "lucide-react";
 import LegalDocument, { type LegalSection } from "@/components/LegalDocument";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -179,6 +180,22 @@ export default function Terms() {
         "تخضع هذه الشروط لقوانين المملكة العربية السعودية. تُحلّ النزاعات ودياً أو عبر المحاكم السعودية. اللغة العربية هي اللغة المعتمدة لتفسير الشروط.",
     },
     {
+      id: "device-handover",
+      icon: ClipboardCheck,
+      title: "شروط استلام وتسليم الأجهزة",
+      intro: "تطبق الشروط التالية عند استلام الجهاز للإصلاح وتسليمه بعد الإصلاح:",
+      bullets: [
+        "استقبال الجهاز المراد تصليحه بدون اكسسواراته مثل (غلاف/جراب/كابل) أو شريحة الاتصال أو ذاكرة خارجية، وعليه فإن الورشة غير مسؤولة عن فقدان أي من هذه الاكسسوارات.",
+        "عند تسليم العميل للجهاز المراد إصلاحه، يجب على العميل ذكر كافة الأعطال المراد إصلاحها، وفي حال لم يتم ذكر كافة الأعطال فإن الورشة غير مسؤولة عن أي عطل يتسبب في عطب الجهاز نهائيًا.",
+        "عند البدء في عملية الإصلاح (كتبديل شاشة الجهاز مثلًا) وتم اكتشاف عطل آخر لم يذكره العميل، فإن الورشة غير مسؤولة عن هذا العطل ويتحمل العميل كلفة إصلاحه في حال أراد ذلك.",
+        "في حالة تعرض الجهاز للسوائل، وتم إصلاحه من قبل الورشة وبعد استلام العميل له، فإن الورشة غير مسؤولة إذا ظهر عطل آخر في الجهاز لم يكن موجود عند تشغيل الجهاز عند استلامه.",
+        "جميع الشاشات التي يتم استبدالها أو تركيبها لجهاز العميل لا يوجد ضمان عليها.",
+        "لا يتم تسليم الجهاز للعميل إلا بفاتورة الاستلام.",
+        "يجب على العميل فحص الجهاز قبل مغادرة الورشة عند استلامه، وإلا فإن الورشة غير مسؤولة عن أي عطل آخر يظهر في الجهاز بعد مغادرته للورشة.",
+        "الورشة غير مسؤولة عن فقدان أو تلف الجهاز بعد مضي 3 أشهر من عدم استلامه.",
+      ],
+    },
+    {
       id: "contact",
       icon: Mail,
       title: "الاتصال بنا",
@@ -339,6 +356,23 @@ export default function Terms() {
       title: "Governing law",
       intro:
         "These terms are governed by the laws of Saudi Arabia. Disputes are resolved amicably or through Saudi courts. Arabic is the authoritative language for interpreting these terms.",
+    },
+    {
+      id: "device-handover",
+      icon: ClipboardCheck,
+      title: "Device drop-off & collection terms",
+      intro:
+        "The following terms apply when a device is received for repair and collected afterwards (the Arabic text is the authoritative version):",
+      bullets: [
+        "The device is received for repair without its accessories such as (case/cover/cable), SIM card, or external memory; accordingly, the workshop is not responsible for the loss of any of these accessories.",
+        "When handing over the device for repair, the customer must mention all faults to be repaired. If not all faults are mentioned, the workshop is not responsible for any fault that causes permanent damage to the device.",
+        "If, during the repair (e.g. replacing the device screen), another fault not mentioned by the customer is discovered, the workshop is not responsible for that fault, and the customer bears the cost of repairing it should they wish to.",
+        "If the device was exposed to liquids and was repaired by the workshop, then after the customer collects it, the workshop is not responsible if another fault appears that was not present when the device was switched on at collection.",
+        "All screens replaced or installed on the customer's device carry no warranty.",
+        "The device is only handed over to the customer with the collection invoice.",
+        "The customer must inspect the device before leaving the workshop upon collection; otherwise the workshop is not responsible for any other fault that appears in the device after they leave the workshop.",
+        "The workshop is not responsible for loss of or damage to the device after 3 months from non-collection.",
+      ],
     },
     {
       id: "contact",
