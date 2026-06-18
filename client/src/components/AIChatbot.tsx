@@ -69,7 +69,7 @@ const knowledgeBase = {
     "خدمات|إصلاح|صيانة": "نقدم خدمات إصلاح شاملة: تغيير الشاشات، تغيير البطاريات، إصلاح منافذ الشحن، إصلاح الكاميرات، حل مشاكل البرامج، والمزيد!",
     "أجهزة|جوال|لابتوب|تابلت": "نصلح جميع أنواع الأجهزة: iPhone, Samsung, Huawei, MacBook, Dell, HP, Lenovo, iPad, Samsung Tab وجميع الأنواع الأخرى!",
     "دفع|طريقة الدفع": "نقبل جميع طرق الدفع: نقداً عند الاستلام، تحويل بنكي، وجميع الطرق الإلكترونية.",
-    "تواصل|اتصال|رقم": "يمكنك التواصل معنا عبر:\n📧 البريد: fixate01@gmail.com\n📱 الجوال: +966 54 894 0042",
+    "تواصل|اتصال|رقم": "يمكنك التواصل معنا عبر:\n📧 البريد: support@fixate.site\n📱 الجوال: +966 54 894 0042",
     "فني متنقل|زيارة": "خدمة الفني المتنقل: يأتي الفني إلى موقعك ويصلح الجهاز في المكان. متوفرة في جميع المدن!",
     "استلام وتوصيل": "خدمة الاستلام والتوصيل: نستلم جهازك ونوصله لمحل متعاقد ونرجعه بعد الإصلاح. خدمة مريحة وآمنة!"
   },
@@ -83,7 +83,7 @@ const knowledgeBase = {
     "services|repair|maintenance": "We provide comprehensive repair services: screen replacement, battery replacement, charging port repair, camera repair, software troubleshooting, and more!",
     "devices|phone|laptop|tablet": "We repair all types of devices: iPhone, Samsung, Huawei, MacBook, Dell, HP, Lenovo, iPad, Samsung Tab, and all other types!",
     "payment|pay": "We accept all payment methods: cash on delivery, bank transfer, and all electronic methods.",
-    "contact|call|number": "You can contact us via:\n📧 Email: fixate01@gmail.com\n📱 Phone: +966 54 894 0042",
+    "contact|call|number": "You can contact us via:\n📧 Email: support@fixate.site\n📱 Phone: +966 54 894 0042",
     "mobile technician|visit": "Mobile Technician Service: The technician comes to your location and repairs on-site. Available in all cities!",
     "pickup|delivery": "Pickup & Delivery Service: We pick up your device, deliver it to a partner shop, and return it after repair. Convenient and safe!"
   }
@@ -174,8 +174,8 @@ export default function Chatbot() {
     
     // Default response for work-related but not found
     return language === 'ar'
-      ? "شكراً لسؤالك! 😊\n\nللحصول على إجابة دقيقة، يمكنك:\n• استخدام الأسئلة الشائعة أعلاه\n• التواصل معنا: fixate01@gmail.com\n• الاتصال: +966 54 894 0042\n\nأو جرب إعادة صياغة سؤالك بطريقة أخرى!"
-      : "Thank you for your question! 😊\n\nFor an accurate answer, you can:\n• Use the FAQs above\n• Contact us: fixate01@gmail.com\n• Call: +966 54 894 0042\n\nOr try rephrasing your question!";
+      ? "شكراً لسؤالك! 😊\n\nللحصول على إجابة دقيقة، يمكنك:\n• استخدام الأسئلة الشائعة أعلاه\n• التواصل معنا: support@fixate.site\n• الاتصال: +966 54 894 0042\n\nأو جرب إعادة صياغة سؤالك بطريقة أخرى!"
+      : "Thank you for your question! 😊\n\nFor an accurate answer, you can:\n• Use the FAQs above\n• Contact us: support@fixate.site\n• Call: +966 54 894 0042\n\nOr try rephrasing your question!";
   };
 
   const handleSendMessage = (text?: string) => {

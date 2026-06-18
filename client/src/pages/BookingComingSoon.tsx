@@ -158,14 +158,14 @@ export default function BookingComingSoon() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Email */}
                 <a
-                  href="mailto:fixate01@gmail.com"
+                  href="mailto:support@fixate.site"
                   className="flex flex-col items-center gap-3 p-6 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-all duration-300 hover:scale-105 group"
                 >
                   <div className="bg-emerald-600 p-4 rounded-full group-hover:scale-110 transition-transform">
                     <Mail className="w-6 h-6 text-white" />
                   </div>
                   <span className="font-semibold text-gray-800 dark:text-gray-200">{t.email}</span>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">fixate01@gmail.com</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">support@fixate.site</span>
                 </a>
 
                 {/* Phone */}

@@ -153,7 +153,7 @@ Unknown slugs → NotFound automatically.
 - **AppStoreBadge component** in `Home.tsx` handles coming-soon state automatically
 - **All internal/admin pages are lazy-loaded** — only marketing pages are eagerly loaded
 - **Sitemap** at `client/public/sitemap.xml` — update `lastmod` when adding pages
-- **Contact:** WhatsApp `https://wa.me/966548940042`, email `fixate01@gmail.com`
+- **Contact:** WhatsApp `https://wa.me/966548940042`, email `support@fixate.site`
 - **Phone:** +966 54 894 0042
 - **Instagram:** `https://www.instagram.com/fixate.sa`
 

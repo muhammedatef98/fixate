@@ -144,7 +144,7 @@ export default function ServiceRequest() {
             access_key: 'd3ff12a4-e013-473f-8730-9d5760059a64',
             subject: `🔔 حجز جديد - Fixatee`,
             from_name: 'Fixatee Website',
-            to: 'fixate01@gmail.com',
+            to: 'support@fixate.site',
             message: `
 🆕 حجز جديد من الموقع!
 

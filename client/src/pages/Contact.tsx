@@ -20,12 +20,13 @@ const contactSchema = {
     "@type": "LocalBusiness",
     name: "Fixate",
     telephone: "+966548940042",
-    email: "fixate01@gmail.com",
+    email: "support@fixate.site",
     address: {
       "@type": "PostalAddress",
       addressCountry: "SA",
-      addressLocality: "الرياض",
-      streetAddress: "الرياض، المملكة العربية السعودية",
+      addressLocality: "القطيف",
+      addressRegion: "المنطقة الشرقية",
+      streetAddress: "القطيف، المنطقة الشرقية، المملكة العربية السعودية",
     },
     openingHoursSpecification: [
       {
@@ -90,16 +91,16 @@ export default function Contact() {
       icon: <Mail className="h-6 w-6 text-emerald-600" />,
       labelAr: "البريد الإلكتروني",
       labelEn: "Email",
-      valueAr: "fixate01@gmail.com",
-      valueEn: "fixate01@gmail.com",
-      href: "mailto:fixate01@gmail.com",
+      valueAr: "support@fixate.site",
+      valueEn: "support@fixate.site",
+      href: "mailto:support@fixate.site",
     },
     {
       icon: <MapPin className="h-6 w-6 text-emerald-600" />,
       labelAr: "العنوان",
       labelEn: "Location",
-      valueAr: "الرياض، المملكة العربية السعودية",
-      valueEn: "Riyadh, Saudi Arabia",
+      valueAr: "القطيف، المنطقة الشرقية، المملكة العربية السعودية",
+      valueEn: "Al-Qatif, Eastern Province, Saudi Arabia",
     },
     {
       icon: <Clock className="h-6 w-6 text-emerald-600" />,

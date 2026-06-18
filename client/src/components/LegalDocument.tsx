@@ -315,14 +315,14 @@ export default function LegalDocument({
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <a
-                    href="mailto:fixate01@gmail.com"
+                    href="mailto:support@fixate.site"
                     className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card-alt hover:bg-primary-soft transition-colors"
                   >
                     <div className="h-10 w-10 rounded-xl bg-card flex items-center justify-center">
                       <Mail className="h-5 w-5 text-primary" />
                     </div>
                     <span className="text-xs text-muted-foreground">{isArabic ? "البريد" : "Email"}</span>
-                    <span className="text-sm font-medium text-foreground text-center">fixate01@gmail.com</span>
+                    <span className="text-sm font-medium text-foreground text-center">support@fixate.site</span>
                   </a>
                   <a
                     href="tel:+966548940042"

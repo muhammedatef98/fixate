@@ -197,7 +197,7 @@ startCommand: node dist/index.js
 [![Website](https://img.shields.io/badge/Website-fixatee.onrender.com-10b981?style=for-the-badge)](https://fixatee.onrender.com)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-+966_54_894_0042-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/966548940042)
 [![Instagram](https://img.shields.io/badge/Instagram-@fixate.sa-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/fixate.sa)
-[![Email](https://img.shields.io/badge/Email-fixate01@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:fixate01@gmail.com)
+[![Email](https://img.shields.io/badge/Email-support@fixate.site-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:support@fixate.site)
 
 </div>
 

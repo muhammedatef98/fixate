@@ -101,7 +101,7 @@ router.post('/', async (req, res) => {
           access_key: 'd3ff12a4-e013-473f-8730-9d5760059a64',
           subject: `🔔 حجز جديد - Fixate`,
           from_name: 'Fixate Platform',
-          to: 'fixate01@gmail.com',
+          to: 'support@fixate.site',
           message: `
 🆕 حجز جديد!
 
