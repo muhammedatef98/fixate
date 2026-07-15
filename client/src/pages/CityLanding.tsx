@@ -35,8 +35,8 @@ const CITIES: Record<string, CityData> = {
     nameEn: "Riyadh",
     regionAr: "منطقة الرياض",
     regionEn: "Riyadh Region",
-    descAr: "تصليح جوالات ولابتوبات في الرياض في المنزل خلال ساعة. فنيون معتمدون يغطون جميع أحياء الرياض بضمان 6 أشهر.",
-    descEn: "Phone and laptop repair in Riyadh at your home in one hour. Certified technicians covering all Riyadh neighborhoods with a 6-month warranty.",
+    descAr: "تصليح جوالات ولابتوبات في الرياض في المنزل خلال ساعة. فنيون معتمدون يغطون جميع أحياء الرياض بضمان 12 شهراً.",
+    descEn: "Phone and laptop repair in Riyadh at your home in one hour. Certified technicians covering all Riyadh neighborhoods with a 12-month warranty.",
     heroAr: "تصليح جوالك في الرياض",
     heroEn: "Device Repair in Riyadh",
     subheadAr: "فني معتمد يصلك في أي حي بالرياض خلال ساعة واحدة",
@@ -50,8 +50,8 @@ const CITIES: Record<string, CityData> = {
     nameEn: "Jeddah",
     regionAr: "منطقة مكة المكرمة",
     regionEn: "Makkah Region",
-    descAr: "تصليح جوالات ولابتوبات في جدة في المنزل خلال ساعة. فنيون معتمدون يغطون جميع أحياء جدة بضمان 6 أشهر.",
-    descEn: "Phone and laptop repair in Jeddah at your home in one hour. Certified technicians covering all Jeddah neighborhoods with a 6-month warranty.",
+    descAr: "تصليح جوالات ولابتوبات في جدة في المنزل خلال ساعة. فنيون معتمدون يغطون جميع أحياء جدة بضمان 12 شهراً.",
+    descEn: "Phone and laptop repair in Jeddah at your home in one hour. Certified technicians covering all Jeddah neighborhoods with a 12-month warranty.",
     heroAr: "تصليح جوالك في جدة",
     heroEn: "Device Repair in Jeddah",
     subheadAr: "فني معتمد يصلك في أي حي بجدة خلال ساعة واحدة",
@@ -65,8 +65,8 @@ const CITIES: Record<string, CityData> = {
     nameEn: "Dammam",
     regionAr: "المنطقة الشرقية",
     regionEn: "Eastern Province",
-    descAr: "تصليح جوالات ولابتوبات في الدمام في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء الدمام والمنطقة الشرقية بضمان 6 أشهر.",
-    descEn: "Phone and laptop repair in Dammam at your home in one hour. Certified technicians covering Dammam and the Eastern Province with a 6-month warranty.",
+    descAr: "تصليح جوالات ولابتوبات في الدمام في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء الدمام والمنطقة الشرقية بضمان 12 شهراً.",
+    descEn: "Phone and laptop repair in Dammam at your home in one hour. Certified technicians covering Dammam and the Eastern Province with a 12-month warranty.",
     heroAr: "تصليح جوالك في الدمام",
     heroEn: "Device Repair in Dammam",
     subheadAr: "فني معتمد يصلك في الدمام والمنطقة الشرقية خلال ساعة",
@@ -80,8 +80,8 @@ const CITIES: Record<string, CityData> = {
     nameEn: "Al Khobar",
     regionAr: "المنطقة الشرقية",
     regionEn: "Eastern Province",
-    descAr: "تصليح جوالات ولابتوبات في الخبر في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء الخبر والمنطقة الشرقية بضمان 6 أشهر.",
-    descEn: "Phone and laptop repair in Al Khobar at your home in one hour. Certified technicians covering Khobar and the Eastern Province with a 6-month warranty.",
+    descAr: "تصليح جوالات ولابتوبات في الخبر في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء الخبر والمنطقة الشرقية بضمان 12 شهراً.",
+    descEn: "Phone and laptop repair in Al Khobar at your home in one hour. Certified technicians covering Khobar and the Eastern Province with a 12-month warranty.",
     heroAr: "تصليح جوالك في الخبر",
     heroEn: "Device Repair in Al Khobar",
     subheadAr: "فني معتمد يصلك في الخبر والمنطقة الشرقية خلال ساعة",
@@ -95,8 +95,8 @@ const CITIES: Record<string, CityData> = {
     nameEn: "Mecca",
     regionAr: "منطقة مكة المكرمة",
     regionEn: "Makkah Region",
-    descAr: "تصليح جوالات ولابتوبات في مكة المكرمة في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء مكة بضمان 6 أشهر.",
-    descEn: "Phone and laptop repair in Mecca at your home in one hour. Certified technicians covering Mecca neighborhoods with a 6-month warranty.",
+    descAr: "تصليح جوالات ولابتوبات في مكة المكرمة في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء مكة بضمان 12 شهراً.",
+    descEn: "Phone and laptop repair in Mecca at your home in one hour. Certified technicians covering Mecca neighborhoods with a 12-month warranty.",
     heroAr: "تصليح جوالك في مكة",
     heroEn: "Device Repair in Mecca",
     subheadAr: "فني معتمد يصلك في مكة المكرمة خلال ساعة واحدة",
@@ -110,8 +110,8 @@ const CITIES: Record<string, CityData> = {
     nameEn: "Medina",
     regionAr: "منطقة المدينة المنورة",
     regionEn: "Madinah Region",
-    descAr: "تصليح جوالات ولابتوبات في المدينة المنورة في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء المدينة بضمان 6 أشهر.",
-    descEn: "Phone and laptop repair in Medina at your home in one hour. Certified technicians covering Medina neighborhoods with a 6-month warranty.",
+    descAr: "تصليح جوالات ولابتوبات في المدينة المنورة في المنزل خلال ساعة. فنيون معتمدون يغطون أحياء المدينة بضمان 12 شهراً.",
+    descEn: "Phone and laptop repair in Medina at your home in one hour. Certified technicians covering Medina neighborhoods with a 12-month warranty.",
     heroAr: "تصليح جوالك في المدينة المنورة",
     heroEn: "Device Repair in Medina",
     subheadAr: "فني معتمد يصلك في المدينة المنورة خلال ساعة واحدة",
@@ -297,7 +297,7 @@ export default function CityLanding() {
           <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto text-center">
             <div className="flex flex-col items-center gap-2">
               <Shield className="h-8 w-8 text-emerald-600" strokeWidth={1.5} />
-              <p className="text-sm font-semibold text-foreground">{isArabic ? "ضمان 6 أشهر" : "6-Month Warranty"}</p>
+              <p className="text-sm font-semibold text-foreground">{isArabic ? "ضمان 12 شهراً" : "6-Month Warranty"}</p>
             </div>
             <div className="flex flex-col items-center gap-2">
               <CheckCircle2 className="h-8 w-8 text-emerald-600" strokeWidth={1.5} />

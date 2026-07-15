@@ -101,7 +101,7 @@ export default function Home() {
     <div className="min-h-screen bg-background" dir={isArabic ? "rtl" : "ltr"}>
       <SEO
         title="الصفحة الرئيسية"
-        description="منصة Fixate — صيانة جوالك في بيتك خلال ساعة. فنيون معتمدون يصلون إليك في الرياض وجدة والدمام وجميع مدن السعودية. ضمان 6 أشهر. احمل التطبيق الآن!"
+        description="منصة Fixate — صيانة جوالك في بيتك خلال ساعة. فنيون معتمدون يصلون إليك في الرياض وجدة والدمام وجميع مدن السعودية. ضمان 12 شهراً. احمل التطبيق الآن!"
         canonical="https://fixate.site/"
         structuredData={structuredDataTemplates.organization}
       />
@@ -216,8 +216,8 @@ export default function Home() {
 
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               {isArabic
-                ? "فنيون معتمدون يصلون إليك، يصلحون جهازك أمامك، مع ضمان 6 أشهر على جميع قطع الغيار."
-                : "Certified technicians come to you, fix your device in front of you, with a 6-month warranty on all parts."}
+                ? "فنيون معتمدون يصلون إليك، يصلحون جهازك أمامك، مع ضمان 12 شهراً على جميع قطع الغيار."
+                : "Certified technicians come to you, fix your device in front of you, with a 12-month warranty on all parts."}
             </p>
 
             {/* App download CTAs */}
@@ -234,7 +234,7 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />
-                <span>{isArabic ? "ضمان 6 أشهر" : "6-month warranty"}</span>
+                <span>{isArabic ? "ضمان 12 شهراً" : "12-month warranty"}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -305,7 +305,7 @@ export default function Home() {
                 step: 2,
                 Icon: Search,
                 title: isArabic ? "اختر جهازك والمشكلة" : "Choose Device & Issue",
-                desc: isArabic ? "شاهد السعر الدقيق فوراً" : "See the exact price instantly",
+                desc: isArabic ? "استلم عروض أسعار من فنيين معتمدين واختر الأنسب" : "Get offers from certified technicians and pick the best",
               },
               {
                 step: 3,
@@ -369,7 +369,7 @@ export default function Home() {
             {/* Trust */}
             <div className="flex flex-wrap gap-x-6 gap-y-3 justify-center mt-8 text-white/85 text-sm">
               <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-white/40" />4.9/5</span>
-              <span className="inline-flex items-center gap-2"><Shield className="h-4 w-4" />{isArabic ? "ضمان 6 أشهر" : "6-month warranty"}</span>
+              <span className="inline-flex items-center gap-2"><Shield className="h-4 w-4" />{isArabic ? "ضمان 12 شهراً" : "12-month warranty"}</span>
               <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" />{isArabic ? "الفحص مجاني" : "Free inspection"}</span>
               <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" />{isArabic ? "خلال ساعة إلى 3 ساعات" : "Done in 1–3 hours"}</span>
             </div>
@@ -421,6 +421,9 @@ export default function Home() {
                 t("devices.camera"),
                 t("devices.software"),
                 t("devices.cleaning"),
+                isArabic ? "إصلاح السماعات والصوت" : "Speaker & Audio Repair",
+                isArabic ? "إصلاح الأضرار المادية" : "Physical Damage Repair",
+                isArabic ? "استلام وتوصيل عبر مندوب" : "Courier Pickup & Delivery",
               ].map((svc) => (
                 <div
                   key={svc}
@@ -482,13 +485,13 @@ export default function Home() {
             </div>
             <div className="space-y-3">
               {(isArabic ? [
-                { q: "كيف يتم تحديد السعر؟", a: "الفحص مجاني. بعد فحص الفني لجهازك يرسل لك عرض سعر دقيق، وأنت تقرر قبوله أو رفضه قبل بدء أي إصلاح." },
-                { q: "كم يستغرق الإصلاح؟", a: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد موافقتك على عرض السعر." },
-                { q: "ما هو الضمان؟", a: "كل إصلاح يشمل ضمان ٦ أشهر على العمل والقطع المستبدلة." },
+                { q: "كيف يتم تحديد السعر؟", a: "يظهر لك سعر تقديري فوري عند إنشاء الطلب، ثم تصلك عروض أسعار من فنيين معتمدين — أنت من يختار العرض ويقبله قبل بدء أي إصلاح." },
+                { q: "كم يستغرق الإصلاح؟", a: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد قبولك لعرض الفني." },
+                { q: "ما هو الضمان؟", a: "كل إصلاح يشمل ضمان ١٢ شهراً على العمل والقطع المستبدلة، مع شهادة ضمان رقمية داخل التطبيق." },
               ] : [
-                { q: "How is the price decided?", a: "Inspection is free. After the technician inspects your device they send an accurate quote — you accept or reject it before any repair starts." },
-                { q: "How long does a repair take?", a: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you approve the quote." },
-                { q: "What warranty do I get?", a: "Every repair includes a 6-month warranty covering the work and any replaced parts." },
+                { q: "How is the price decided?", a: "You see an instant estimated price when creating the request, then certified technicians send you real offers — you choose and accept one before any repair starts." },
+                { q: "How long does a repair take?", a: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you accept an offer." },
+                { q: "What warranty do I get?", a: "Every repair includes a 12-month warranty covering the work and any replaced parts, with a digital warranty certificate in the app." },
               ]).map((item, i) => (
                 <details key={i} className="bg-card rounded-2xl shadow-[0_1px_2px_rgba(15,23,32,0.04),0_4px_12px_-4px_rgba(15,23,32,0.06)] dark:shadow-[0_1px_2px_rgba(0,0,0,0.3),0_4px_12px_-4px_rgba(0,0,0,0.4)] group">
                   <summary className="px-5 py-4 font-medium text-foreground cursor-pointer list-none flex items-center justify-between hover:bg-muted/50 rounded-2xl transition-colors">

@@ -37,7 +37,7 @@ const translations = {
     "features.fastServiceDesc1": "معظم الإصلاحات تتم في نفس اليوم.",
     "features.fastServiceDesc2": "نصلك أينما كنت.",
     "features.warranty": "ضمان ذهبي",
-    "features.warrantyDesc1": "ضمان يصل إلى 6 أشهر",
+    "features.warrantyDesc1": "ضمان يصل إلى 12 شهراً",
     "features.warrantyDesc2": "على جميع قطع الغيار والخدمات.",
     
     // Devices
@@ -115,7 +115,7 @@ const translations = {
     "features.fastServiceDesc1": "Most repairs done same day.",
     "features.fastServiceDesc2": "We come to you wherever you are.",
     "features.warranty": "Gold Warranty",
-    "features.warrantyDesc1": "Up to 6 months warranty",
+    "features.warrantyDesc1": "Up to 12 months warranty",
     "features.warrantyDesc2": "on all parts and services.",
     
     // Devices

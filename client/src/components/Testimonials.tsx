@@ -31,7 +31,7 @@ const testimonials: Testimonial[] = [
     role: "مديرة تسويق",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
     rating: 5,
-    text: "أفضل تجربة صيانة مررت بها! الفني وصل في الوقت المحدد، وأصلح اللابتوب أمامي، وشرح لي كل شيء. الضمان 6 أشهر رائع!",
+    text: "أفضل تجربة صيانة مررت بها! الفني وصل في الوقت المحدد، وأصلح اللابتوب أمامي، وشرح لي كل شيء. الضمان 12 شهراً رائع!",
     device: "MacBook Pro",
     service: "إصلاح البطارية"
   },
@@ -230,7 +230,7 @@ export default function Testimonials() {
                   انضم إلى آلاف العملاء السعداء!
                 </h3>
                 <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-                  احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 6 أشهر
+                  احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 12 شهراً
                 </p>
                 <Link
                   href="/booking"

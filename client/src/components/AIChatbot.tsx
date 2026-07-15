@@ -39,8 +39,8 @@ const quickQuestions: QuickQuestion[] = [
     id: "3",
     questionAr: "هل تقدمون ضمان؟",
     questionEn: "Do you provide warranty?",
-    answerAr: "نعم! نقدم ضمان يصل إلى 6 أشهر على جميع قطع الغيار والخدمات. راحتك وثقتك هي أولويتنا.",
-    answerEn: "Yes! We provide up to 6 months warranty on all parts and services. Your satisfaction is our priority."
+    answerAr: "نعم! نقدم ضمان يصل إلى 12 شهراً على جميع قطع الغيار والخدمات. راحتك وثقتك هي أولويتنا.",
+    answerEn: "Yes! We provide up to 12 months warranty on all parts and services. Your satisfaction is our priority."
   },
   {
     id: "4",
@@ -60,9 +60,9 @@ const quickQuestions: QuickQuestion[] = [
 
 const knowledgeBase = {
   ar: {
-    "fixate": "Fixate هي منصة متكاملة لصيانة الأجهزة الإلكترونية في السعودية. نقدم خدمات إصلاح احترافية للجوالات واللابتوبات والتابلت مع ضمان يصل إلى 6 أشهر.",
+    "fixate": "Fixate هي منصة متكاملة لصيانة الأجهزة الإلكترونية في السعودية. نقدم خدمات إصلاح احترافية للجوالات واللابتوبات والتابلت مع ضمان يصل إلى 12 شهراً.",
     "أسعار|سعر|تكلفة": "أسعارنا تنافسية وشفافة! تبدأ من 100 ريال لإصلاح الشاشات و 80 ريال للبطاريات. استخدم حاسبة الأسعار للحصول على سعر دقيق.",
-    "ضمان|كفالة": "نقدم ضمان ذهبي يصل إلى 6 أشهر على جميع قطع الغيار والخدمات المقدمة.",
+    "ضمان|كفالة": "نقدم ضمان ذهبي يصل إلى 12 شهراً على جميع قطع الغيار والخدمات المقدمة.",
     "وقت|مدة|كم يستغرق": "معظم الإصلاحات تتم في نفس اليوم! الإصلاحات البسيطة تستغرق 30-60 دقيقة فقط.",
     "حجز|موعد|طلب": "يمكنك الحجز من خلال زر 'احجز الآن' في الصفحة الرئيسية، أو زيارة صفحة الحجز مباشرة على /booking",
     "مناطق|مدن|توصيل": "نغطي جميع مناطق المملكة العربية السعودية. فنيونا يصلون إليك أينما كنت!",
@@ -74,9 +74,9 @@ const knowledgeBase = {
     "استلام وتوصيل": "خدمة الاستلام والتوصيل: نستلم جهازك ونوصله لمحل متعاقد ونرجعه بعد الإصلاح. خدمة مريحة وآمنة!"
   },
   en: {
-    "fixate": "Fixate is an integrated platform for electronic device repair in Saudi Arabia. We provide professional repair services for phones, laptops, and tablets with up to 6 months warranty.",
+    "fixate": "Fixate is an integrated platform for electronic device repair in Saudi Arabia. We provide professional repair services for phones, laptops, and tablets with up to 12 months warranty.",
     "price|cost|how much": "Our prices are competitive and transparent! Starting from 100 SAR for screen repairs and 80 SAR for batteries. Use the price calculator for an accurate quote.",
-    "warranty|guarantee": "We provide a golden warranty of up to 6 months on all parts and services.",
+    "warranty|guarantee": "We provide a golden warranty of up to 12 months on all parts and services.",
     "time|duration|how long": "Most repairs are completed the same day! Simple repairs take only 30-60 minutes.",
     "book|appointment|request": "You can book through the 'Book Now' button on the homepage, or visit the booking page directly at /booking",
     "areas|cities|delivery": "We cover all regions of Saudi Arabia. Our technicians reach you wherever you are!",

@@ -123,8 +123,8 @@ export default function Terms() {
       icon: ShieldCheck,
       title: "الضمان",
       bullets: [
-        "يقدم الفني ضماناً على الإصلاحات حسب نوع الخدمة",
-        "تتراوح مدة الضمان من 7 أيام إلى 6 أشهر حسب الخدمة",
+        "كل إصلاح مكتمل يشمل ضماناً لمدة 12 شهراً على العمل والقطع المستبدلة",
+        "يمكنك عرض شهادة الضمان الرقمية وتصديرها من داخل التطبيق",
         "الضمان لا يشمل الأضرار الناتجة عن سوء الاستخدام",
       ],
     },
@@ -301,8 +301,8 @@ export default function Terms() {
       icon: ShieldCheck,
       title: "Warranty",
       bullets: [
-        "Technicians provide a warranty based on the service type",
-        "Warranty duration ranges from 7 days to 6 months depending on the service",
+        "Every completed repair includes a 12-month warranty covering the work and replaced parts",
+        "You can view and export your digital warranty certificate from within the app",
         "Warranty does not cover damage caused by misuse",
       ],
     },

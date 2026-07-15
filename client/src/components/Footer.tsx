@@ -22,7 +22,7 @@ export default function Footer() {
 
   const content = {
     ar: {
-      aboutText: "خدمة صيانة متنقلة للأجهزة الإلكترونية في السعودية. فنيون معتمدون يصلون إليك مع ضمان 6 أشهر.",
+      aboutText: "خدمة صيانة متنقلة للأجهزة الإلكترونية في السعودية. فنيون معتمدون يصلون إليك مع ضمان 12 شهراً.",
       quickLinks: "روابط سريعة",
       downloadApp: "حمل التطبيق",
       appStore: "App Store",
@@ -47,7 +47,7 @@ export default function Footer() {
       whatsapp: "واتساب",
     },
     en: {
-      aboutText: "Mobile device repair service in Saudi Arabia. Certified technicians come to you with a 6-month warranty.",
+      aboutText: "Mobile device repair service in Saudi Arabia. Certified technicians come to you with a 12-month warranty.",
       quickLinks: "Quick Links",
       downloadApp: "Download App",
       appStore: "App Store",

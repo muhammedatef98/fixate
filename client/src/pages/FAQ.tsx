@@ -19,12 +19,12 @@ const faqDataAr: FAQItem[] = [
   {
     category: "الطلب والحجز",
     question: "كيف أطلب صيانة؟",
-    answer: "من الصفحة الرئيسية اضغط «اطلب صيانة جديدة»، اختر جهازك ونوع العطل وطريقة الخدمة، ثم أكمل الطلب. سيصلك فني معتمد لفحص الجهاز."
+    answer: "من الصفحة الرئيسية اضغط «اطلب صيانة جديدة»، اختر جهازك ونوع العطل وطريقة الخدمة، ثم أكمل الطلب. ستصلك عروض أسعار من فنيين معتمدين وتختار العرض الأنسب لك."
   },
   {
     category: "الطلب والحجز",
     question: "كم يستغرق الإصلاح؟",
-    answer: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد موافقتك على عرض السعر."
+    answer: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد قبولك لعرض الفني."
   },
   {
     category: "الطلب والحجز",
@@ -39,17 +39,17 @@ const faqDataAr: FAQItem[] = [
   {
     category: "الأسعار والدفع",
     question: "كيف يتم تحديد السعر؟",
-    answer: "الفحص مجاني. بعد فحص الفني لجهازك يرسل لك عرض سعر دقيق، وأنت تقرر قبوله أو رفضه قبل بدء أي إصلاح."
+    answer: "عند إنشاء الطلب يظهر لك سعر تقديري فوري، ثم تصلك عروض أسعار من فنيين معتمدين — أنت من يختار العرض ويقبله قبل بدء أي إصلاح."
   },
   {
     category: "الأسعار والدفع",
     question: "ما طرق الدفع المتاحة؟",
-    answer: "يمكنك الدفع نقداً عند الإتمام أو بالبطاقة. يتم الدفع فقط بعد موافقتك على عرض السعر — لا تدفع شيئاً مقابل الفحص."
+    answer: "يمكنك الدفع نقداً عند الإتمام أو بالبطاقة. السعر النهائي هو العرض الذي قبلته — بدون مفاجآت، ولا تدفع شيئاً قبل اكتمال الإصلاح."
   },
   {
     category: "الضمان",
     question: "ما هو الضمان؟",
-    answer: "كل إصلاح يشمل ضمان ٦ أشهر على العمل والقطع المستبدلة."
+    answer: "كل إصلاح يشمل ضمان ١٢ شهراً على العمل والقطع المستبدلة."
   },
   {
     category: "التغطية",
@@ -73,12 +73,12 @@ const faqDataEn: FAQItem[] = [
   {
     category: "Booking",
     question: "How do I request a repair?",
-    answer: "On the home screen tap \"Request a New Repair\", choose your device, the issue and a service method, then submit. A verified technician will be assigned to inspect your device."
+    answer: "On the home screen tap \"Request a New Repair\", choose your device, the issue and a service method, then submit. Certified technicians will send you price offers — you pick the one that suits you best."
   },
   {
     category: "Booking",
     question: "How long does a repair take?",
-    answer: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you approve the quote."
+    answer: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you accept an offer."
   },
   {
     category: "Booking",
@@ -93,17 +93,17 @@ const faqDataEn: FAQItem[] = [
   {
     category: "Pricing & Payment",
     question: "How is the price decided?",
-    answer: "Inspection is free. After the technician inspects your device they send an accurate quote — you accept or reject it before any repair starts."
+    answer: "You see an instant estimated price when creating the request, then certified technicians send you real offers — you choose and accept an offer before any repair starts."
   },
   {
     category: "Pricing & Payment",
     question: "What payment methods are available?",
-    answer: "You can pay cash on completion or by card. Payment happens only after you approve the quote — you pay nothing for the inspection."
+    answer: "You can pay cash on completion or by card. The final price is the offer you accepted — no surprises, and you pay nothing until the repair is done."
   },
   {
     category: "Warranty",
     question: "What warranty do I get?",
-    answer: "Every repair includes a 6-month warranty covering the work and any replaced parts."
+    answer: "Every repair includes a 12-month warranty covering the work and any replaced parts."
   },
   {
     category: "Coverage",

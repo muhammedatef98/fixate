@@ -44,8 +44,8 @@ const testimonials: Testimonial[] = [
     roleEn: "Marketing Manager",
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
     rating: 5,
-    textAr: "أفضل تجربة صيانة مررت بها! الفني وصل في الوقت المحدد، وأصلح اللابتوب أمامي، وشرح لي كل شيء. الضمان 6 أشهر رائع!",
-    textEn: "Best repair experience I've had! The technician arrived on time, fixed the laptop in front of me, and explained everything. The 6-month warranty is amazing!",
+    textAr: "أفضل تجربة صيانة مررت بها! الفني وصل في الوقت المحدد، وأصلح اللابتوب أمامي، وشرح لي كل شيء. الضمان 12 شهراً رائع!",
+    textEn: "Best repair experience I've had! The technician arrived on time, fixed the laptop in front of me, and explained everything. The 12-month warranty is amazing!",
     deviceAr: "MacBook Pro",
     deviceEn: "MacBook Pro",
     serviceAr: "إصلاح البطارية",
@@ -322,8 +322,8 @@ export default function TestimonialsCarousel() {
         </h3>
         <p className="text-white/90 mb-6 max-w-2xl mx-auto">
           {language === 'ar' 
-            ? 'احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 6 أشهر'
-            : 'Book now and get professional repair service with gold warranty up to 6 months'}
+            ? 'احجز الآن واحصل على خدمة صيانة احترافية مع ضمان ذهبي يصل إلى 12 شهراً'
+            : 'Book now and get professional repair service with gold warranty up to 12 months'}
         </p>
         <Link
           href="/booking"
