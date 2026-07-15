@@ -17,6 +17,16 @@ import {
   MapPin,
   Search,
   Home as HomeIcon,
+  Watch,
+  Gamepad2,
+  HandCoins,
+  MessageCircle,
+  Wallet,
+  Gift,
+  TicketPercent,
+  FileBadge,
+  Store,
+  Truck,
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -205,7 +215,7 @@ export default function Home() {
             {/* Badge */}
             <div className="pill-primary inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
               <MapPin className="h-3.5 w-3.5" />
-              {isArabic ? "خدمة منزلية في القطيف — المنطقة الشرقية" : "On-site service in Al Qatif, Eastern Province"}
+              {isArabic ? "نصل إليك في مدن المملكة — انطلاقاً من القطيف" : "Serving cities across Saudi Arabia — based in Al Qatif"}
             </div>
 
             <h1 className="text-4xl md:text-6xl font-semibold text-foreground mb-5 tracking-tight leading-[1.1]">
@@ -337,6 +347,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── In-App Features ─────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-card border-y border-border/60">
+        <div className="container">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3 tracking-tight">
+              {isArabic ? "كل شيء داخل التطبيق" : "Everything in One App"}
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              {isArabic
+                ? "أكثر من مجرد صيانة — منصة متكاملة لجهازك"
+                : "More than repairs — a complete platform for your device"}
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {[
+              { Icon: HandCoins, title: isArabic ? "عروض تنافسية" : "Competitive Offers", desc: isArabic ? "استقبل عروض أسعار من عدة فنيين واختر الأفضل لك" : "Receive offers from multiple technicians and pick the best" },
+              { Icon: MessageCircle, title: isArabic ? "شات مباشر" : "Live Chat", desc: isArabic ? "تواصل مع الفني أو المندوب داخل التطبيق لحظة بلحظة" : "Chat with your technician or courier in real time" },
+              { Icon: Truck, title: isArabic ? "استلام وتوصيل" : "Pickup & Delivery", desc: isArabic ? "مندوب يستلم جهازك ويعيده إلى بابك بعد الإصلاح" : "A courier picks up your device and returns it to your door" },
+              { Icon: FileBadge, title: isArabic ? "شهادة ضمان رقمية" : "Digital Warranty Certificate", desc: isArabic ? "ضمان 12 شهراً بشهادة رسمية تعرضها وتصدّرها من التطبيق" : "12-month warranty with a certificate you can view and export" },
+              { Icon: Wallet, title: isArabic ? "محفظة رقمية" : "Digital Wallet", desc: isArabic ? "رصيدك ومبالغك المستردة في مكان واحد" : "Your balance and refunds in one place" },
+              { Icon: Gift, title: isArabic ? "نقاط ولاء" : "Loyalty Points", desc: isArabic ? "اجمع نقاطاً مع كل طلب وحوّلها إلى خصومات" : "Earn points with every order and turn them into discounts" },
+              { Icon: TicketPercent, title: isArabic ? "عروض وأكواد خصم" : "Offers & Promo Codes", desc: isArabic ? "خصومات موسمية وأكواد حصرية داخل التطبيق" : "Seasonal deals and exclusive promo codes in the app" },
+              { Icon: Store, title: isArabic ? "سوق فيكست" : "Fixate Market", desc: isArabic ? "بِع واشترِ الأجهزة المستعملة بأمان مع مراجعة الفريق لكل إعلان" : "Buy and sell used devices safely — every listing is reviewed" },
+            ].map(({ Icon, title, desc }) => (
+              <div
+                key={title}
+                className="group bg-background rounded-2xl p-6 border border-border/60 shadow-[0_1px_2px_rgba(15,23,32,0.04)] hover:border-primary/40 hover:shadow-[0_4px_8px_rgba(15,23,32,0.06),0_18px_40px_-12px_rgba(16,185,129,0.2)] hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="h-11 w-11 rounded-xl bg-primary-soft flex items-center justify-center mb-4 transition-colors group-hover:bg-primary">
+                  <Icon className="h-5 w-5 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-base font-semibold mb-1.5 text-foreground">{title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── App Download Section ────────────────────────────── */}
       <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-emerald-600 to-emerald-700">
         <div className="container">
@@ -394,6 +444,8 @@ export default function Home() {
               { Icon: Smartphone, title: t("devices.phones"), desc: t("devices.phonesDesc") },
               { Icon: Laptop, title: t("devices.laptops"), desc: t("devices.laptopsDesc") },
               { Icon: Tablet, title: t("devices.tablets"), desc: t("devices.tabletsDesc") },
+              { Icon: Watch, title: isArabic ? "الساعات الذكية" : "Smartwatches", desc: isArabic ? "آبل واتش، سامسونج،\nوجميع الأنواع الأخرى" : "Apple Watch, Samsung,\nand all other brands" },
+              { Icon: Gamepad2, title: isArabic ? "أجهزة الألعاب" : "Gaming Devices", desc: isArabic ? "بلايستيشن، إكس بوكس،\nنينتندو وغيرها" : "PlayStation, Xbox,\nNintendo and more" },
             ].map(({ Icon, title, desc }) => (
               <div
                 key={title}
@@ -448,12 +500,12 @@ export default function Home() {
               <MapPin className="h-7 w-7 text-primary" />
             </div>
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-3 tracking-tight">
-              {isArabic ? "متوفر حالياً في القطيف" : "Currently available in Al Qatif"}
+              {isArabic ? "نغطي مدناً في جميع مناطق المملكة" : "Covering cities across all of Saudi Arabia"}
             </h2>
             <p className="text-muted-foreground leading-relaxed">
               {isArabic
-                ? "نخدم القطيف في المنطقة الشرقية، ونعمل على التوسع لمدن أخرى قريباً. تابعنا للحصول على آخر المستجدات."
-                : "We serve Al Qatif in the Eastern Province and are expanding to more cities soon. Follow us for updates."}
+                ? "انطلاقاً من القطيف بالمنطقة الشرقية، نخدم مدناً في جميع مناطق المملكة الـ13. عند إنشاء الطلب تختار منطقتك ومدينتك وحيّك، والتغطية تتوسّع باستمرار."
+                : "Based in Al Qatif, Eastern Province, we serve cities across all 13 regions of Saudi Arabia. When creating a request you pick your region, city and neighborhood — and coverage keeps expanding."}
             </p>
           </div>
         </div>

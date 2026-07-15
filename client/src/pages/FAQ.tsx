@@ -8,119 +8,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import Footer from "@/components/Footer";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-  category: string;
-}
-
-// المصدر: نفس الأسئلة المعروضة داخل تطبيق Fixate (شاشة chatbot)
-const faqDataAr: FAQItem[] = [
-  {
-    category: "الطلب والحجز",
-    question: "كيف أطلب صيانة؟",
-    answer: "من الصفحة الرئيسية اضغط «اطلب صيانة جديدة»، اختر جهازك ونوع العطل وطريقة الخدمة، ثم أكمل الطلب. ستصلك عروض أسعار من فنيين معتمدين وتختار العرض الأنسب لك."
-  },
-  {
-    category: "الطلب والحجز",
-    question: "كم يستغرق الإصلاح؟",
-    answer: "يعتمد على نوع العطل، لكن معظم الإصلاحات تكتمل خلال ساعة إلى ٣ ساعات بعد قبولك لعرض الفني."
-  },
-  {
-    category: "الطلب والحجز",
-    question: "هل يوجد استلام وتوصيل؟",
-    answer: "نعم. يمكنك اختيار استلام وتوصيل الجهاز، أو زيارة فني متنقل، أو تسليم الجهاز بنفسك في مركز الخدمة."
-  },
-  {
-    category: "الطلب والحجز",
-    question: "كيف أتابع حالة طلبي؟",
-    answer: "افتح «طلباتي» من الصفحة الرئيسية لرؤية حالة كل طلب وتفاصيله لحظة بلحظة."
-  },
-  {
-    category: "الأسعار والدفع",
-    question: "كيف يتم تحديد السعر؟",
-    answer: "عند إنشاء الطلب يظهر لك سعر تقديري فوري، ثم تصلك عروض أسعار من فنيين معتمدين — أنت من يختار العرض ويقبله قبل بدء أي إصلاح."
-  },
-  {
-    category: "الأسعار والدفع",
-    question: "ما طرق الدفع المتاحة؟",
-    answer: "يمكنك الدفع نقداً عند الإتمام أو بالبطاقة. السعر النهائي هو العرض الذي قبلته — بدون مفاجآت، ولا تدفع شيئاً قبل اكتمال الإصلاح."
-  },
-  {
-    category: "الضمان",
-    question: "ما هو الضمان؟",
-    answer: "كل إصلاح يشمل ضمان ١٢ شهراً على العمل والقطع المستبدلة."
-  },
-  {
-    category: "التغطية",
-    question: "ما المناطق المغطاة؟",
-    answer: "الخدمة متاحة حالياً في القطيف بالمنطقة الشرقية، ونعمل على توسيع التغطية قريباً."
-  },
-  {
-    category: "متجر فيكست",
-    question: "كيف أبيع جهازاً في السوق؟",
-    answer: "افتح «السوق» ثم «إعلان جديد»، أضف الصور والتفاصيل والسعر. يظهر الإعلان بعد مراجعته من الفريق."
-  },
-  {
-    category: "انضم كفني",
-    question: "كيف أصبح فنياً معكم؟",
-    answer: "سجّل كفني من شاشة اختيار الدور، أكمل بياناتك ووثائقك، وبعد اعتماد الفريق ستبدأ باستقبال الطلبات."
-  },
-];
-
-// Source: the same FAQs shown inside the Fixate app (chatbot screen)
-const faqDataEn: FAQItem[] = [
-  {
-    category: "Booking",
-    question: "How do I request a repair?",
-    answer: "On the home screen tap \"Request a New Repair\", choose your device, the issue and a service method, then submit. Certified technicians will send you price offers — you pick the one that suits you best."
-  },
-  {
-    category: "Booking",
-    question: "How long does a repair take?",
-    answer: "It depends on the issue, but most repairs are completed within 1 to 3 hours after you accept an offer."
-  },
-  {
-    category: "Booking",
-    question: "Do you offer pickup & delivery?",
-    answer: "Yes. You can choose pickup & delivery, an on-site technician visit, or drop the device off yourself at our service center."
-  },
-  {
-    category: "Booking",
-    question: "How do I track my order?",
-    answer: "Open \"My Requests\" from the home screen to see the live status and details of every order."
-  },
-  {
-    category: "Pricing & Payment",
-    question: "How is the price decided?",
-    answer: "You see an instant estimated price when creating the request, then certified technicians send you real offers — you choose and accept an offer before any repair starts."
-  },
-  {
-    category: "Pricing & Payment",
-    question: "What payment methods are available?",
-    answer: "You can pay cash on completion or by card. The final price is the offer you accepted — no surprises, and you pay nothing until the repair is done."
-  },
-  {
-    category: "Warranty",
-    question: "What warranty do I get?",
-    answer: "Every repair includes a 12-month warranty covering the work and any replaced parts."
-  },
-  {
-    category: "Coverage",
-    question: "Which areas do you cover?",
-    answer: "Service is currently available in Al Qatif, Eastern Province. We are expanding coverage soon."
-  },
-  {
-    category: "Fixate Market",
-    question: "How do I sell a device in the marketplace?",
-    answer: "Open \"Marketplace\", tap \"New listing\", add photos, details and a price. Your listing goes live after the team reviews it."
-  },
-  {
-    category: "Join as Technician",
-    question: "How do I become a technician?",
-    answer: "Sign up as a technician from the role-selection screen, complete your details and documents, and once the team approves you, you can start receiving jobs."
-  },
-];
+import { faqDataAr, faqDataEn, CATEGORIES_AR, CATEGORIES_EN, type FAQItem } from "./faqData";
 
 // Build FAQPage JSON-LD structured data
 function buildFaqSchema(items: FAQItem[]) {
@@ -138,8 +26,6 @@ function buildFaqSchema(items: FAQItem[]) {
   };
 }
 
-const CATEGORIES_AR = ["الطلب والحجز", "الأسعار والدفع", "الضمان", "التغطية", "متجر فيكست", "انضم كفني"] as const;
-const CATEGORIES_EN = ["Booking", "Pricing & Payment", "Warranty", "Coverage", "Fixate Market", "Join as Technician"] as const;
 
 export default function FAQ() {
   const { t, language } = useLanguage();
