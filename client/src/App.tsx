@@ -22,26 +22,7 @@ import NotFound from "./pages/NotFound";
 // These are never seen by a first-time marketing visitor so they should NOT
 // inflate the initial JS bundle.
 const Calculator = lazy(() => import("./pages/Calculator"));
-const ServiceRequest = lazy(() => import("./pages/ServiceRequest"));
-const MyRequests = lazy(() => import("./pages/MyRequests"));
-const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const CouponsManagement = lazy(() => import("./pages/CouponsManagement"));
-const TechnicianDashboard = lazy(() => import("./pages/TechnicianDashboard"));
-const TechnicianDashboardWeb = lazy(() => import("./pages/TechnicianDashboardWeb"));
-const TechniciansList = lazy(() => import("./pages/TechniciansList"));
-const TrackTechnician = lazy(() => import("./pages/TrackTechnician"));
-const TrackOrder = lazy(() => import("./pages/TrackOrder"));
-const Chat = lazy(() => import("./pages/Chat"));
-const Analytics = lazy(() => import("./pages/Analytics"));
-const LoyaltyPoints = lazy(() => import("./pages/LoyaltyPoints"));
-const Payment = lazy(() => import("./pages/Payment"));
-const Login = lazy(() => import("./pages/Login"));
-const Signup = lazy(() => import("./pages/Signup"));
-const SignupNew = lazy(() => import("./pages/SignupNew"));
-const BookingForm = lazy(() => import("./pages/BookingForm"));
-const NewBooking = lazy(() => import("./pages/NewBooking"));
 const BookingComingSoon = lazy(() => import("./pages/BookingComingSoon"));
-const Profile = lazy(() => import("./pages/Profile"));
 const ServiceLanding = lazy(() => import("./pages/ServiceLanding"));
 const CityLanding = lazy(() => import("./pages/CityLanding"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -75,22 +56,18 @@ function Router() {
         <Route path="/request" component={BookingComingSoon} />
         <Route path="/booking" component={BookingComingSoon} />
         <Route path="/booking-old" component={BookingComingSoon} />
-        <Route path="/my-requests" component={MyRequests} />
-        <Route path="/admin" component={AdminDashboard} />
-        <Route path="/admin/coupons" component={CouponsManagement} />
-        <Route path="/technician" component={TechnicianDashboard} />
-        <Route path="/technician-dashboard" component={TechnicianDashboardWeb} />
-        <Route path="/technicians" component={TechniciansList} />
-        <Route path="/track" component={TrackTechnician} />
-        <Route path="/track-order/:id" component={TrackOrder} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/analytics" component={Analytics} />
-        <Route path="/loyalty" component={LoyaltyPoints} />
-        <Route path="/payment" component={Payment} />
+        {/* Legacy web-app flows now live in the mobile app — old bookmarks
+            land on the app-download page instead of a stale parallel product. */}
+        <Route path="/my-requests" component={BookingComingSoon} />
+        <Route path="/track" component={BookingComingSoon} />
+        <Route path="/track-order/:id" component={BookingComingSoon} />
+        <Route path="/chat" component={BookingComingSoon} />
+        <Route path="/loyalty" component={BookingComingSoon} />
+        <Route path="/payment" component={BookingComingSoon} />
         <Route path="/login" component={BookingComingSoon} />
         <Route path="/signup" component={BookingComingSoon} />
         <Route path="/signup-new" component={BookingComingSoon} />
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile" component={BookingComingSoon} />
         <Route path="/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>

@@ -9,7 +9,6 @@ import {
   CheckCircle2,
   Clock,
   Shield,
-  Star,
   Menu,
   X,
   ChevronDown,
@@ -27,12 +26,14 @@ import {
   FileBadge,
   Store,
   Truck,
+  HelpCircle,
+  Info,
+  Mail,
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageThemeSwitcher } from "@/components/LanguageThemeSwitcher";
 import { MobileLanguageThemeSwitcher } from "@/components/MobileLanguageThemeSwitcher";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Logo from "@/components/Logo";
 import Footer from "@/components/Footer";
 
@@ -136,7 +137,7 @@ export default function Home() {
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-4">
               <a href="#download" onClick={scrollToDownload}>
-                <Button className="bg-emerald-600 hover:bg-emerald-700">
+                <Button>
                   {isArabic ? "حمل التطبيق" : "Download App"}
                 </Button>
               </a>
@@ -172,32 +173,32 @@ export default function Home() {
           className="absolute top-0 bottom-0 w-[85%] max-w-[320px] bg-white dark:bg-gray-900 shadow-2xl overflow-y-auto transition-transform duration-300"
           style={{ right: 0, transform: mobileMenuOpen ? "translateX(0)" : "translateX(100%)", WebkitOverflowScrolling: "touch" }}
         >
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-emerald-600 sticky top-0">
-            <span className="text-sm font-bold text-white">القائمة</span>
-            <button onClick={() => setMobileMenuOpen(false)} className="p-3 text-white hover:bg-emerald-700 rounded-lg transition-colors" type="button">
+          <div className="flex items-center justify-between p-4 border-b border-border bg-primary sticky top-0">
+            <span className="text-sm font-bold text-primary-foreground">القائمة</span>
+            <button onClick={() => setMobileMenuOpen(false)} className="p-3 text-primary-foreground hover:bg-black/10 rounded-lg transition-colors" type="button">
               <X className="h-7 w-7" />
             </button>
           </div>
           <nav className="flex flex-col p-5 gap-4">
             <a href="#download" onClick={(e) => { setMobileMenuOpen(false); scrollToDownload(e); }}>
-              <Button className="w-full h-11 font-semibold text-sm bg-emerald-600 hover:bg-emerald-700 rounded-lg">
-                {isArabic ? "📱 حمل التطبيق" : "📱 Download App"}
+              <Button className="w-full h-11 font-semibold text-sm rounded-lg">
+                {isArabic ? "حمل التطبيق" : "Download App"}
               </Button>
             </a>
-            <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
+            <div className="border-t border-border my-1" />
             {[
-              { href: "/market", emoji: "🛍️", label: isArabic ? "متجر فيكست" : "Fixate Market" },
-              { href: "/faq", emoji: "❓", label: isArabic ? "الأسئلة الشائعة" : "FAQ" },
-              { href: "/about", emoji: "ℹ️", label: isArabic ? "من نحن" : "About Us" },
-              { href: "/contact", emoji: "✉️", label: isArabic ? "تواصل معنا" : "Contact Us" },
+              { href: "/market", Icon: Store, label: isArabic ? "متجر فيكست" : "Fixate Market" },
+              { href: "/faq", Icon: HelpCircle, label: isArabic ? "الأسئلة الشائعة" : "FAQ" },
+              { href: "/about", Icon: Info, label: isArabic ? "من نحن" : "About Us" },
+              { href: "/contact", Icon: Mail, label: isArabic ? "تواصل معنا" : "Contact Us" },
             ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 text-sm font-medium text-gray-800 dark:text-gray-100 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors py-3 px-3 rounded-lg"
+                className="flex items-center gap-3 text-sm font-medium text-foreground hover:text-primary hover:bg-primary-soft transition-colors py-3 px-3 rounded-lg"
               >
-                <span className="text-xl">{item.emoji}</span>
+                <item.Icon className="h-5 w-5 text-muted-foreground" />
                 {item.label}
               </Link>
             ))}
@@ -238,10 +239,6 @@ export default function Home() {
 
             {/* Trust indicators — unified Lucide iconography, muted tone */}
             <div className="flex flex-wrap gap-x-6 gap-y-3 justify-center text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Star className="h-4 w-4 text-primary fill-primary/30" />
-                <span>{isArabic ? "تقييم 4.9/5" : "4.9/5 rating"}</span>
-              </div>
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />
                 <span>{isArabic ? "ضمان 12 شهراً" : "12-month warranty"}</span>
@@ -387,46 +384,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── App Download Section ────────────────────────────── */}
-      <section id="download" className="py-16 md:py-24 bg-gradient-to-br from-emerald-600 to-emerald-700">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="flex justify-center mb-4">
-              <Smartphone className="h-12 w-12 text-white" />
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-              {isArabic ? "احمل التطبيق الآن" : "Download the App Now"}
-            </h2>
-            <p className="text-white/90 text-lg mb-10 max-w-xl mx-auto">
-              {isArabic
-                ? "احجز صيانة جهازك في 60 ثانية. الفني يصلك في الوقت الذي تختاره."
-                : "Book a repair in 60 seconds. The technician arrives at your chosen time."}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <AppStoreBadge platform="ios" language={language} />
-              <AppStoreBadge platform="android" language={language} />
-            </div>
-
-            {!APP_STORE_URL && !PLAY_STORE_URL && (
-              <p className="text-white/70 text-sm">
-                {isArabic
-                  ? "سيتوفر التطبيق قريباً — اتركنا بريدك الإلكتروني لنُخبرك عند الإطلاق"
-                  : "App coming soon — leave your email to be notified at launch"}
-              </p>
-            )}
-
-            {/* Trust */}
-            <div className="flex flex-wrap gap-x-6 gap-y-3 justify-center mt-8 text-white/85 text-sm">
-              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-white/40" />4.9/5</span>
-              <span className="inline-flex items-center gap-2"><Shield className="h-4 w-4" />{isArabic ? "ضمان 12 شهراً" : "12-month warranty"}</span>
-              <span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" />{isArabic ? "الفحص مجاني" : "Free inspection"}</span>
-              <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" />{isArabic ? "خلال ساعة إلى 3 ساعات" : "Done in 1–3 hours"}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── Devices Section ─────────────────────────────────── */}
       <section id="services" className="py-16 md:py-24 bg-card-alt border-y border-border/60">
         <div className="container">
@@ -511,21 +468,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Testimonials ────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-card border-y border-border/60">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-3">
-              {isArabic ? "آراء عملائنا" : "Customer Reviews"}
-            </h2>
-            <p className="text-muted-foreground">
-              {isArabic ? "ماذا يقول عملاؤنا عنا" : "What our customers say about us"}
-            </p>
-          </div>
-          <TestimonialsCarousel />
-        </div>
-      </section>
-
       {/* ─── FAQ Teaser ──────────────────────────────────────── */}
       <section className="py-16 md:py-20 bg-background">
         <div className="container">
@@ -565,8 +507,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Final CTA ───────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-card-alt border-t border-border/60">
+      {/* ─── Final CTA / download target ─────────────────────── */}
+      <section id="download" className="py-16 md:py-24 bg-card-alt border-t border-border/60">
         <div className="container">
           <div className="max-w-3xl mx-auto card-soft p-8 md:p-14 text-center">
             <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-primary-soft mb-5 mx-auto">
@@ -584,6 +526,13 @@ export default function Home() {
               <AppStoreBadge platform="ios" language={language} />
               <AppStoreBadge platform="android" language={language} />
             </div>
+            {!APP_STORE_URL && !PLAY_STORE_URL && (
+              <p className="text-muted-foreground text-sm mt-6">
+                {isArabic
+                  ? "سيتوفر التطبيق قريباً — اتركنا بريدك الإلكتروني لنُخبرك عند الإطلاق"
+                  : "App coming soon — leave your email to be notified at launch"}
+              </p>
+            )}
           </div>
         </div>
       </section>
